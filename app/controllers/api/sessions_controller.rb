@@ -1,11 +1,11 @@
 class Api::SessionsController < ApplicationController
 
   def create
-    debugger
     @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
     if @user
+      @current_team = @user.teams.first
       login(@user)
-      render "/api/users/show"
+      render "/api/session/show"
     else
       render json: ["ERROR logging in"], status: 422
     end
