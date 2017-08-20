@@ -1,0 +1,41 @@
+frontend
+  |components
+    |views
+    |global
+    |issues
+      |issues
+      |issue
+        issue_container.jsx
+        
+    |projects
+      |projects
+      |project
+    |dashboard
+    |navigation
+      navigation_container.jsx
+      |global
+        global_nav.jsx
+        global_button.jsx
+      |nav_drawer
+        nav_drawer.jsx
+        nav_drawer_button.jsx
+  |actions
+    |issues
+      issue_actions.js
+      issues_actions.js
+    |projects
+      project_actions.js
+      projects_actions.js
+    |dashboard
+      dashboard_actions.js
+
+  |reducers
+  |store
+    store.js
+  |util
+    |api
+      users_api.js
+      teams_api.js
+      projects_api.js
+      issues_api.js  
+      ui_api.js
