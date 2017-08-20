@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resource :sessions, only: [:create, :destroy]
 
     #TEAMS
-    resources :teams, only: [:create, :show, :update] do
+    resources :teams, only: [:create, :index, :show, :update] do
       collection do
         get :activity
         get :users
