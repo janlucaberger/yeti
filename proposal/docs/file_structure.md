@@ -6,7 +6,7 @@ frontend
       |issues
       |issue
         issue_container.jsx
-        
+
     |projects
       |projects
       |project
@@ -28,7 +28,8 @@ frontend
       projects_actions.js
     |dashboard
       dashboard_actions.js
-
+    |users 
+    |teams
   |reducers
   |store
     store.js
