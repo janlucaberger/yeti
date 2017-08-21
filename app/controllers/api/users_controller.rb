@@ -11,7 +11,6 @@ class Api::UsersController < ApplicationController
         render json: @user.errors.full_messages
       end
     end
-
   end
 
 

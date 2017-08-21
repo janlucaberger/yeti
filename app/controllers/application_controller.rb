@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_authorized_user
-    c
+
   end
 
   def ensure_logged_in
