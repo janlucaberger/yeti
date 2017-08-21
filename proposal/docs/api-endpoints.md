@@ -1,4 +1,7 @@
 # Frontend Routes
+- `/`
+- `/signup`
+- `login`
 - `/dashboard`
 - `/projects`
 - `/projects/:id`
