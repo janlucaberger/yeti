@@ -7,3 +7,10 @@ export const login = (user) => {
     data: { user }
   })
 }
+
+export const logout = () => {
+  return $.ajax({
+    url: '/api/sessions',
+    method: 'DELETE'
+  })
+}
