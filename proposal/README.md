@@ -13,14 +13,12 @@ Yeti is a project management and collaboration tool inspired by Jira and built w
 
 ## Design Docs
 * [View Wireframes][wireframes]
-* [Views][views]
 * [React Components][components]
 * [API endpoints][api-endpoints]
 * [DB schema][schema]
 * [Sample State][sample-state]
 
 [wireframes]: docs/wireframes.md
-[views]: docs/views.md
 [components]: docs/components.md
 [api-endpoints]: docs/api-endpoints.md
 [schema]: docs/schema.md
@@ -37,25 +35,25 @@ Yeti is a project management and collaboration tool inspired by Jira and built w
 
 ##### Phase 3: Projects (2 Days)
   - Objective: Be able to view all active projects in one table view and search by project title.
-  ###### Phase 3a: Backlog
-    - Objective: View all unresolved issues for a project in one table
+###### Phase 3a: Backlog
+  - Objective: View all unresolved issues for a project in one table
 
-  ###### Phase 3b: Sprints
-    - Objective: Be able to add issues from the backlog to a sprint and track in on a scrum board
+###### Phase 3b: Sprints
+  - Objective: Be able to add issues from the backlog to a sprint and track in on a scrum board
 
 ##### Phase 4: Issues (3 Days)
   - Objective: Have a central location where all issues can be viewed in a single table.
-  ###### Phase 4a: Issue
-    - Objective: View all details of an issue and make any edits
+###### Phase 4a: Issue
+  - Objective: View all details of an issue and make any edits
 
-  ###### Phase 4b: History
-    - Objective: See a complete history of changes that have been made to the issue over time
+###### Phase 4b: History
+  - Objective: See a complete history of changes that have been made to the issue over time
 
-  ###### Phase 4c: Comments
-    - Objective: Give users the ability to comment on the issue
+###### Phase 4c: Comments
+  - Objective: Give users the ability to comment on the issue
 
-  ###### Phase 4d: Vote and Watch
-    - Objective: Be able to vote and watch on issues.
+###### Phase 4d: Vote and Watch
+  - Objective: Be able to vote and watch on issues.
 
 
 ##### Phase 5: Dashboard (1 Day)
