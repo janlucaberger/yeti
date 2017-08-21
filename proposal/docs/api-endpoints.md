@@ -34,7 +34,7 @@
 
 ## Projects
   - `GET    /api/projects/`
-  - `GET    /api/projects/list` ** (ID, title, image_avatar)
+  - `GET    /api/projects/list` <!-- ** (ID, title, image_avatar) -->
   - `GET    /api/projects/:id`
   - `GET    /api/projects/:id/issues`
   - `POST   /api/projects`
@@ -77,13 +77,13 @@
 ## Activity
   - `GET /recent_activity` -->
 
-<br>
 
-  The following routes are mainly for UI for now
+<!-- The following routes are mainly for UI for now -->
+
   ## Issue Types
   - `GET /api/issue_types`
 
-  ## Status Types
+## Status Types
   - `GET /api/status_types`
 
   <!-- ## User Permission Types
@@ -114,7 +114,7 @@ If joining a private team
 - GET /projects
 - GET /issues (Specifically issues assigned to user)
  -->
-
+<!--
 
 ## Users
 - `POST   /api/users`
@@ -212,4 +212,4 @@ The following routes are mainly for UI for now
 - `GET /api/status_types`
 
 ## User Permission Types
-- `GET /api/user_permission_types`
+- `GET /api/user_permission_types` -->
