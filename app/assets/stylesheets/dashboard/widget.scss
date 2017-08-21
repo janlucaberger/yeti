@@ -1,0 +1,25 @@
+.widget-container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.widget{
+  width: 45%;
+  height: 200px;
+  margin: 20px;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.widget-border{
+  border-top-width: 4px;
+  border-top-style: solid;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-top-color: #2684ff;
+}
