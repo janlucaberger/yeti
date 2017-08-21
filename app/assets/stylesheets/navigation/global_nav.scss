@@ -3,5 +3,38 @@
 .global-nav-container{
   width: 64px;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: #0747A6;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 20px 0px;
+}
+
+.global-nav-button{
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background: #0747A6;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.global-nav-button:hover{
+  transition: 0.1s all;
+  background: rgb(8,54,124);
+  cursor: pointer;
+}
+
+.global-nav-button-container{
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+}
+
+.align-bottom{
+  justify-content: flex-end;
 }
