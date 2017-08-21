@@ -1,14 +1,14 @@
 # Frontend Routes
-- `/dashboard` => 'DashboardContainer'
-- `/projects` => 'ProjectsListContainer'
-- `/projects/:id` => 'ProjectContainer'
-- `/projects/:id/sprint` => 'ProjectSprintContainer'
-- `/projects/:id/backlog` => 'ProjectSprintContainer'
-- `/projects/:id/issues` => 'ProjectIssuesContainer'
-- `/issues` => 'IssuesListContainer'
-- `/issues/:id` => 'IssueContainer'
-- `/profile` => 'ProfileContainer'
-- `/team` => 'TeamContainer'
+- `/dashboard`
+- `/projects`
+- `/projects/:id`
+- `/projects/:id/sprint`
+- `/projects/:id/backlog`
+- `/projects/:id/issues`
+- `/issues`
+- `/issues/:id`
+- `/profile`
+- `/team`
 
 # Backend Routes
 
@@ -16,9 +16,7 @@
   - `POST   /api/users`
   - `PATCH  /api/users/:id`
   - `DELETE /api/users/:id`
-  - Issues - LIMIT 10
   - `GET    /api/users/:id/issues`
-  - Comments - LIMIT 10
   - `GET    /api/users/:id/comments`
 
 ## Sessions
@@ -40,6 +38,7 @@
   - `POST   /api/projects`
   - `PATCH  /api/projects/:id`
   - `DELETE /api/projects/:id`
+
   - Sprints
   - `GET    /api/projects/:id/sprint`
   - `POST    /api/projects/:id/sprint`
@@ -55,6 +54,7 @@
   - `GET   /api/issues/:id/attachments`
   - `POST   /api/issues/:id/attachments`
   - `DELETE   /api/issues/:id/attachments`
+
   - Comments
   - `GET    /api/issues/:id/comments`
   - `POST   /api/issues/:id/comments`
@@ -86,8 +86,7 @@
 ## Status Types
   - `GET /api/status_types`
 
-  <!-- ## User Permission Types
-  - `GET /api/user_permission_types` -->
+
 
 ___
 <!--

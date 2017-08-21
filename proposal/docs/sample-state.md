@@ -7,7 +7,7 @@
         "title": "App Engineering",
         "description": "All issues having to do with engineering",
         "active": true,
-        "avatar_url": "https://s3.amazonaws.com/yeti/11231234/project.png",
+        "avatar": "https://s3.amazonaws.com/yeti/11231234/project.png",
         "issue_ids": [1, 5, 7, 8, 9],
         "sprint": true,
         "active": true
@@ -90,26 +90,15 @@
         "first_name": "John",
         "last_name": "Smith",
         "email": "johnsmith@goyeti.io",
-        "avatar_url": "https://s3.amazonaws.com/yeti/11231234/profile.png",
-        "permission_type_id": 1
+        "avatar": "https://s3.amazonaws.com/yeti/11231234/profile.png",
       }
     },
     "team": {
       "id": 1,
       "team_name": "Yeti",
       "description": "Agile development tool",
-      "avatar_url": "https://s3.amazonaws.com/yeti/11231234/team.png",
+      "avatar": "https://s3.amazonaws.com/yeti/11231234/team.png",
       "private": true
-    },
-    "permission_types": {
-      "1": {
-        "id": 1,
-        "type": "Admin"
-      },
-      "2": {
-        "id": 2,
-        "type": "Developer"
-      }
     },
     "status_types": {
       "1": {
@@ -129,12 +118,12 @@
       "1": {
         "id": 1,
         "type": "Story",
-        "avatar_url": "https://s3.amazonaws.com/yeti/11231234/image.png"
+        "avatar": "https://s3.amazonaws.com/yeti/11231234/image.png"
       },
       "2": {
         "id": 1,
         "type": "Bug",
-        "avatar_url": "https://s3.amazonaws.com/yeti/11231234/bug.png"
+        "avatar": "https://s3.amazonaws.com/yeti/11231234/bug.png"
       }
     }
   },
