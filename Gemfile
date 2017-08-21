@@ -62,3 +62,4 @@ gem 'jquery-rails'
 gem "autoprefixer-rails"
 gem "paperclip", '~> 5.0.0'
 gem 'aws-sdk', '>= 2.0'
+gem 'font-awesome-sass'
