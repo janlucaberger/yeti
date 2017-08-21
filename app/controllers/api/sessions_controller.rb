@@ -12,7 +12,9 @@ class Api::SessionsController < ApplicationController
   end
 
   def destroy
-    debugger
+    @user = current_user
+    logout
+    render "/api/session/show"
   end
 
 end
