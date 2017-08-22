@@ -1,26 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import { login } from '../actions/session_actions';
 import LoginForm from './login/login_form'
 import LoginContainer from './views/login_container'
+import SignupContainer from './views/sign_up_container'
 import { AuthRoute, ProtectedRoute } from '../util/route_util'
 
-import NavigationContainer from './navigation/navigation_container'
-import DashboardContainer from './views/dashboard_container'
+import ProtectedContent from './protected_content'
 
 const App = (props) => {
   console.log(`User is signed in ${props.user}`)
   return(
     <div className="global-container">
-      <NavigationContainer />
-
-      <div className="content-container">
-        <LoginForm />
+      <Switch>
         <AuthRoute path="/login" component={LoginContainer} />
-        <ProtectedRoute path="/" component={DashboardContainer} />
-
-      </div>
+        <AuthRoute path="/signup" component={SignupContainer} />
+        <ProtectedRoute path="/" component={ProtectedContent} />
+      </Switch>
     </div>
   )
 }
@@ -36,4 +33,4 @@ const mapDispatchToProps = dispatch => {
     login: (user) => dispatch(login(user))
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

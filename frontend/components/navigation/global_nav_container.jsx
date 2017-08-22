@@ -2,6 +2,7 @@ import React from 'react';
 import GlobalNavButton from './global_nav_button';
 import { logout } from '../../actions/session_actions'
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 const GlobalNavContainer = ({logout}) => {
   return(
@@ -18,10 +19,13 @@ const GlobalNavContainer = ({logout}) => {
 }
 
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     logout: () => dispatch(logout())
+      .then(() => ownProps.history.push({
+        pathname: "/login"
+      }))
   }
 }
 
-export default connect(null, mapDispatchToProps)(GlobalNavContainer)
+export default withRouter(connect(null, mapDispatchToProps)(GlobalNavContainer))
