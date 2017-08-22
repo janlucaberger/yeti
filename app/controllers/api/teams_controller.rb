@@ -1,7 +1,12 @@
 class Api::TeamsController < ApplicationController
 
   def index
-    @teams = Team.all
+    if params[:query].blank?
+      @teams = Team.all
+    else
+      @teams = Team.by_name(params[:query]).to_a
+    end
+
     render "/api/teams/index"
   end
 
