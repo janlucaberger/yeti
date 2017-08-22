@@ -1,0 +1,16 @@
+.form-text-input{
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-bottom: 1px solid black;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.form-text-input:focus{
+    outline: none;
+    color: rgb(6, 51, 233);
+}
