@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     # USERS
-    resources :users, only: [:create, :show, :update, :destroy] do
+    resources :users, except: [:edit, :new] do
       collection do
         get :issues
         get :comments
