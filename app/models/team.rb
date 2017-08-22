@@ -7,4 +7,11 @@ class Team < ApplicationRecord
   has_many :users,
     through: :users_teams
 
+
+  def self.by_name(query)
+    capital = query.capitalize
+    lowercase = query.downcase
+    teams = Team.where('team_name SIMILAR TO ? OR team_name SIMILAR TO ?', "%#{capital}%", "%#{lowercase}%")
+    return teams.to_a
+  end
 end
