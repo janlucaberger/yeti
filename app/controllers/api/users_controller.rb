@@ -5,7 +5,9 @@ class Api::UsersController < ApplicationController
     User.transaction do
       if @user.save
         UsersTeams.create!(user_id: @user.id, team_id: user_params[:team_id] )
-        render :show
+        login(@user)
+        @current_team = @user.teams.first
+        render "/api/session/show"
       else
         debugger
         render json: @user.errors.full_messages
@@ -13,6 +15,14 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def index
+    if params[:query].blank?
+      @users = User.all
+    else
+      @user = User.find_by(email: params[:query])
+      render "/api/users/show"
+    end
+  end
 
   def destroy
     @user = User.find(params[:id])
