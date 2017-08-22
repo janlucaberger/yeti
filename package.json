@@ -31,5 +31,9 @@
     "start": "webpack --watch"
   },
   "author": "Jan-Luca Berger",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "file-loader": "^0.11.2",
+    "image-webpack-loader": "^3.3.1"
+  }
 }
