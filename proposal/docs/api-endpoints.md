@@ -61,7 +61,7 @@
   - Comments
   - `GET    /api/issues/:id/comments`
   - `POST   /api/issues/:id/comments`
-  - `DELETE /api/issues/:id/comments`
+  - `DELETE /api/issues/comments`
 
   - Votes
   - `POST   /api/issues/:id/votes`

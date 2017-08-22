@@ -9,8 +9,7 @@
         "active": true,
         "avatar": "https://s3.amazonaws.com/yeti/11231234/project.png",
         "issue_ids": [1, 5, 7, 8, 9],
-        "sprint": true,
-        "active": true
+        "sprint": true
       }
     },
     "issues": {
