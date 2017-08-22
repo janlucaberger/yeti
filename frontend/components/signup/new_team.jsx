@@ -16,7 +16,7 @@ class NewTeam extends React.Component {
 
   handleImageUrl(e){
     const reader = new FileReader();
-    debugger
+
     const file = e.currentTarget.files[0];
     reader.onloadend = () => {
       this.setState({ image_url: reader.result, image_file: file});
