@@ -29,9 +29,9 @@ class Form extends React.Component {
     return(
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input placeholder="email" onChange={this.handleChange("email")} value={this.state.email}/>
-          <input placeholder="password" type="password" onChange={this.handleChange("password")} value={this.state.password}/>
-          <button>Login</button>
+          <input className="form-text-input" placeholder="Email" onChange={this.handleChange("email")} value={this.state.email}/>
+          <input className="form-text-input" placeholder="Password" type="password" onChange={this.handleChange("password")} value={this.state.password}/>
+          <button className="login-button">Login</button>
         </form>
       </div>
     )

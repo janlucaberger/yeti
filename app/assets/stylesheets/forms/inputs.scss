@@ -4,13 +4,72 @@
   border-left: 0px;
   border-bottom: 1px solid black;
   width: 100%;
-  padding: 20px;
+  padding: 27px 5px;
   box-sizing: border-box;
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 20px;
+  background: none;
 }
 
 .form-text-input:focus{
-    outline: none;
-    color: rgb(6, 51, 233);
+  outline: none;
+  color: rgb(6, 51, 233);
+}
+
+.valid {
+  color: #00BEC2;
+}
+.valid:focus {
+  color: #00BEC2;
+}
+.invalid {
+  color: red;
+}
+.invalid:focus {
+  color: red;
+}
+
+
+
+
+.form-dropdown-item-container{
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid black;
+}
+
+.form-dropdown-item-container:hover{
+  background: rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: 0.1s
+}
+
+.form-dropdown-avatar{
+  width: 30px;
+  height: 30px;
+  border-radius: 40px;
+  margin-right: 15px;
+}
+
+.input-validation-container{
+  position: absolute;
+}
+
+.form-button{
+  padding: 14px 25px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 16px;
+  color: #616161;
+  background: #cccccc;
+  border: 0px;
+}
+
+.form-button.active{
+  background-color: #00BEC2;
+  color: #000
 }

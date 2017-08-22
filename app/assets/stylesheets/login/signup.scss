@@ -1,0 +1,45 @@
+.signup-container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.signup-form-container{
+  width: 75%;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  display: flex;
+}
+
+.signup-content-container{
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.team-search-list-container {
+  list-style: none;
+}
+
+.signup-team-links{
+  height: 55px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.signup-team-link{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-team-container{
+  margin-top: 67px;
+}
