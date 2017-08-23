@@ -7,14 +7,15 @@ class Api::ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project.params)
+    @project = Project.new(project_params)
     @project.team_id = current_team.id
     @project.user_id = current_user.id
 
+
     if @project.save
-      render json: "/api/projects/show"
+      render "/api/projects/show"
     else
-      render json: @project.errors.full_messages
+      render json: @project.errors.full_messages, status: 403
     end
   end
 
