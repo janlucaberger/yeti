@@ -29,3 +29,28 @@
   font-size: 14px;
   border: 1px solid gray
 }
+
+
+.primary-button{
+  padding: 10px 14px;
+  font-weight: 500;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+.primary-button:hover{
+  opacity: 0.85
+}
+
+.secondary-button{
+  padding: 10px 14px;
+  font-weight: 500;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+}
+
+.primary-button:hover{
+  opacity: 0.85
+}
