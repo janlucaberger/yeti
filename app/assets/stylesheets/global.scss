@@ -5,6 +5,23 @@
 .content-container{
   width: 100%;
   overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.content-inner-container{
+  width: 100%;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-header{
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
+  margin-bottom: 20px;
 }
 
 .login-button{
