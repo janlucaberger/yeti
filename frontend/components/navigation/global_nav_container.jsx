@@ -22,9 +22,6 @@ const GlobalNavContainer = ({logout}) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     logout: () => dispatch(logout())
-      .then(() => ownProps.history.push({
-        pathname: "/login"
-      }))
   }
 }
 

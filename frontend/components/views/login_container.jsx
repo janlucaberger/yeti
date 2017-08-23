@@ -5,13 +5,6 @@ import { Link } from 'react-router-dom'
 
 class LoginContainer extends React.Component {
 
-  componentWillReceiveProps(nextProps) {
-
-    if (!nextProps.loggedIn) {
-      this.props.history.push('/login');
-    }
-  }
-
   render(){
     return(
       <div className="login-container">
