@@ -65,7 +65,7 @@ class SearchTeam extends React.Component {
   }
   render(){
     return(
-      <div>
+      <div className="team-search-container">
         <input
           value={this.state.search_team_name}
           className="form-text-input" name="team_name"

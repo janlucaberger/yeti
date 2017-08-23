@@ -26,6 +26,7 @@ class SignupContainer extends React.Component{
     this.validEmail = this.validEmail.bind(this)
     this.setSubmitButton = this.setSubmitButton.bind(this)
     this.emailInputClass = this.emailInputClass.bind(this)
+    this.missingTeamMessage = this.missingTeamMessage.bind(this)
   }
 
   handleChange(input){
@@ -42,14 +43,15 @@ class SignupContainer extends React.Component{
   }
 
   setTeam(team_id){
+    debugger
     this.setState({ team_id })
   }
 
   setSubmitButton(){
     if (this.isCompletedForm()){
-      return "form-button active"
+      return "form-button right active"
     } else {
-      return "form-button inactive"
+      return "form-button right inactive"
     }
   }
 
@@ -109,6 +111,18 @@ class SignupContainer extends React.Component{
     }
   }
 
+  missingTeamMessage(){
+    let content = "";
+    if(this.state.team_id.length === 0){
+      content = "Please join or create a team before continuing"
+    }
+    return(
+      <div className="signup-form-message">
+      {content}
+      </div>
+    )
+  }
+
   renderValidation(type){
     if(this.props.emailTaken){
       return (
@@ -122,28 +136,30 @@ class SignupContainer extends React.Component{
 
   render(){
     console.log(`Form completed: ${this.isCompletedForm()}`)
-    console.log(`email taken: ${this.props.emailTaken}`)
+    console.log(`CurrentTeamId: ${this.state.team_id}`)
     return(
       <div className="signup-container blue-background">
         <div className="signup-form-container white-background">
-          <div className="signup-content-container">
-            <h2>Create an account</h2>
-            <form onSubmit={this.handleFormSubmit}>
-              <input className="form-text-input" type="text" name="first_name" placeholder="First Name"onChange={this.handleChange("first_name")} />
-              <input className="form-text-input" type="text" name="last_name" placeholder="Last Name"onChange={this.handleChange("last_name")} />
-              <input className={this.emailInputClass()} type="text" value={this.state.email} name="email" placeholder="Email"onChange={this.handleChange("email")} />
-                { this.renderValidation("email") }
-              <input className="form-text-input" type="password" name="password" placeholder="Password"onChange={this.handleChange("password")} />
-            </form>
-          </div>
           <div className="signup-content-container gray-background">
             <div className="signup-team-links">
               <div className="signup-team-link"><NavLink exact to="/signup">Join an existing team</NavLink></div>
               <div className="signup-team-link"><NavLink to="/signup/new_team">Create a new team</NavLink></div>
             </div>
               <Route exact path="/signup" render={() => <SearchTeam setTeam={this.setTeam} />}  />
-              <Route exact path="/signup/new_team" component={NewTeam} />
-              <button className={this.setSubmitButton()}>Create Account</button>
+              <Route exact path="/signup/new_team" render={() => <NewTeam setTeam={this.setTeam} />} />
+
+          </div>
+          <div className="signup-content-container">
+            <h2>Create an account</h2>
+            <form>
+              <input className="form-text-input" type="text" name="first_name" placeholder="First Name"onChange={this.handleChange("first_name")} />
+              <input className="form-text-input" type="text" name="last_name" placeholder="Last Name"onChange={this.handleChange("last_name")} />
+              <input className={this.emailInputClass()} type="text" value={this.state.email} name="email" placeholder="Email"onChange={this.handleChange("email")} />
+                { this.renderValidation("email") }
+              <input className="form-text-input" type="password" name="password" placeholder="Password"onChange={this.handleChange("password")} />
+            </form>
+            { this.missingTeamMessage() }
+            <button onClick={this.handleFormSubmit} className={this.setSubmitButton()}>Create Account</button>
           </div>
         </div>
       </div>
