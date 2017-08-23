@@ -30,11 +30,10 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
-  def ensure_authorized_user
-
-  end
-
   def ensure_logged_in
+    unless logged_in?
+      render json: { error: "Unauthorized User" }, status: 401
+    end
   end
 
 end
