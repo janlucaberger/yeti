@@ -7,6 +7,7 @@ import NavigationContainer from './navigation/navigation_container'
 import DashboardContainer from './views/dashboard_container'
 import ProjectsContainer from './views/projects_container'
 import Modal from './modal/modal';
+import Loading from './loading/loading';
 
 const ProtectedContent = (props) => {
   return(
@@ -18,6 +19,7 @@ const ProtectedContent = (props) => {
           <ProtectedRoute path="/" component={DashboardContainer} />
         </Switch>
       </div>
+      <Loading />
       <Modal component={props.modal_component} props={props.modal_props}/>
     </div>
   )
