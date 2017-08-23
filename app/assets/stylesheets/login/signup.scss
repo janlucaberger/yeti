@@ -20,12 +20,25 @@
   position: relative;
 }
 
+.signup-form-message{
+  height: 30px;
+  padding: 10px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  color: red;
+}
+
+.team-search-container{
+  margin-top: 67px;
+}
+
 .team-search-list-container {
   list-style: none;
 }
 
 .signup-team-links{
-  height: 55px;
+  height: 122px;
   display: flex;
   position: absolute;
   top: 0;
@@ -42,4 +55,10 @@
 
 .new-team-container{
   margin-top: 67px;
+}
+
+.new-team-avatar-container{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
 }

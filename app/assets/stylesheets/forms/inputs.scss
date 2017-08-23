@@ -12,16 +12,22 @@
   background: none;
 }
 
+.form-text{
+  font-size: 16px;
+  font-weight: 400;
+  padding: 6px
+}
+
 .form-text-input:focus{
   outline: none;
   color: rgb(6, 51, 233);
 }
 
 .valid {
-  color: #00BEC2;
+  color: #00c28c;
 }
 .valid:focus {
-  color: #00BEC2;
+  color: #00c28c;
 }
 .invalid {
   color: red;
@@ -62,14 +68,20 @@
   padding: 14px 25px;
   position: absolute;
   bottom: 0;
-  right: 0;
   font-size: 16px;
   color: #616161;
   background: #cccccc;
   border: 0px;
 }
 
+.left{
+  left: 0;
+}
+
+.right{
+  right: 0;
+}
 .form-button.active{
-  background-color: #00BEC2;
+  background-color: #00c28c;
   color: #000
 }
