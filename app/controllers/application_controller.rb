@@ -1,8 +1,5 @@
 class ApplicationController < ActionController::Base
-
-  if Rails.env.production?
-    protect_from_forgery with: :exception
-  end
+  protect_from_forgery with: :exception
 
   helper_method :current_user, :current_team, :logged_in?, :ensure_authorized_user
 
