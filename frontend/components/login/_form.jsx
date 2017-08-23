@@ -13,6 +13,7 @@ class Form extends React.Component {
     this.setSubmitButton = this.setSubmitButton.bind(this)
     this.isCompletedForm = this.isCompletedForm.bind(this)
     this.validEmail = this.validEmail.bind(this)
+    this.renderErrors = this.renderErrors.bind(this)
   }
 
   handleChange(input){
@@ -60,13 +61,25 @@ class Form extends React.Component {
     return (this.isCompletedForm()) ? "form-button right active" : "form-button right inactive"
   }
 
+
+  renderErrors(){
+    const errors = this.props.errors
+    if(errors === "undefined"){
+      return <div></div>
+    } else{
+      return <div className="login-errors-container">{errors}</div>
+    }
+  }
+
   render(){
+    console.log(this.props.errors)
     return(
       <div>
         <form onSubmit={this.handleSubmit}>
           <input className="form-text-input" placeholder="Email" onChange={this.handleChange("email")} value={this.state.email}/>
           <input className="form-text-input" placeholder="Password" type="password" onChange={this.handleChange("password")} value={this.state.password}/>
           <button className={this.setSubmitButton()}>Login</button>
+          { this.renderErrors() }
           <button onClick={this.demoLogin} className="form-button left">Demo Login</button>
         </form>
       </div>
