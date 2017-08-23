@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getProjectsArray } from "../../reducers/selectors";
 import { fetchAllProjects } from '../../actions/projects/projects_actions';
-
+import { showLoading, hideLoading} from '../../actions/ui_actions'
 import TimeAgo from 'react-timeago'
 
 
@@ -11,17 +11,28 @@ class ProjectsTable extends React.Component {
     super();
 
     this.state ={
-      tableHeaders: []
+      tableHeaders: [],
+      loading: false
     }
 
     this.mapRowsCell = this.mapRowsCell.bind(this)
     this.mappedHeaders = this.mappedHeaders.bind(this)
+    this.loadingFinished = this.loadingFinished.bind(this)
   }
 
   componentDidMount(){
+    this.props.showLoading()
     this.props.fetchAllProjects().then(() => {
-      this.setState({ tableHeaders: Object.keys(this.props.projectsArray[0])})
+      this.setState({
+        tableHeaders: Object.keys(this.props.projectsArray[0])
+      }, this.loadingFinished)
     })
+  }
+
+  loadingFinished(){
+    setTimeout(() => {
+      this.props.hideLoading()
+    },1000)
   }
 
 
@@ -76,23 +87,29 @@ class ProjectsTable extends React.Component {
       )
     })
 
-    return(
-      <div className="projects-table-container">
-        <table>
-          <thead>
-            <tr>
-              { this.mappedHeaders() }
-            </tr>
+    if (this.state.loading) {
+      return <h1>LOADINGGGG</h1>
+    } else if (this.props.projectsArray.length === 0){
+      return (
+        <div>Looks you you dont have any projects yet!</div>
+      )
+    } else {
+      return(
+        <div className="projects-table-container">
+          <table>
+            <thead>
+              <tr>
+                { this.mappedHeaders() }
+              </tr>
+            </thead>
+            <tbody>
+              { mappedRows }
+            </tbody>
+          </table>
+        </div>
+      )
+    }
 
-          </thead>
-          <tbody>
-            { mappedRows }
-          </tbody>
-
-        </table>
-
-      </div>
-    )
   }
 }
 
@@ -104,7 +121,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    fetchAllProjects: () => dispatch(fetchAllProjects())
+    fetchAllProjects: () => dispatch(fetchAllProjects()),
+    showLoading: (props) => dispatch(showLoading(props)),
+    hideLoading: () => dispatch(hideLoading())
   }
 }
 

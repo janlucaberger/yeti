@@ -97,7 +97,7 @@ class NewProjectForm extends React.Component {
     if(this.state.image_url){
       src = this.state.image_url
     } else {
-      src = "https://s3.amazonaws.com/yetiapp-assets/default_team_avatar.png"
+      src = "https://s3.amazonaws.com/yetiapp-assets/default_project_avatar.png"
     }
     return (
       <img className="form-dropdown-avatar" src={src} width="30px" height="30px"/>
