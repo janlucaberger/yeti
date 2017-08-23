@@ -27,4 +27,5 @@ end
 end
 
 demo = User.create(first_name: "Test" , last_name: "User", email: "test@user.com" , password: "password")
+demo = User.create(first_name: "Test" , last_name: "User", email: "hello@goyeti.io" , password: "password")
 UsersTeams.create(user_id: demo.id, team_id: teams.sample.id)
