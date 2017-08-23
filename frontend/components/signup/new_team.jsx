@@ -30,7 +30,6 @@ class NewTeam extends React.Component {
     reader.onloadend = () => {
       this.setState({ image_url: reader.result, image_file: file});
     }
-
     if (file) {
       reader.readAsDataURL(file);
     } else {
@@ -74,12 +73,20 @@ class NewTeam extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    const newTeamParams = {
-      team_name: this.state.team_name,
-      description: this.state.description,
-    }
+    const formData = new FormData();
+    const file = this.state.image_file;
+
+    formData.append("team[team_name]", this.state.team_name);
+    formData.append("team[description]", this.state.team_name);
+    if (file) formData.append("team[avatar]", file);
+
+    // const newTeamParams = {
+    //   team_name: this.state.team_name,
+    //   description: this.state.description,
+    //   avatar: this.state.image_file
+    // }
     if(this.isCompletedForm()){
-      this.props.createTeam(newTeamParams).then(() => {
+      this.props.createTeam(formData).then(() => {
         this.setState({ creatTeamButton: "Team Created!"})
         this.props.setTeam(this.props.current_team.id)
       })

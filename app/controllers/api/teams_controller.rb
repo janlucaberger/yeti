@@ -14,6 +14,7 @@ class Api::TeamsController < ApplicationController
   end
 
   def create
+    debugger
     @team = Team.new(team_params)
     if @team.save
       render :show
@@ -48,7 +49,7 @@ class Api::TeamsController < ApplicationController
 
   private
   def team_params
-    params.require(:team).permit(:team_name, :description)
+    params.require(:team).permit(:team_name, :description, :avatar)
   end
 
 end

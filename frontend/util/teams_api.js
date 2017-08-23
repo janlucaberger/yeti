@@ -10,12 +10,15 @@ export const fetchTeams = teamname => {
 }
 
 
-export const createNewTeam = team => {
-  console.log(`creating new team ${team.team_name}`)
+export const createNewTeam = formData => {
+  debugger
   return $.ajax({
     method: "POST",
     url: "/api/teams",
-    data: { team }
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    data: formData
   })
 }
 
