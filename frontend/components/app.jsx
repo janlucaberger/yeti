@@ -12,7 +12,7 @@ import ProtectedContent from './protected_content'
 const App = (props) => {
   console.log(`User is signed in ${props.user}`)
   return(
-    <div className="global-container">
+    <div>
       <Switch>
         <AuthRoute path="/login" component={LoginContainer} />
         <AuthRoute path="/signup" component={SignupContainer} />
