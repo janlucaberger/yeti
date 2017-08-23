@@ -2,6 +2,8 @@
 
 Yeti is a project management and collaboration tool inspired by Jira and built with Ruby on Rails and React/Redux.
 
+* [Trello Link][trello_link]
+* [Heroku Link][heroku_link]
 
 ## Minimum Viable Product
 
@@ -72,3 +74,7 @@ Yeti is a project management and collaboration tool inspired by Jira and built w
 - [ ] Time tracking for issues
 - [ ] Replace Rest API with GraphQL
 - [ ] Project analytics view to see workflow over a period of time
+
+[trello_link]: https://trello.com/invite/b/uCwIG59m/0c79b563575af95392dcd5623629edde/yeti-fullstack-project
+
+[heroku_link]:https://goyeti.herokuapp.com/
