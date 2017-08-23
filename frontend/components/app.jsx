@@ -10,7 +10,6 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util'
 import ProtectedContent from './protected_content'
 
 const App = (props) => {
-  console.log(`User is signed in ${props.user}`)
   return(
     <div>
       <Switch>

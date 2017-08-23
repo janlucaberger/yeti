@@ -26,7 +26,6 @@ const ProtectedContent = (props) => {
 
 const mapStateToProps = state => {
   return{
-    user: Boolean(state.session.current_user),
     modal_component: state.ui.modal.component,
     modal_props: state.ui.modal.props,
   }
