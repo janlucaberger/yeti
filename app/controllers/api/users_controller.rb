@@ -9,7 +9,7 @@ class Api::UsersController < ApplicationController
         @current_team = @user.teams.first
         render "/api/session/show"
       else
-        debugger
+        
         render json: @user.errors.full_messages
       end
     end

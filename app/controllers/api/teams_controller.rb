@@ -14,7 +14,7 @@ class Api::TeamsController < ApplicationController
   end
 
   def create
-    debugger
+    
     @team = Team.new(team_params)
     if @team.save
       render :show
