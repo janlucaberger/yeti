@@ -55,8 +55,6 @@ class ProjectsTable extends React.Component {
       switch (header) {
         case "id":
           return ""
-        case "avatar":
-          return <th width="40px" key={idx}></th>
         default:
           return <th className="table-header" key={idx}>{header.split("")[0].toUpperCase() + header.split("").slice(1).join("")}</th>
       }

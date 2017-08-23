@@ -13,6 +13,8 @@ class NewProjectForm extends React.Component {
       key: "",
       category: "",
       url: "",
+      image_file: "",
+      image_url: "",
       keyOveride: false
     }
 
@@ -78,13 +80,15 @@ class NewProjectForm extends React.Component {
     const formData = new FormData();
     const file = this.state.image_file;
 
-    formData.append("project[title]", this.state.team_name);
-    formData.append("project[description]", this.state.team_name);
-    formData.append("project[key]", this.state.team_name);
-    formData.append("project[category]", this.state.team_name);
-    if (file) formData.append("team[avatar]", file);
+    formData.append("project[title]", this.state.title);
+    formData.append("project[description]", this.state.description);
+    formData.append("project[key]", this.state.key);
+    formData.append("project[category]", this.state.category);
+    if (file) formData.append("project[avatar]", file);
 
-    this.props.createNewProject(this.state)
+    this.props.createNewProject(formData).then(() => {
+      this.props.closeModal();
+    })
   }
 
 
@@ -101,7 +105,6 @@ class NewProjectForm extends React.Component {
   }
 
   render(){
-    console.log(this.state.key)
     return(
       <div className="new-item-form-container">
         <div className="new-item-form-header">
