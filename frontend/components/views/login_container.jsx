@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 class LoginContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
-    
+
     if (!nextProps.loggedIn) {
       this.props.history.push('/login');
     }
@@ -21,13 +21,11 @@ class LoginContainer extends React.Component {
       <div className="login-container">
 
         <div className="login-left-container">
-          <div>
-            <img width="400px" src="https://s3.amazonaws.com/yetiapp-assets/yetiLogoWhite.png" />
-          </div>
+          <img width="400px" src="https://s3.amazonaws.com/yetiapp-assets/yetiLogoWhite.png" />
         </div>
         <div className="login-right-container">
           <div className="login-form-container">
-
+            <h2>Login</h2>
             <LoginForm />
           </div>
           <Link to="/signup">

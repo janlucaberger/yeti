@@ -37,29 +37,14 @@ class SignupContainer extends React.Component{
     }
 
   }
-
-  componentDidMount(){
-    console.log("Signup container mounted")
-  }
-
+  
   setTeam(team_id){
-    debugger
     this.setState({ team_id })
   }
 
   setSubmitButton(){
-    if (this.isCompletedForm()){
-      return "form-button right active"
-    } else {
-      return "form-button right inactive"
-    }
+    return (this.isCompletedForm()) ? "form-button right active" : "form-button right inactive"
   }
-
-  // componentWillReceiveProps(nextProps){
-  //   if (nextProps.loggedIn) {
-  //     this.props.history.push('/');
-  //   }
-  // }
 
   validEmail(){
     const email = this.state.email
@@ -97,7 +82,6 @@ class SignupContainer extends React.Component{
         completed = false;
       }
     })
-
     if(!this.validEmail()){
       completed = false
     }
@@ -135,10 +119,9 @@ class SignupContainer extends React.Component{
   }
 
   render(){
-    console.log(`Form completed: ${this.isCompletedForm()}`)
-    console.log(`CurrentTeamId: ${this.state.team_id}`)
     return(
       <div className="signup-container blue-background">
+        <Link to="/login"><img width="100px" src="https://s3.amazonaws.com/yetiapp-assets/yetiLogoWhite.png" className="signup-logo" /></Link>
         <div className="signup-form-container white-background">
           <div className="signup-content-container gray-background">
             <div className="signup-team-links">
