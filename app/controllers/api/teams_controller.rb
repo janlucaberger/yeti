@@ -1,13 +1,16 @@
 class Api::TeamsController < ApplicationController
 
   def index
-    if params[:query].blank?
-      @teams = Team.all
+    if params[:query].include?(:similar)
+      @teams = Team.by_name(params[:query][:similar]).to_a
+      render "/api/teams/index"
+    elsif params[:query].include?(:exact)
+      @team = Team.find_by(team_name: params[:query][:exact])
+      render "/api/teams/show"
     else
-      @teams = Team.by_name(params[:query]).to_a
+      @teams = Team.all
+      render "/api/teams/index"
     end
-
-    render "/api/teams/index"
   end
 
   def create
