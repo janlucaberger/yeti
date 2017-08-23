@@ -7,9 +7,13 @@ export const fetchAllProjects = () => {
   })
 }
 
-export const createNewProject = () => {
+export const createNewProject = formData => {
   return $.ajax({
     method: "POST",
-    url: "/api/projects"
+    url: "/api/projects",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    data: formData
   })
 }

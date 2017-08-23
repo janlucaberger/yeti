@@ -11,7 +11,6 @@ export const fetchTeams = teamname => {
 
 
 export const createNewTeam = formData => {
-  debugger
   return $.ajax({
     method: "POST",
     url: "/api/teams",
