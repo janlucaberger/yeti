@@ -75,7 +75,6 @@ class ProjectsTable extends React.Component {
         </tr>
       )
     })
-    console.log(`table headers: ${this.state.tableHeaders}`)
 
     return(
       <div className="projects-table-container">

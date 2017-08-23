@@ -17,7 +17,6 @@ class Form extends React.Component {
 
   handleChange(input){
     return (e) => {
-      console.log(e.currentTarget.value)
       this.setState({
         [input]: e.currentTarget.value
       })

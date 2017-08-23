@@ -116,8 +116,6 @@ class NewTeam extends React.Component {
   }
 
   render(){
-    console.log(this.state.creatTeamButton)
-    console.log(this.props.current_team)
     return(
       <div className="new-team-container">
 

@@ -12,10 +12,6 @@ class LoginContainer extends React.Component {
     }
   }
 
-  componentDidMount(){
-    console.log("Login mounted")
-  }
-
   render(){
     return(
       <div className="login-container">

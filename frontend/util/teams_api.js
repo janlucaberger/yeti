@@ -1,7 +1,6 @@
 
 
 export const fetchTeams = teamname => {
-  console.log(`fetching teamname with ${teamname}`)
   return $.ajax({
     method: "GET",
     url: "/api/teams",
@@ -22,7 +21,6 @@ export const createNewTeam = formData => {
 }
 
 export const fetchTeamnameCheck = teamname => {
-  console.log(`fetching teamnane ${teamname}`)
   return $.ajax({
     method: "GET",
     url: "/api/teams",
