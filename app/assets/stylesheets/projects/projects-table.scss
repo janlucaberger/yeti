@@ -1,0 +1,41 @@
+.projects-table-container{
+  // background-color: lightgray;
+  height: 400px;
+}
+
+table{
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+	border-spacing: 0;
+}
+
+thead{
+  border-bottom: 0.5px solid lightgray;
+  padding: 10px;
+}
+
+.table-header{
+  color: gray;
+  font-size: 12px;
+}
+
+
+td, th{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+th{
+  padding-bottom: 4px;
+}
+
+td{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+}
+
+tr:hover{
+  background-color: #FAFBFC;
+}
