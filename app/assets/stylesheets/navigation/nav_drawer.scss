@@ -1,7 +1,48 @@
 
 
 .nav-drawer-container{
-  width: 240px;
+  width: 210px;
   height: 100vh;
-  background: #0747A6;
+  background: rgb(6, 51, 233);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.nav-drawer-button{
+  padding: 10px 12px;
+  border-radius: 3px;
+  width: 96%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.nav-drawer-button-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%
+}
+
+.nav-drawer-button:hover{
+  background-color: #10359c;
+}
+
+.nav-drawer-button:visited{
+  color: #fff;
+}
+
+.active-nav-drawer-button{
+  background-color: #0f39ab;
+}
+
+.nav-drawer-button-text{
+  margin-left: 10px;
+  color: #fff;
+  font-size: 13px;
+}
+.nav-drawer-button-icon{
+  margin-left: 10px;
+  color: #fff;
+  font-size: 18px;
 }
