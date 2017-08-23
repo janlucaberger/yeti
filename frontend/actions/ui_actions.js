@@ -3,6 +3,23 @@ import * as TeamApiUtil from '../util/teams_api'
 
 export const RECEIVE_EMAIL_CHECK = "RECEIVE_EMAIL_CHECK";
 export const RECEIVE_TEAMNAME_CHECK = "RECEIVE_TEAMNAME_CHECK";
+export const SHOW_MODAL = "SHOW_MODAL"
+export const HIDE_MODAL = "HIDE_MODAL"
+
+
+export const showModal = (component, props) => {
+  return {
+    type: SHOW_MODAL,
+    component,
+    props
+  }
+}
+
+export const hideModal = () => {
+  return {
+    type: HIDE_MODAL
+  }
+}
 
 export const receiveEmailCheck = user => {
   return{
@@ -16,8 +33,6 @@ export const receiveTeamnameCheck = team => {
     team
   }
 }
-
-
 
 export const fetchEmailCheck = email => dispatch => {
   return UserApiUtil.fetchEmailCheck(email).then((email) => dispatch(receiveEmailCheck(email)))
