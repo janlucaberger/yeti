@@ -5,6 +5,8 @@ export const RECEIVE_EMAIL_CHECK = "RECEIVE_EMAIL_CHECK";
 export const RECEIVE_TEAMNAME_CHECK = "RECEIVE_TEAMNAME_CHECK";
 export const SHOW_MODAL = "SHOW_MODAL"
 export const HIDE_MODAL = "HIDE_MODAL"
+export const SHOW_LOADING = "SHOW_LOADING"
+export const HIDE_LOADING = "HIDE_LOADING"
 
 
 export const showModal = (component, props) => {
@@ -18,6 +20,18 @@ export const showModal = (component, props) => {
 export const hideModal = () => {
   return {
     type: HIDE_MODAL
+  }
+}
+
+export const showLoading = props => {
+  return{
+    type: SHOW_LOADING,
+    props
+  }
+}
+export const hideLoading = () => {
+  return{
+    type: HIDE_LOADING
   }
 }
 
