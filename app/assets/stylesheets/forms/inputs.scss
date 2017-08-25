@@ -12,6 +12,13 @@
   background: none;
 }
 
+.form-input-title{
+  margin-left: 41px;
+  font-size: 13px;
+  font-weight: 600;
+  color: gray;
+}
+
 .form-text{
   font-size: 16px;
   font-weight: 400;
@@ -72,6 +79,7 @@
   color: #616161;
   background: #cccccc;
   border: 0px;
+  outline: none;
 }
 
 .left{
@@ -82,6 +90,10 @@
   right: 0;
 }
 .form-button.active{
+  outline: none;
   background-color: #00c28c;
-  color: #000
+  color: #000;
+}
+.form-button:focus{
+  outline: none;
 }

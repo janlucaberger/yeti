@@ -20,3 +20,11 @@ a{
 a:visited{
   color: inherit;
 }
+
+button:focus{
+  outline: none;
+}
+
+.quill{
+  background-color: #fff;
+}
