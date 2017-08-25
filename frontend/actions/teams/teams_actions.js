@@ -29,3 +29,10 @@ export const createNewTeam = team => dispatch => {
     dispatch(receiveCurrentTeam(team))
   })
 }
+
+export const fetchCurrentTeam = teamId => dispatch => {
+  
+  return ApiUtil.fetchCurrentTeam(teamId).then(
+    team => dispatch(receiveCurrentTeam(team))
+  )
+}

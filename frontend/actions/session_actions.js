@@ -25,10 +25,7 @@ export const receiveLoginError = error => {
   }
 }
 
-(err) => {
-  debugger
-  dispatch(receiveLoginError(err.responseJSON))
-}
+
 
 export const login = user => dispatch => {
   return ApiUtil.login(user).then((user) => (
