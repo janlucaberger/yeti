@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823145813) do
+ActiveRecord::Schema.define(version: 20170824231037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "issue_audits", force: :cascade do |t|
+    t.integer "issue_id", null: false
+    t.string "column_changed", null: false
+    t.string "from", null: false
+    t.string "to", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "issue_types", force: :cascade do |t|
+    t.string "issue_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "icon_file_name"
+    t.string "icon_content_type"
+    t.integer "icon_file_size"
+    t.datetime "icon_updated_at"
+  end
 
   create_table "issues", force: :cascade do |t|
     t.integer "project_id", null: false
@@ -21,12 +41,23 @@ ActiveRecord::Schema.define(version: 20170823145813) do
     t.text "description"
     t.integer "issue_type_id", null: false
     t.integer "status_type_id", null: false
-    t.integer "priority", default: 3, null: false
+    t.integer "priority_type_id", default: 3, null: false
     t.string "resolution", default: "unresolved", null: false
     t.boolean "active", default: true, null: false
     t.boolean "sprint", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "key"
+  end
+
+  create_table "priority_types", force: :cascade do |t|
+    t.string "priority_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "icon_file_name"
+    t.string "icon_content_type"
+    t.integer "icon_file_size"
+    t.datetime "icon_updated_at"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -45,6 +76,12 @@ ActiveRecord::Schema.define(version: 20170823145813) do
     t.string "type"
     t.string "category", null: false
     t.string "url"
+  end
+
+  create_table "status_types", force: :cascade do |t|
+    t.string "status_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|
