@@ -8,6 +8,12 @@ export const fetchTeams = teamname => {
   })
 }
 
+export const fetchCurrentTeam = teamId => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/teams/${teamId}`,
+  })
+}
 
 export const createNewTeam = formData => {
   return $.ajax({
