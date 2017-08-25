@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { NavLink, Route, Link, withRouter } from 'react-router-dom';
 import NewTeam from '../signup/new_team';
 import SearchTeam from '../signup/search_team';
+import SelectedTeam from '../signup/selected_team';
 import { fetchEmailCheck } from '../../actions/ui_actions';
+import { fetchCurrentTeam } from '../../actions/teams/teams_actions';
 import { createUser } from '../../actions/users/user_actions';
 
 class SignupContainer extends React.Component{
@@ -37,9 +39,16 @@ class SignupContainer extends React.Component{
     }
 
   }
-  
+
   setTeam(team_id){
-    this.setState({ team_id })
+    this.setState({ team_id },
+      () => {
+        this.props.fetchCurrentTeam(team_id).then(() =>{
+
+          this.props.history.push('/signup/joined_team')
+        })
+      }
+    )
   }
 
   setSubmitButton(){
@@ -130,6 +139,7 @@ class SignupContainer extends React.Component{
             </div>
               <Route exact path="/signup" render={() => <SearchTeam setTeam={this.setTeam} />}  />
               <Route exact path="/signup/new_team" render={() => <NewTeam setTeam={this.setTeam} />} />
+              <Route exact path="/signup/joined_team" render={() => <SelectedTeam team={this.props.current_team} />} />
 
           </div>
           <div className="signup-content-container">
@@ -152,16 +162,19 @@ class SignupContainer extends React.Component{
 }
 
 const mapStateToProps = state => {
+
   return{
     emailTaken: state.ui.signup_email_exists,
-    loggedIn: Boolean(state.session.current_user)
+    loggedIn: Boolean(state.session.current_user),
+    current_team: state.session.current_team,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return{
     checkEmail: (email) => dispatch(fetchEmailCheck(email)),
-    createUser: (user) => dispatch(createUser(user))
+    createUser: (user) => dispatch(createUser(user)),
+    fetchCurrentTeam: (teamId) => dispatch(fetchCurrentTeam(teamId)),
   }
 }
 
