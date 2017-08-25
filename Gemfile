@@ -33,7 +33,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'faker', '1.8.4'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere in the code to stop execution and get a  console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
