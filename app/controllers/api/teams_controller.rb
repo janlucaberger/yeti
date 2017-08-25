@@ -1,20 +1,20 @@
 class Api::TeamsController < ApplicationController
 
   def index
-    if params[:query].include?(:similar)
+    if params[:query].nil?
+      @teams = Team.all
+      render "/api/teams/index"
+    elsif params[:query].include?(:similar)
       @teams = Team.by_name(params[:query][:similar]).to_a
       render "/api/teams/index"
     elsif params[:query].include?(:exact)
       @team = Team.find_by(team_name: params[:query][:exact])
       render "/api/teams/show"
-    else
-      @teams = Team.all
-      render "/api/teams/index"
     end
   end
 
   def create
-    
+
     @team = Team.new(team_params)
     if @team.save
       render :show
@@ -36,6 +36,10 @@ class Api::TeamsController < ApplicationController
     else
       render json: @team.errors.full_messages, status: 422
     end
+  end
+
+  def show
+    @team = Team.find(params[:id])
   end
 
   def activity
