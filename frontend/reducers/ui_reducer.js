@@ -9,10 +9,24 @@ const defaultState = {
   loading: {
     display: false,
     props: null
-  }
+  },
+  issue_types: {},
+  priority_types: {},
+  status_types: {}
 }
 
-import { RECEIVE_EMAIL_CHECK, RECEIVE_TEAMNAME_CHECK, SHOW_MODAL, HIDE_MODAL, SHOW_LOADING, HIDE_LOADING } from '../actions/ui_actions'
+import {
+  RECEIVE_EMAIL_CHECK,
+  RECEIVE_TEAMNAME_CHECK,
+  RECEIVE_ISSUE_TYPES,
+  RECEIVE_PRIORITY_TYPES,
+  RECEIVE_STATUS_TYPES,
+  SHOW_MODAL,
+  HIDE_MODAL,
+  SHOW_LOADING,
+  HIDE_LOADING
+} from '../actions/ui_actions';
+
 let modalState;
 let loadingState;
 const uiReducer = (state = defaultState, action) => {
@@ -44,6 +58,12 @@ const uiReducer = (state = defaultState, action) => {
     case HIDE_LOADING:
       loadingState = { loading: {display: false} }
       return _.merge({}, state, loadingState)
+    case RECEIVE_ISSUE_TYPES:
+      return _.merge({}, state, {issue_types: action.issueTypes})
+    case RECEIVE_PRIORITY_TYPES:
+      return _.merge({}, state, {priority_types: action.priorityTypes})
+    case RECEIVE_STATUS_TYPES:
+      return _.merge({}, state, {status_types: action.statusTypes})
     default:
       return state;
   }
