@@ -1,0 +1,125 @@
+.issue-detail-container{
+  width: 100%;
+  height: 400px;
+  background: #fff;
+}
+
+.issue-detail-form-container{
+  position: relative;
+  width: 50%;
+}
+
+.issue-detail-form-text{
+  padding: 4px;
+  border-radius: 3px;
+  border: none;
+  border: 1px solid #fff;
+}
+
+.issue-detail-form-text:hover{
+  background-color: #FAFBFC;
+  border: 1px solid #e8ebef;
+}
+.issue-detail-form-text:focus{
+  border: 1px solid blue;
+}
+
+.issue-detail-summary{
+  width: 100%;
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.confirmation-box-container{
+  display: none;
+  position: absolute;
+  background-color: red;
+  height: 30px;
+  width: 60px;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  right: 0;
+}
+.confirmation-box-container.active{
+  display: flex;
+  align-items: center;
+}
+
+.confirm-box{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FAFBFC;
+  cursor: pointer;
+}
+.confirm-box:first-child{
+  border-right: 1px solid lightgray;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.confirm-box:first-child:hover{
+  background-color: #00FFB1;
+}
+.confirm-box:last-child{
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.confirm-box:last-child:hover{
+  background-color: #E56D7E;
+}
+
+.status-container{
+  display: flex;
+  flex-wrap: wrap;
+  width: 60%;
+  min-width: 450px;
+}
+
+.status-item-container{
+  width: 50%;
+  height: 83px;
+}
+
+.status-label-text{
+  padding: 5px 8px;
+  border-radius: 4px;
+  margin-left: 33px;
+  margin-top: 8px;
+}
+.status-label-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.todo{
+  background-color: lightgray;
+}
+.inProgress{
+  background-color: rgb(6, 51, 233);
+  color: #fff;
+}
+.done{
+  background-color: #00FFB1;
+}
+
+.resolution-label-text{
+  padding: 5px 8px;
+  border-radius: 4px;
+  margin-left: 33px;
+}
+
+.issue-description-container{
+  position: relative;
+}
+
+.issue-description-preview:focus{
+  outline: none;
+}
+
+.issue-description-editor{
+  position: absolute;
+  top: 0;
+}
