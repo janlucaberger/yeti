@@ -9,6 +9,8 @@ class Team < ApplicationRecord
   has_many :users,
     through: :users_teams
 
+  has_many :projects
+  has_many :issues, through: :projects
 
   def self.by_name(query)
     capital = query.capitalize
