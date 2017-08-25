@@ -1,0 +1,2 @@
+class StatusType < ApplicationRecord
+end
