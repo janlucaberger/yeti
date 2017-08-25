@@ -14,6 +14,7 @@ class Form extends React.Component {
     this.isCompletedForm = this.isCompletedForm.bind(this)
     this.validEmail = this.validEmail.bind(this)
     this.renderErrors = this.renderErrors.bind(this)
+    this.missingFormItems = this.missingFormItems.bind(this)
   }
 
   handleChange(input){
@@ -26,6 +27,7 @@ class Form extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
+    this.missingFormItems()
     if (this.isCompletedForm()){
       this.props.action(this.state)
     }
@@ -61,6 +63,19 @@ class Form extends React.Component {
     return (this.isCompletedForm()) ? "form-button right active" : "form-button right inactive"
   }
 
+  missingFormItems(){
+    const email = this.state.email
+    const password = this.state.password
+    let message;
+    if(!this.validEmail() && password.length < 1){
+      message = "Please enter valid email and password"
+    } else if (!this.validEmail()){
+      message = "Please enter valid email"
+    } else if(password.length < 1) {
+      message = "Please enter password"
+    }
+    return <div className="login-errors-container">{message}</div>
+  }
 
   renderErrors(){
     const errors = this.props.errors
@@ -80,6 +95,7 @@ class Form extends React.Component {
           <input className="form-text-input" placeholder="Password" type="password" onChange={this.handleChange("password")} value={this.state.password}/>
           <button className={this.setSubmitButton()}>Login</button>
           { this.renderErrors() }
+          { this.missingFormItems() }
           <button onClick={this.demoLogin} className="form-button left">Demo Login</button>
         </form>
       </div>
