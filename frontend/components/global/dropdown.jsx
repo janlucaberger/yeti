@@ -17,7 +17,10 @@ class Dropdown extends React.Component{
   }
 
   componentWillReceiveProps(nextProps){
-    const current_option = nextProps.currentOption
+    let current_option =  {};
+    if(nextProps.currentOption){
+      current_option = nextProps.currentOption
+    } 
     this.setState({
       current_option: current_option[this.props.item],
       current_option_icon: current_option[this.props.iconKey],
