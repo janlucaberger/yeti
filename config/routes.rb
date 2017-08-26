@@ -39,8 +39,8 @@ Rails.application.routes.draw do
     resources :issues, except: [:new, :edit] do
       member do
         get :attachments
-        post :attachments
-        delete :attachments
+        post :attachments, to: "issues#add_attachment"
+        delete :attachments, to: "issues#delete_attachment"
 
         get :comments
         post :comments
