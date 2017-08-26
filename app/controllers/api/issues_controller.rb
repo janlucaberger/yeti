@@ -22,7 +22,6 @@ class Api::IssuesController < ApplicationController
   end
 
   def update
-    #
     issue_id = params[:issue][:id]
     column = params[:issue].keys.select{ |param| param != "id" }[0].to_sym
     previous_value = Issue.where(id: issue_id )[0][column]
@@ -35,6 +34,29 @@ class Api::IssuesController < ApplicationController
     end
   end
 
+
+  def add_attachment
+    @attachment = Attachment.new(user_id: current_user.id, issue_id: params[:id], attachment: params[:issue][:attachment])
+    if @attachment.save
+      render "api/attachments/show"
+    else
+      render json: @attachment.errors.full_messages
+    end
+  end
+
+  def delete_attachment
+    @attachment = Attachment.find(params[:attachment][:attachment_id])
+    if @attachment.destroy
+      render "api/attachments/show"
+    else
+      render json: @attachment.errors.full_messages
+    end
+  end
+
+  def history
+    @issue_histories = IssueAudit.includes(:user).where(issue_id: params[:id])
+    render "/api/issues/history"
+  end
 
   private
 
