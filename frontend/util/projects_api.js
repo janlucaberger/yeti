@@ -17,3 +17,10 @@ export const createNewProject = formData => {
     data: formData
   })
 }
+
+export const fetchProject = id => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/projects/${id}`
+  })
+}
