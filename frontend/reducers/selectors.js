@@ -32,3 +32,15 @@ export const getIssueHistory = (state, issue_id) => {
 export const getUserInfo = (state, user_id) => {
   return state.users[user_id]
 }
+
+export const getIssuesByStatus = state => {
+  const issuesByStatus = {}
+    Object.values(state.issues).forEach(issue => {
+      if(typeof issuesByStatus[issue.status_type_id] === "undefined"){
+        issuesByStatus[issue.status_type_id] = [issue]
+      } else {
+        issuesByStatus[issue.status_type_id] = issuesByStatus[issue.status_type_id].concat(issue)
+      }
+    })
+  return issuesByStatus
+}
