@@ -6,6 +6,7 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util'
 import NavigationContainer from './navigation/navigation_container'
 import DashboardContainer from './views/dashboard_container'
 import ProjectsContainer from './views/projects_container'
+import ProjectDetailContainer from './views/project_detail_container'
 import IssueDetailContainer from './views/issue_detail_container'
 import Modal from './modal/modal';
 import Loading from './loading/loading';
@@ -16,8 +17,9 @@ const ProtectedContent = (props) => {
       <ProtectedRoute path="/" component={NavigationContainer} />
       <div className="content-container">
         <Switch>
-          <ProtectedRoute path="/projects" component={ProjectsContainer} />
           <ProtectedRoute path="/issues/:id" component={IssueDetailContainer} />
+          <ProtectedRoute path="/projects/:id" component={ProjectDetailContainer} />
+          <ProtectedRoute exact path="/projects" component={ProjectsContainer} />
           <ProtectedRoute path="/" component={DashboardContainer} />
         </Switch>
       </div>
