@@ -24,6 +24,7 @@
         "resolution": "Unresolved",
         "summary": "Create a sample state",
         "description": "<p><strong class='ql-size-large'>Things to do</strong></p><p><br></p><ul><li>Develop an initial idea of what the state will be like in the app.</li></ul><p><br></p>",
+        "attachment_ids": [1,2,3,4],
         "history_ids": [1,2,3,4],
         "comment_ids": [1,2,3,4],
         "created_at": "2017-08-23T18:25:43.511Z",
