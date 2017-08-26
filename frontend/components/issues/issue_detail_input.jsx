@@ -15,6 +15,7 @@ class IssueDetailInput extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.enterSubmit = this.enterSubmit.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.closeConfirmBox = this.closeConfirmBox.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
@@ -25,14 +26,25 @@ class IssueDetailInput extends React.Component {
 
   showConfirmBox(){
     this.setState({display_confirmation: true})
+    // document.addEventListener("click", this.closeConfirmBox)
   }
+
+  closeConfirmBox(e){
+
+    if(this.node.contains(e.target)){
+      return;
+    }
+    this.hideConfirmBox()
+  }
+
   hideConfirmBox(){
     this.setState({
       display_confirmation: false,
       input: this.props.value
     })
-    this.issueInput.blur()
+    this.node.blur()
   }
+
 
   handleChange(e){
     e.preventDefault();
@@ -56,20 +68,19 @@ class IssueDetailInput extends React.Component {
     }
   }
 
-  handleSubmit(){
+  handleSubmit(e){
 
     if(this.state.value !== this.props.value){
       this.props.updateIssue(this.props.changeKey, this.state.input)
     }
     this.hideConfirmBox()
-    this.issueInput.blur()
+    this.node.blur()
   }
 
   render(){
     return(
-      <div className="issue-detail-form-container">
+      <div ref={node => { this.node = node}} className="issue-detail-form-container">
         <input
-          ref={(input) => { this.issueInput = input}}
           onChange={this.handleChange}
           onFocus={this.showConfirmBox}
           onBlur={this.hideConfirmBox}
