@@ -6,12 +6,12 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
-  has_attached_file :avatar, default_url: "default_avatar.png"
+  has_attached_file :avatar, default_url: "https://s3.amazonaws.com/yetiapp-assets/default_avatar.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   has_many :users_teams, class_name: :UsersTeams
-  has_many :teams,
-    through: :users_teams
+  has_many :teams, through: :users_teams
+  has_many :attachments
 
   attr_reader :password
 

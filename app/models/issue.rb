@@ -6,6 +6,7 @@ class Issue < ApplicationRecord
   belongs_to :project
   has_one :team,
     through: :project
+  has_many :attachments
 
 
   def self.get_history
