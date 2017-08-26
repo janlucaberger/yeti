@@ -23,6 +23,11 @@ export const fetchAllProjects = () => dispatch => {
     dispatch(receiveAllProjects(projects))
   })
 }
+export const fetchProject = id => dispatch => {
+  return ApiUtil.fetchProject(id).then((project) => {
+    dispatch(receiveProject(project))
+  })
+}
 
 export const createNewProject = (project) => dispatch => {
   return ApiUtil.createNewProject(project).then((newProject) => {
