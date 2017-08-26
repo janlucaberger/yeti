@@ -1,3 +1,22 @@
+.issue-detail-main-container{
+  width: 100%;
+  display: flex;
+  // background: yellow;
+}
+.issue-detail-sidebar-container{
+  width: 35%;
+  // background: blue;
+}
+.issue-detail-content-container{
+  width: 65%;
+  // background: red;
+}
+
+.issue-detail-command-container{
+  width: 100%;
+  // background-color: green;
+  height: 60px;
+}
 .issue-detail-container{
   width: 100%;
   height: 400px;
@@ -113,6 +132,8 @@
 
 .issue-description-container{
   position: relative;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .issue-description-preview:focus{
@@ -120,6 +141,105 @@
 }
 
 .issue-description-editor{
-  position: absolute;
+  position: relative;
   top: 0;
+}
+
+.issue-detail-section-header{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.issue-attachment-preview-container{
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  margin: 12px;
+  padding: 10px;
+  justify-content: space-between;
+  color: #000
+}
+
+.issue-attachment-preview-container:hover{
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.issue-attachment-previews-container{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px;
+}
+
+.issue-attachment-file-name{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.issue-attachment-preview-image{
+  border: 1px solid lightgray;
+  margin-bottom: 5px;
+  height: 95px;
+  width: 100%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.issue-attachment-preview-button-container{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+
+.dropzone:hover{
+  background: #ececec;
+  width: 100%;
+}
+
+.history-item-container{
+  margin-bottom: 25px;
+}
+
+.history-user-info{
+  width: 100%;
+  display: flex;
+  margin-right: 10px
+}
+
+.history-user-info-text{
+  font-size: 13px;
+  align-items: center;
+  display: flex;
+  margin-left: 11px;
+}
+
+.history-user-username{
+  font-size: 13px;
+  font-weight: 600
+}
+
+.history-change-info > table > thead > tr > td {
+  font-size: 11px;
+  font-weight: 500;
+  color: gray;
+  padding-bottom: 4px;
+  padding-left: 0px;
+}
+
+.history-change-info > table > tbody > td {
+  padding-left: 0px;
+  font-weight: 500;
+  padding-top: 4px;
+  width: 40%
+}
+
+.history-change-info > table > tbody > td:first-child{
+  width: 100px;
 }
