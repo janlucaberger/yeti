@@ -42,3 +42,10 @@ export const deleteIssueAttachment = issueAttachment => {
     data: { attachment: issueAttachment }
   })
 }
+
+export const createIssue = issue => {
+  return $.ajax({
+    method: "POST",
+    url: `/api/issues/`
+  })
+}
