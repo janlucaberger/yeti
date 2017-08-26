@@ -1,0 +1,59 @@
+.test{
+  width: 200px;
+  height: 40px;
+  background-color: red
+}
+
+.project-sprint-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.sprint-dropzone-container{
+  width: 30%;
+  background-color: #e3e3e4;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.sprint-dropzone-title{
+  font-size: 16px;
+  margin-bottom: 4px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-weight: 600;
+  color: #4a4a4a;
+}
+
+.project-sprint-widget-container{
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  padding: 9px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+}
+
+.project-sprint-widget-container:hover{
+  border-color: rgb(6, 51, 233)
+}
+
+.project-sprint-summary{
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.project-sprint-secondary{
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.widget-hide{
+  transform:translateX(-9999px);
+}
