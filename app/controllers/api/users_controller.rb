@@ -9,7 +9,7 @@ class Api::UsersController < ApplicationController
         @current_team = @user.teams.first
         render "/api/session/show"
       else
-        
+
         render json: @user.errors.full_messages
       end
     end
@@ -17,7 +17,7 @@ class Api::UsersController < ApplicationController
 
   def index
     if params[:query].blank?
-      @users = User.all
+      @users = User.joins(:users_teams).where("team_id = ?", 57)
     else
       @user = User.find_by(email: params[:query])
       render "/api/users/show"
