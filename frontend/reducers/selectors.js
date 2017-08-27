@@ -33,14 +33,21 @@ export const getUserInfo = (state, user_id) => {
   return state.users[user_id]
 }
 
-export const getIssuesByStatus = state => {
+export const getIssuesByStatus = (state, projectId) => {
   const issuesByStatus = {}
     Object.values(state.issues).forEach(issue => {
-      if(typeof issuesByStatus[issue.status_type_id] === "undefined"){
+      if(typeof issuesByStatus[issue.status_type_id] === "undefined"
+        && issue.project_id == projectId){
         issuesByStatus[issue.status_type_id] = [issue]
-      } else {
+      } else if (issue.project_id == projectId){
         issuesByStatus[issue.status_type_id] = issuesByStatus[issue.status_type_id].concat(issue)
       }
     })
   return issuesByStatus
+}
+
+
+
+export const getIssuesArray = state => {
+  return Object.values(state.issues)
 }

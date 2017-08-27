@@ -1,6 +1,7 @@
 import * as ApiUtil from '../../util/issue_api'
 
 export const RECEIVE_ISSUE = "RECEIVE_ISSUE"
+export const RECEIVE_ALL_ISSUES = "RECEIVE_ALL_ISSUES"
 export const RECEIVE_ISSUE_ATTACHMENT = "RECEIVE_ISSUE_ATTACHMENT"
 export const RECEIVE_ISSUE_HISTORY = "RECEIVE_ISSUE_HISTORY"
 export const REMOVE_ISSUE_ATTACHMENT = "REMOVE_ISSUE_ATTACHMENT"
@@ -11,6 +12,12 @@ export const receiveIssue = issue => {
   return{
     type: RECEIVE_ISSUE,
     issue
+  }
+}
+export const receiveAllIssues = issues => {
+  return{
+    type: RECEIVE_ALL_ISSUES,
+    issues
   }
 }
 export const receiveIssueAttachment = attachment => {
@@ -50,6 +57,14 @@ export const fetchIssue = id => dispatch =>{
     )
 }
 
+export const fetchAllIssues = () => dispatch =>{
+  return ApiUtil.fetchAllIssues()
+    .then(
+      issues => dispatch(receiveAllIssues(issues)),
+      err => dispatch(receiveIssueError(err.responseJSON))
+    )
+}
+
 export const fetchIssueHistory = id => dispatch =>{
   return ApiUtil.fetchIssueHistory(id)
     .then(
@@ -78,6 +93,14 @@ export const deleteIssueAttachment = issueAttachment => dispatch =>{
   return ApiUtil.deleteIssueAttachment(issueAttachment)
     .then(
       attachment => dispatch(removeIssueAttachment(attachment)),
+      err => dispatch(receiveIssueError(err.responseJSON))
+    )
+}
+
+export const createIssue = issue => dispatch =>{
+  return ApiUtil.createIssue(issue)
+    .then(
+      issue => dispatch(receiveIssue(issue)),
       err => dispatch(receiveIssueError(err.responseJSON))
     )
 }

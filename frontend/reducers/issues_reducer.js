@@ -2,6 +2,7 @@ import _ from "lodash";
 
 import {
   RECEIVE_ISSUE,
+  RECEIVE_ALL_ISSUES,
   RECEIVE_ISSUE_ERROR,
   RECEIVE_ISSUE_ATTACHMENT,
   REMOVE_ISSUE_ATTACHMENT,
@@ -19,6 +20,8 @@ const issuesReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_ISSUE:
       return _.merge({}, state, action.issue.issue)
+    case RECEIVE_ALL_ISSUES:
+      return action.issues.issues
     case RECEIVE_PROJECT:
       return _.merge({}, state, action.project.issues)
     case REMOVE_ISSUE_ATTACHMENT:
