@@ -1,6 +1,18 @@
 class Api::IssuesController < ApplicationController
 
   def index
+    # @issues = Issue.find_by_sql(["
+    #   SELECT
+    #     *
+    #   FROM
+    #     issues AS i
+    #   JOIN
+    #     projects p ON p.id = i.project_id
+    #   WHERE
+    #     p.team_id = ? ", 57])
+    @issues = Issue.joins(:project).where("team_id = ? ", 57)
+
+    render "/api/issues/index"
   end
 
   def show
@@ -9,12 +21,14 @@ class Api::IssuesController < ApplicationController
   end
 
   def create
+
     @issue = Issue.new(issue_params)
     project_key = Project.where(id: params[:issue][:project_id])[0].key
     id = Issue.where(project_id: params[:issue][:project_id]).count + 1
     @issue.key = "#{project_key}-#{id}"
+    @issue.status_type_id = StatusType.where(status_type: "Todo").to_a[0].id
 
-    if @issue.save
+    if @issue.save!
       render "/api/issues/show"
     else
       render json: @issue.errors.full_messages
@@ -27,6 +41,15 @@ class Api::IssuesController < ApplicationController
     previous_value = Issue.where(id: issue_id )[0][column]
     new_value = params[:issue][column]
     @issue = Issue.find(issue_id)
+
+    doneStatus = StatusType.where(status_type: "Done").to_a[0].id
+
+    if params[:issue][:status_type_id] == doneStatus
+      @issue.update(resolution: "resolved")
+    else
+      @issue.update(resolution: "unresolved")
+    end
+
     Issue.transaction do
       @issue.update(issue_params)
       IssueAudit.create(issue_id: params[:issue][:id], column_changed: column, from: previous_value, to: new_value, user_id: current_user.id)
@@ -61,7 +84,7 @@ class Api::IssuesController < ApplicationController
   private
 
   def issue_params
-    params.require(:issue).permit(:project_id, :summary, :description, :issue_type_id, :status_type_id, :priority_type_id, :active, :sprint)
+    params.require(:issue).permit(:project_id, :summary, :description, :issue_type_id, :status_type_id, :assigned_user_id, :priority_type_id, :active, :sprint)
   end
 
 end
