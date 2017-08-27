@@ -25,7 +25,6 @@
 
 .issue-detail-form-container{
   position: relative;
-  width: 50%;
 }
 
 .issue-detail-form-text{
@@ -242,4 +241,8 @@
 
 .history-change-info > table > tbody > td:first-child{
   width: 100px;
+}
+
+.history-icon{
+  margin-right: 8px;
 }

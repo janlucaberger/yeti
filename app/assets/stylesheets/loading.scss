@@ -12,3 +12,18 @@
   align-items: center;
   justify-content: center;
 }
+
+
+.full-loading-container{
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background: rgba(251, 251, 255, 1);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-active{
+  display: flex;
+}
