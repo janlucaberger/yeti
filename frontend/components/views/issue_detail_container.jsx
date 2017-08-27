@@ -9,6 +9,7 @@ import {
   } from '../../actions/issues/issues_actions';
 import { fetchIssueTypes, fetchPriorityTypes, fetchStatusTypes } from '../../actions/ui_actions';
 import { getIssueTypesArray, getAttachments, getIssueHistory } from '../../reducers/selectors';
+import { showLoading, hideLoading} from '../../actions/ui_actions'
 import IssueDetailInput from '../issues/issue_detail_input';
 import IssueDetailStatus from '../issues/issue_detail_status';
 import IssueStatus from '../issues/issue_status';
@@ -27,6 +28,13 @@ class IssueDetailContainer extends React.Component {
       issue: null
     }
     this.addAttachment = this.addAttachment.bind(this)
+    this.handleDefault = this.handleDefault.bind(this)
+  }
+
+  loadingFinished(){
+    setTimeout(() => {
+      this.props.hideLoading()
+    },1300)
   }
 
   componentWillReceiveProps(nextProps){
@@ -38,10 +46,11 @@ class IssueDetailContainer extends React.Component {
   }
 
   componentDidMount(){
+    this.props.showLoading()
     this.props.fetchIssue(this.props.issueId)
     this.props.fetchIssueTypes()
     this.props.fetchPriorityTypes()
-    this.props.fetchStatusTypes()
+    this.props.fetchStatusTypes().then(() => loadingFinished())
     // this.props.fetchIssueHistory(this.props.issueId)
   }
 
@@ -60,6 +69,10 @@ class IssueDetailContainer extends React.Component {
     }
   }
 
+  handleDefault(e){
+    e.preventDefault()
+  }
+
   addAttachment(attachment){
     this.props.addAttachment(attachment)
   }
@@ -76,7 +89,7 @@ class IssueDetailContainer extends React.Component {
           <div className="issue-detail-main-container">
             <div className="issue-detail-content-container">
               <div>current project / issue key</div>
-              <form>
+              <form onSubmit={this.handleDefault}>
                 <IssueDetailInput
                   className="issue-detail-form-text issue-detail-summary"
                   changeKey="summary"
@@ -177,6 +190,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    showLoading: () => dispatch(showLoading()),
+    hideLoading: () => dispatch(hideLoading()),
     fetchIssue: (id) => dispatch(fetchIssue(id)),
     updateIssue: (issue) => dispatch(updateIssue(issue)),
     fetchIssueTypes: () => dispatch(fetchIssueTypes()),

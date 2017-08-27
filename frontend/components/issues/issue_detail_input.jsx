@@ -63,14 +63,13 @@ class IssueDetailInput extends React.Component {
 
   enterSubmit(e){
     if(e.key === "Enter"){
-      console.log("Enter pressed!")
+      e.preventDefault()
       this.handleSubmit()
     }
   }
 
   handleSubmit(e){
-
-    if(this.state.value !== this.props.value){
+    if(this.state.input !== this.props.value){
       this.props.updateIssue(this.props.changeKey, this.state.input)
     }
     this.hideConfirmBox()

@@ -23,6 +23,7 @@ class IssueHistory extends React.Component{
   }
 
   formatData(column_name, from, to){
+
     switch (column_name) {
       case "priority_type_id":
         return(
@@ -31,11 +32,11 @@ class IssueHistory extends React.Component{
               Priority
             </td>
             <td>
-              <img width="15px" src={this.props.priorityTypes[from].icon_url} />
+              <img className="history-icon" width="15px" src={this.props.priorityTypes[from].icon_url} />
               {this.props.priorityTypes[from].priority_type}
             </td>
             <td>
-              <img width="15px" src={this.props.priorityTypes[to].icon_url} />
+              <img className="history-icon" width="15px" src={this.props.priorityTypes[to].icon_url} />
               {this.props.priorityTypes[to].priority_type}
             </td>
           </tbody>
@@ -47,11 +48,10 @@ class IssueHistory extends React.Component{
               Status
             </td>
             <td>
-              <img width="15px" src={this.props.status_type[from].icon_url} />
+
               {this.props.statusTypes[from].status_type}
             </td>
             <td>
-              <img width="15px" src={this.props.status_type[to].icon_url} />
               {this.props.statusTypes[to].status_type}
             </td>
           </tbody>
@@ -63,9 +63,11 @@ class IssueHistory extends React.Component{
               Issue Type
             </td>
             <td>
+              <img className="history-icon" width="15px" src={this.props.issueTypes[from].icon_url} />
               {this.props.issueTypes[from].issue_type}
             </td>
             <td>
+              <img className="history-icon" width="15px" src={this.props.issueTypes[to].icon_url} />
               {this.props.issueTypes[to].issue_type}
             </td>
           </tbody>
@@ -144,7 +146,7 @@ class IssueHistory extends React.Component{
   render(){
 
     if(this.props.getIssueHistory(this.props.issueId).length > 0){
-      // debugger
+      //
       return(
         <div>Issue History
           {this.mapHistory()}

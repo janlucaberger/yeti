@@ -3,11 +3,12 @@ import React from 'react';
 class Dropdown extends React.Component{
   constructor(props){
     super(props);
-
+    debugger
     this.state = {
       showOptions: false,
-      current_option: "",
-      current_option_icon: ""
+      loading: true,
+      current_option: this.props.currentOption[this.props.item],
+      current_option_icon: this.props.currentOption[this.props.iconKey]
     }
     this.showOptions = this.showOptions.bind(this)
     this.hideOptions = this.hideOptions.bind(this)
@@ -20,10 +21,11 @@ class Dropdown extends React.Component{
     let current_option =  {};
     if(nextProps.currentOption){
       current_option = nextProps.currentOption
-    } 
+    }
     this.setState({
-      current_option: current_option[this.props.item],
-      current_option_icon: current_option[this.props.iconKey],
+      loading: false,
+      current_option: current_option[nextProps.item],
+      current_option_icon: current_option[nextProps.iconKey],
     })
   }
 

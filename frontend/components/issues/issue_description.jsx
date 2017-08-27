@@ -47,7 +47,8 @@ class IssueDescription extends React.Component{
     return { __html: this.state.initial_text}
   }
 
-  handleSubmit(){
+  handleSubmit(e){
+    e.preventDefault()
     this.props.updateIssue("description", this.state.text)
     this.setState({ initial_text: this.state.text},
       () => this.hideEditor()

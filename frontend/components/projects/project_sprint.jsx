@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getIssuesByStatus } from '../../reducers/selectors';
 import ProjectSprintWidget from './project_sprint_widget';
 import { updateIssue } from '../../actions/issues/issues_actions';
-
+import { fetchIssueTypes, fetchPriorityTypes } from '../../actions/ui_actions'
 
 class ProjectSprint extends React.Component{
   constructor(props){
@@ -15,6 +15,10 @@ class ProjectSprint extends React.Component{
     this.updateIssueStatus = this.updateIssueStatus.bind(this)
   }
 
+  componentDidMount(){
+    this.props.fetchIssueTypes()
+    this.props.fetchPriorityTypes()
+  }
 
   dragStart(id, status_id){
     return(event) => {
@@ -63,6 +67,7 @@ class ProjectSprint extends React.Component{
                   issue={issue}
                   ondrag={this.dragStart(issue.id, issue.status_type_id)}
                   priorityTypes={this.props.priorityTypes}
+                  issueTypes={this.props.issueTypes}
                 />
       })
     }
@@ -102,15 +107,19 @@ class ProjectSprint extends React.Component{
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+
   return{
-    issuesByStatus: getIssuesByStatus(state),
-    priorityTypes: state.ui.priority_types
+    issuesByStatus: getIssuesByStatus(state, ownProps.projectId),
+    priorityTypes: state.ui.priority_types,
+    issueTypes: state.ui.issue_types,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return{
+    fetchIssueTypes: () => dispatch(fetchIssueTypes()),
+    fetchPriorityTypes: () => dispatch(fetchPriorityTypes()),
     updateIssue: (issue) => dispatch(updateIssue(issue))
   }
 }

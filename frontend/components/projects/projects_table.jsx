@@ -4,7 +4,7 @@ import { getProjectsArray } from "../../reducers/selectors";
 import { fetchAllProjects } from '../../actions/projects/projects_actions';
 import { showLoading, hideLoading} from '../../actions/ui_actions'
 import TimeAgo from 'react-timeago'
-
+import { Link } from 'react-router-dom'
 
 class ProjectsTable extends React.Component {
   constructor(){
@@ -32,7 +32,7 @@ class ProjectsTable extends React.Component {
   loadingFinished(){
     setTimeout(() => {
       this.props.hideLoading()
-    },1000)
+    },1300)
   }
 
 
@@ -42,7 +42,7 @@ class ProjectsTable extends React.Component {
 
       switch (header) {
         case "id":
-          return ""
+          return <td></td>
         case "created_at":
           return (
             <td key={idx}>
@@ -56,7 +56,7 @@ class ProjectsTable extends React.Component {
             </td>
           )
         default:
-          return <td key={idx}>{value}</td>
+          return   <td key={idx}><Link to={`/projects/${project.id}/sprint`} >{value}</Link></td>
       }
     })
   }

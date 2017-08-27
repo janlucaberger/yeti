@@ -8,8 +8,10 @@ import DashboardContainer from './views/dashboard_container'
 import ProjectsContainer from './views/projects_container'
 import ProjectDetailContainer from './views/project_detail_container'
 import IssueDetailContainer from './views/issue_detail_container'
+import IssuesContainer from './views/issues_container'
 import Modal from './modal/modal';
 import Loading from './loading/loading';
+import FullLoading from './loading/full_loading';
 
 const ProtectedContent = (props) => {
   return(
@@ -20,8 +22,10 @@ const ProtectedContent = (props) => {
           <ProtectedRoute path="/issues/:id" component={IssueDetailContainer} />
           <ProtectedRoute path="/projects/:id" component={ProjectDetailContainer} />
           <ProtectedRoute exact path="/projects" component={ProjectsContainer} />
+          <ProtectedRoute exact path="/issues" component={IssuesContainer} />
           <ProtectedRoute path="/" component={DashboardContainer} />
         </Switch>
+        <FullLoading />
       </div>
       <Loading />
       <Modal component={props.modal_component} props={props.modal_props}/>

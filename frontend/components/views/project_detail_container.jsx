@@ -19,6 +19,7 @@ class ProjectDetailContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     this.projectId = nextProps.match.params.id
+    this.props.fetchProject(nextProps.match.params.id)
   }
 
   render(){
