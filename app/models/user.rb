@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :users_teams, class_name: :UsersTeams
   has_many :teams, through: :users_teams
   has_many :attachments
+  has_many :assigned_issues, class_name: :Issue, foreign_key: :assigned_user_id
 
   attr_reader :password
 
