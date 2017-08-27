@@ -7,6 +7,14 @@ export const fetchIssue = id => {
   })
 }
 
+export const fetchAllIssues = () => {
+  
+  return $.ajax({
+    method: "GET",
+    url: `/api/issues`
+  })
+}
+
 export const fetchIssueHistory = id => {
   return $.ajax({
     method: "GET",
@@ -46,6 +54,7 @@ export const deleteIssueAttachment = issueAttachment => {
 export const createIssue = issue => {
   return $.ajax({
     method: "POST",
-    url: `/api/issues/`
+    url: `/api/issues/`,
+    data: { issue }
   })
 }

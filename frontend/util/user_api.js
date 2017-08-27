@@ -14,3 +14,11 @@ export const createUser = user => {
     data: { user }
   })
 }
+
+
+export const fetchAllUsers = () =>{
+  return $.ajax({
+    method: "GET",
+    url: "/api/users"
+  })
+}
