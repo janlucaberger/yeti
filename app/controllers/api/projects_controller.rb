@@ -3,8 +3,7 @@ class Api::ProjectsController < ApplicationController
   before_action :ensure_logged_in if Rails.env.production?
 
   def index
-    # @projects = Project.all.where(team_id: current_team.id)
-    @projects = Project.all.where(team_id: 41)
+    @projects = Project.all.where(team_id: current_team.id)
   end
 
   def create
