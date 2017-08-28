@@ -4,6 +4,7 @@ import { fetchProject } from '../../actions/projects/projects_actions';
 import { Route } from 'react-router';
 import ProjectSprint from '../projects/project_sprint';
 import { fetchPriorityTypes } from '../../actions/ui_actions';
+import ProjectBacklog from '../projects/project_backlog';
 
 class ProjectDetailContainer extends React.Component {
   constructor(props){
@@ -26,6 +27,7 @@ class ProjectDetailContainer extends React.Component {
     return(
       <div className="content-inner-container">Project Detail
         <Route path="/projects/:id/sprint" render={() => <ProjectSprint projectId={this.projectId}/> } />
+        <Route path="/projects/:id/backlog" component={ProjectBacklog} />
       </div>
     )
   }

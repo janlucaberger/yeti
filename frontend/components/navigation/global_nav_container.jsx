@@ -29,12 +29,15 @@ class GlobalNavContainer extends React.Component {
       <div className='global-nav-container'>
         <div className='global-nav-button-container'>
           <GlobalNavButton link={this.props.logout} icon="search" size="1"/>
-          <button onClick={() => this.createNewIssue()} >NEW ISSUE</button>
+          <div className="global-nav-button">
+            <img onClick={this.createNewIssue} src="https://s3.amazonaws.com/yetiapp-assets/plus.png" width="18px" />
+          </div>
+
 
         </div>
         <div className='global-nav-button-container align-bottom'>
           <GlobalNavButton link={""} icon="plus" size="1" />
-          <button onClick={this.showUserPopup} >Test</button>
+          <img onClick={this.showUserPopup} src="http://s3.amazonaws.com/yetiapp-assets/profile_icon.png" width="35px"/>
         </div>
       </div>
     )

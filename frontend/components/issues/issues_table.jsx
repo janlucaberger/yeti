@@ -29,8 +29,11 @@ class IssuesTable extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("receiving next props")
-    
+    if(this.props.issuesArray.length > 0){
+      this.setState({
+        tableHeaders: Object.keys(this.props.issuesArray[0]),
+      })
+    }
   }
 
   componentDidMount(){
@@ -40,10 +43,17 @@ class IssuesTable extends React.Component {
     this.props.fetchStatusTypes()
     this.props.fetchIssueTypes()
     this.props.fetchAllIssues().then(() => {
-      this.setState({
-        tableHeaders: Object.keys(this.props.issuesArray[0]),
-        loading: false
-      }, this.loadingFinished)
+      if(this.props.issuesArray.length > 0){
+        this.setState({
+          tableHeaders: Object.keys(this.props.issuesArray[0]),
+          loading: false
+        })
+      } else {
+        this.setState({
+          loading: false
+        })
+      }
+      this.loadingFinished()
     })
     console.log("Finished requests")
   }
@@ -62,7 +72,7 @@ class IssuesTable extends React.Component {
       // if(typeof this.props[issue[header]] === "undefined"){
       //   return <td key={idx}>--</td>
       // } else {
-      //   
+      //
         switch (header) {
           case "id":
             return <td key={idx}>--</td>

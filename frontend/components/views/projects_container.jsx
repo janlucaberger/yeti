@@ -4,7 +4,7 @@ import { fetchAllProjects } from '../../actions/projects/projects_actions';
 import ProjectsTable from '../projects/projects_table';
 import { showModal } from '../../actions/ui_actions';
 import NewProjectForm from '../projects/new_project_form';
-
+import { Route } from 'react-router-dom'
 class ProjectsContainer extends React.Component {
   constructor(){
     super();
@@ -22,8 +22,8 @@ class ProjectsContainer extends React.Component {
       <div className="content-inner-container">
         <div className="content-header">Projects
           <button className="primary-button" onClick={this.createProjectForm}>Create new Project</button>
-        </div>  
-        <ProjectsTable />
+        </div>
+        <Route path="/projects" exact component={ProjectsTable} />
       </div>
     )
   }

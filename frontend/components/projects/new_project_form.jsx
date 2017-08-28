@@ -22,6 +22,7 @@ class NewProjectForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setKey = this.setKey.bind(this)
     this.handleImageUrl = this.handleImageUrl.bind(this)
+    this.renderErrors = this.renderErrors.bind(this)
   }
 
   setKey(){
@@ -91,6 +92,12 @@ class NewProjectForm extends React.Component {
     })
   }
 
+  renderErrors(){
+    if(this.props.errors !== null){
+      const errors = this.props.errors.join(". ")
+      return <div className="new-item-errors">{errors}</div>
+    }
+  }
 
   renderAvatarPreview(){
     let src;
@@ -126,12 +133,19 @@ class NewProjectForm extends React.Component {
               <input onChange={this.handleImageUrl} type="file" placeholder="Choose Avatar" accept="image/*"/>
             </div>
         </div>
+        {this.renderErrors()}
         <div className="new-item-form-footer">
           <button className="secondary-button white-background" onClick={this.props.closeModal}>Cancel</button>
           <button className="primary-button blue-background" onClick={this.handleSubmit}>Add</button>
         </div>
       </div>
     )
+  }
+}
+
+const mapStateToProps = state => {
+  return{
+    errors: state.errors.projects
   }
 }
 
@@ -142,4 +156,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(NewProjectForm)
+export default connect(mapStateToProps, mapDispatchToProps)(NewProjectForm)

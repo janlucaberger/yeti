@@ -83,6 +83,13 @@ class NewIssueForm extends React.Component{
     })
   }
 
+  renderErrors(){
+    if(this.props.errors !== null){
+      const errors = this.props.errors.join(". ")
+      return <div className="new-item-errors">{errors}</div>
+    }
+  }
+
   formatUserName(users){
     let formated = {}
     for(let key in users){
@@ -158,7 +165,7 @@ class NewIssueForm extends React.Component{
               width="200px"
             />
           </div>
-
+          {this.renderErrors()}
           <div className="new-item-form-footer">
             <button className="secondary-button white-background" onClick={this.props.closeModal}>Cancel</button>
             <button className="primary-button blue-background" onClick={this.handleSubmit}>Add</button>
@@ -175,6 +182,7 @@ const mapStateToProps = state => {
     priorityTypes: state.ui.priority_types,
     projects: state.projects,
     users: state.users,
+    errors: state.errors.issues
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import NavDrawerButton from './nav_drawer_button';
+import ProjectsNavigation from './projects_navigation';
 
 const NavDrawerContainer = () => {
   return(
@@ -9,6 +10,7 @@ const NavDrawerContainer = () => {
         <NavDrawerButton link="/dashboard" text="Dashboards" icon="laptop" />
         <NavDrawerButton link="/projects" text="Projects" icon="folder-o" />
         <NavDrawerButton link="/issues" text="Issues" icon="sliders" />
+        <Route path="/projects/:id" component={ProjectsNavigation} />
       </div>
     </div>
   )

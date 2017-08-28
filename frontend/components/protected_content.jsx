@@ -10,7 +10,6 @@ import ProjectDetailContainer from './views/project_detail_container'
 import IssueDetailContainer from './views/issue_detail_container'
 import IssuesContainer from './views/issues_container'
 import Modal from './modal/modal';
-import Loading from './loading/loading';
 import FullLoading from './loading/full_loading';
 
 const ProtectedContent = (props) => {
@@ -27,7 +26,6 @@ const ProtectedContent = (props) => {
         </Switch>
         <FullLoading />
       </div>
-      <Loading />
       <Modal component={props.modal_component} props={props.modal_props}/>
     </div>
   )
@@ -35,9 +33,15 @@ const ProtectedContent = (props) => {
 
 
 const mapStateToProps = state => {
+  let component = "";
+  let props = ""
+  if(typeof state.ui.modal !== "undefined"){
+    component = state.ui.modal.component
+    props = state.ui.modal.props
+  }
   return{
-    modal_component: state.ui.modal.component,
-    modal_props: state.ui.modal.props,
+    modal_component: component,
+    modal_props: props,
   }
 }
 

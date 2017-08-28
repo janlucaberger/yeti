@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getProjectsArray } from "../../reducers/selectors";
 import { fetchAllProjects } from '../../actions/projects/projects_actions';
-import { showLoading, hideLoading} from '../../actions/ui_actions'
+import { showLoading, hideLoading, receiveCurrentPage } from '../../actions/ui_actions'
 import TimeAgo from 'react-timeago'
-import { Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 class ProjectsTable extends React.Component {
   constructor(){
@@ -18,14 +18,27 @@ class ProjectsTable extends React.Component {
     this.mapRowsCell = this.mapRowsCell.bind(this)
     this.mappedHeaders = this.mappedHeaders.bind(this)
     this.loadingFinished = this.loadingFinished.bind(this)
+    this.handleProjectClick = this.handleProjectClick.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.projectsArray.length > 0){
+      this.setState({
+        tableHeaders: Object.keys(nextProps.projectsArray[0])
+      })
+    }
   }
 
   componentDidMount(){
     this.props.showLoading()
     this.props.fetchAllProjects().then(() => {
-      this.setState({
-        tableHeaders: Object.keys(this.props.projectsArray[0])
-      }, this.loadingFinished)
+      if(this.props.projectsArray.length > 0){
+        this.setState({
+          tableHeaders: Object.keys(this.props.projectsArray[0])
+        }, this.loadingFinished)
+      } else {
+        this.loadingFinished()
+      }
     })
   }
 
@@ -33,6 +46,12 @@ class ProjectsTable extends React.Component {
     setTimeout(() => {
       this.props.hideLoading()
     },1300)
+  }
+
+  handleProjectClick(id){
+      debugger
+      this.props.setPage({type: "Project", id: id})
+      this.props.routeHistory.push(`/projects/${id}/sprint`)
   }
 
 
@@ -56,9 +75,9 @@ class ProjectsTable extends React.Component {
             </td>
           )
         default:
-          return   <td key={idx}><Link to={`/projects/${project.id}/sprint`} >{value}</Link></td>
+          return <td key={idx}>{value}</td>
       }
-    })
+    }, this)
   }
 
   mappedHeaders(){
@@ -80,12 +99,13 @@ class ProjectsTable extends React.Component {
     // })
 
     const mappedRows = this.props.projectsArray.map((project) => {
+      const projectId = project.id
       return (
-        <tr className="table-row" key={project.id}>
+        <tr onClick={() => this.handleProjectClick(projectId)} className="table-row" key={project.id}>
           {this.mapRowsCell(project)}
         </tr>
       )
-    })
+    }, this)
 
     if (this.state.loading) {
       return <h1>LOADINGGGG</h1>
@@ -113,9 +133,11 @@ class ProjectsTable extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  debugger
   return {
-    projectsArray: getProjectsArray(state)
+    projectsArray: getProjectsArray(state),
+    routeHistory: ownProps.history
   }
 }
 
@@ -123,8 +145,9 @@ const mapDispatchToProps = dispatch => {
   return{
     fetchAllProjects: () => dispatch(fetchAllProjects()),
     showLoading: (props) => dispatch(showLoading(props)),
-    hideLoading: () => dispatch(hideLoading())
+    hideLoading: () => dispatch(hideLoading()),
+    setPage: (page) => dispatch(receiveCurrentPage(page)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectsTable)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProjectsTable))

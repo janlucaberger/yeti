@@ -108,7 +108,7 @@ class ProjectSprint extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
-
+  
   return{
     issuesByStatus: getIssuesByStatus(state, ownProps.projectId),
     priorityTypes: state.ui.priority_types,
