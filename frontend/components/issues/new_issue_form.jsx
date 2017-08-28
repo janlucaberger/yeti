@@ -96,7 +96,6 @@ class NewIssueForm extends React.Component{
   }
 
   render(){
-    debugger
     console.log(this.state.description)
     if(this.state.loading){
       return(

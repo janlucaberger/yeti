@@ -12,6 +12,7 @@ import {
 } from '../../actions/ui_actions'
 import TimeAgo from 'react-timeago'
 import { Link } from 'react-router-dom'
+import UserWidget from '../global/user_widget';
 
 class IssuesTable extends React.Component {
   constructor(){
@@ -27,15 +28,24 @@ class IssuesTable extends React.Component {
     this.loadingFinished = this.loadingFinished.bind(this)
   }
 
+  componentWillReceiveProps(nextProps){
+    console.log("receiving next props")
+    
+  }
+
   componentDidMount(){
+    console.log("Started Loading")
     this.props.showLoading()
-    this.props.fetchAllUsers()
+    this.props.fetchPriorityTypes()
+    this.props.fetchStatusTypes()
+    this.props.fetchIssueTypes()
     this.props.fetchAllIssues().then(() => {
       this.setState({
         tableHeaders: Object.keys(this.props.issuesArray[0]),
         loading: false
       }, this.loadingFinished)
     })
+    console.log("Finished requests")
   }
 
   loadingFinished(){
@@ -48,12 +58,14 @@ class IssuesTable extends React.Component {
   mapRowsCell(issue){
     return this.state.tableHeaders.map((header,idx) => {
       const value = issue[header] || "--";
-      if(typeof this.props[issue[header]] === "undefined"){
-        return <td>--</td>
-      } else {
+
+      // if(typeof this.props[issue[header]] === "undefined"){
+      //   return <td key={idx}>--</td>
+      // } else {
+      //   
         switch (header) {
           case "id":
-            return ""
+            return <td key={idx}>--</td>
           case "created_at":
             return (
               <td key={idx}>
@@ -65,12 +77,13 @@ class IssuesTable extends React.Component {
               <td className="table-user-container" key={idx}>
                 <img src={this.props.users[issue[header]].avatar} width="25px" />
                 {this.props.users[issue[header]].first_name} {this.props.users[issue[header]].last_name}
+                <UserWidget />
               </td>
             )
           default:
             return   <td key={idx}><Link to={`/issues/${issue.id}`} >{value}</Link></td>
         }
-      }
+      // }
     }, this)
   }
 
@@ -78,7 +91,7 @@ class IssuesTable extends React.Component {
     return this.state.tableHeaders.map((header, idx) => {
       switch (header) {
         case "id":
-          return ""
+          return <td key={idx}>--</td>
         case "assigned_user_id":
           return <th className="table-header" key={idx}>Assigned To</th>
         case "status_type_id":
@@ -97,7 +110,7 @@ class IssuesTable extends React.Component {
     // const mappedHeaders = this.state.tableHeaders.map((header, idx) => {
     //   return <th className="table-header" key={idx}>{header.split("")[0].toUpperCase() + header.split("").slice(1).join("")}</th>
     // })
-    console.log(`user ${this.props.users}`)
+    console.log(this.state.loading)
     if (this.state.loading) {
       return <h1>LOADINGGGG</h1>
     } else if (this.props.issuesArray.length === 0){

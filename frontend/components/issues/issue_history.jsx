@@ -107,7 +107,7 @@ class IssueHistory extends React.Component{
     return this.props.getIssueHistory(this.props.issueId).map(issueHistory => {
       const user = this.props.getUserInfo(issueHistory.user_id)
       return (
-        <div className="history-item-container">
+        <div key={issueHistory.id} className="history-item-container">
           <div className="history-user-info">
             <img width="25px" height="25px" src={user.avatar_url} />
             <div className="history-user-info-text">
