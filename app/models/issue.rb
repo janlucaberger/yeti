@@ -8,6 +8,8 @@ class Issue < ApplicationRecord
     through: :project
   has_many :attachments
   belongs_to :assigned_user, class_name: :User, foreign_key: :assigned_user_id
+  has_many :votes
+  has_many :watchers
 
   def self.get_history
   end

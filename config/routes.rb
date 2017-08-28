@@ -46,10 +46,10 @@ Rails.application.routes.draw do
         post :comments
         delete :comments
 
-        post :votes
+        post :votes, to: "issues#add_vote"
         delete :votes
 
-        post :watchers
+        post :watchers, to: "issues#add_watcher"
         delete :watchers
 
         get :history

@@ -6,6 +6,8 @@ export const RECEIVE_ISSUE_ATTACHMENT = "RECEIVE_ISSUE_ATTACHMENT"
 export const RECEIVE_ISSUE_HISTORY = "RECEIVE_ISSUE_HISTORY"
 export const REMOVE_ISSUE_ATTACHMENT = "REMOVE_ISSUE_ATTACHMENT"
 export const RECEIVE_ISSUE_ERROR = "RECEIVE_ISSUE_ERROR"
+export const RECEIVE_VOTE = "RECEIVE_VOTE"
+export const RECEIVE_WATCHER = "RECEIVE_WATCHER"
 
 
 export const receiveIssue = issue => {
@@ -45,6 +47,19 @@ export const receiveIssueError = error => {
   return{
     type: RECEIVE_ISSUE_ERROR,
     error
+  }
+}
+
+export const receiveVote = vote => {
+  return{
+    type: RECEIVE_VOTE,
+    vote
+  }
+}
+export const receiveWatcher = watcher => {
+  return{
+    type: RECEIVE_WATCHER,
+    watcher
   }
 }
 
@@ -101,6 +116,20 @@ export const createIssue = issue => dispatch =>{
   return ApiUtil.createIssue(issue)
     .then(
       issue => dispatch(receiveIssue(issue)),
+      err => dispatch(receiveIssueError(err.responseJSON))
+    )
+}
+export const createVote = issueId => dispatch =>{
+  return ApiUtil.createVote(issueId)
+    .then(
+      vote => dispatch(receiveVote(vote)),
+      err => dispatch(receiveIssueError(err.responseJSON))
+    )
+}
+export const createWatcher = issueId => dispatch =>{
+  return ApiUtil.createWatcher(issueId)
+    .then(
+      watcher => dispatch(receiveWatcher(watcher)),
       err => dispatch(receiveIssueError(err.responseJSON))
     )
 }
