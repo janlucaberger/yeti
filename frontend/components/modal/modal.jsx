@@ -12,6 +12,7 @@ class Modal extends React.Component{
 
     this.showModal = this.showModal.bind(this)
     this.hideModal = this.hideModal.bind(this)
+    this.renderModalClasses = this.renderModalClasses.bind(this)
     this.showModal()
   }
 
@@ -27,6 +28,15 @@ class Modal extends React.Component{
     this.props.hideModal();
   }
 
+  renderModalClasses(){
+    if(typeof this.props.props === "undefined" || this.props.props === null){
+      return "modal"
+    } else {
+      const newStyles = Object.values(this.props.props)
+      return ["modal"].concat(newStyles).join(" ")
+    }
+  }
+
   render(){
     if(this.props.display){
       let Component = "";
@@ -38,7 +48,7 @@ class Modal extends React.Component{
       return(
         <div className="modal-container">
           <div onClick={this.hideModal} className="modal-hide-field" />
-          <div className="modal">
+          <div className={this.renderModalClasses()}>
             <Component />
           </div>
         </div>
