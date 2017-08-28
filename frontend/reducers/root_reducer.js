@@ -8,16 +8,20 @@ import issuesReducer from './issues_reducer';
 import attachmentsReducer from './attachments_reducer';
 import issuesHistoryReducer from './issues_history_reducer';
 import usersReducer from './users_reducer';
+import errorsReducer from './errors_reducer';
+import teamActivityReducer from './team_activity_reducer';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   teams: teamsReducer,
+  team_activity: teamActivityReducer,
   ui: uiReducer,
   projects: projectsReducer,
   issues: issuesReducer,
   attachments: attachmentsReducer,
   issues_history: issuesHistoryReducer,
-  users: usersReducer
+  users: usersReducer,
+  errors: errorsReducer
 })
 
 export default rootReducer

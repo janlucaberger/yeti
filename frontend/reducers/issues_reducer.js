@@ -11,6 +11,8 @@ import {
 
 } from '../actions/issues/issues_actions';
 
+import { RECEIVE_TEAM_ACTIVITY } from '../actions/teams/teams_actions'
+
 import { RECEIVE_PROJECT } from '../actions/projects/projects_actions'
 
 const issuesReducer = (state = {}, action) => {
@@ -44,10 +46,7 @@ const issuesReducer = (state = {}, action) => {
       const newAttachment = action.attachment
       newIssueState = _.merge({}, state[action.attachment.issue_id])
       currentAttachmentIds = state[action.attachment.issue_id].attachment_ids
-      //
-      let newAttachmentIds = currentAttachmentIds.concat(newAttachment.id)
-      //
-
+      newAttachmentIds = currentAttachmentIds.concat(newAttachment.id)
       newIssueState["attachment_ids"] = newAttachmentIds
 
       return _.merge({}, state, newIssueState)
@@ -61,6 +60,8 @@ const issuesReducer = (state = {}, action) => {
       newIssueState.watchers = action.watcher.watchers
       newIssueState.current_user_watched = action.watcher.current_user_watched
       return _.merge({}, state, { [newIssueState.id]:  newIssueState } )
+    case RECEIVE_TEAM_ACTIVITY:
+      return _.merge({}, state, action.activity.issues)
     default:
       return state;
   }

@@ -24,8 +24,11 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   SHOW_LOADING,
-  HIDE_LOADING
+  HIDE_LOADING,
+  RECEIVE_CURRENT_PAGE
 } from '../actions/ui_actions';
+
+import { RECEIVE_TEAM_ACTIVITY } from '../actions/teams/teams_actions'
 
 let modalState;
 let loadingState;
@@ -64,6 +67,10 @@ const uiReducer = (state = defaultState, action) => {
       return _.merge({}, state, {priority_types: action.priorityTypes})
     case RECEIVE_STATUS_TYPES:
       return _.merge({}, state, {status_types: action.statusTypes})
+    case RECEIVE_TEAM_ACTIVITY:
+      return _.merge({}, state, action.activity.ui)
+    case RECEIVE_CURRENT_PAGE:
+      return _.merge({}, state, {current_page:action.page})
     default:
       return state;
   }
