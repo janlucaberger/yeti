@@ -75,3 +75,17 @@
   display: flex;
   align-items: center;
 }
+
+.borderless-button{
+  border: none;
+  font-weight: 600;
+  background: none;
+  border-style: none;
+  font-size: 14px;
+  color: #0216ff;
+}
+
+.borderless-button:hover{
+  color: #7f87e8;
+  cursor: pointer;
+}

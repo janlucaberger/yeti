@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { showModal } from '../../actions/ui_actions';
 import NewIssueForm from '../issues/new_issue_form'
-
+import UserPopup from '../global/user_popup'
 
 
 class GlobalNavContainer extends React.Component {
@@ -13,10 +13,15 @@ class GlobalNavContainer extends React.Component {
     super(props);
 
     this.createNewIssue = this.createNewIssue.bind(this);
+    this.showUserPopup = this.showUserPopup.bind(this);
   }
 
   createNewIssue(){
     this.props.showModal(NewIssueForm);
+  }
+
+  showUserPopup(){
+    this.props.showModal(UserPopup, {lowerCorner: "lower-corner"})
   }
 
   render(){
@@ -29,6 +34,7 @@ class GlobalNavContainer extends React.Component {
         </div>
         <div className='global-nav-button-container align-bottom'>
           <GlobalNavButton link={""} icon="plus" size="1" />
+          <button onClick={this.showUserPopup} >Test</button>
         </div>
       </div>
     )

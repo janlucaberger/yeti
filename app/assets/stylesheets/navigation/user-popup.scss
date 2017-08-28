@@ -1,0 +1,23 @@
+.user-popup-container{
+  background-color: white;
+  z-index: 999;
+  box-shadow: 0 6px 14px 1px rgba(0, 0, 0, 0.48);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px
+}
+
+
+.lower-corner{
+  position: absolute;
+  left: 65px;
+  bottom: 65px;
+}
+.user-popup-username{
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px 0px;
+}
