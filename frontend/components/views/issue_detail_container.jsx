@@ -1,18 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import {
   fetchIssue,
   updateIssue,
   postIssueAttachment,
   deleteIssueAttachment,
-  fetchIssueHistory
+  fetchIssueHistory,
+  createVote,
+  createWatcher,
   } from '../../actions/issues/issues_actions';
 import { fetchIssueTypes, fetchPriorityTypes, fetchStatusTypes } from '../../actions/ui_actions';
 import { getIssueTypesArray, getAttachments, getIssueHistory } from '../../reducers/selectors';
-import { showLoading, hideLoading} from '../../actions/ui_actions'
+import { showLoading, hideLoading } from '../../actions/ui_actions'
 import IssueDetailInput from '../issues/issue_detail_input';
 import IssueDetailStatus from '../issues/issue_detail_status';
 import IssueStatus from '../issues/issue_status';
+import IssueDetailSidebar from '../issues/issue_detail_sidebar';
 import IssueDescription from '../issues/issue_description';
 import IssueAttachments from '../issues/issue_attachments';
 import IssueHistory from '../issues/issue_history';
@@ -29,6 +33,10 @@ class IssueDetailContainer extends React.Component {
     }
     this.addAttachment = this.addAttachment.bind(this)
     this.handleDefault = this.handleDefault.bind(this)
+    this.loadingFinished = this.loadingFinished.bind(this)
+    this.handleVote = this.handleVote.bind(this)
+    this.handleWatcher = this.handleWatcher.bind(this)
+    this.handleStatus = this.handleStatus.bind(this)
   }
 
   loadingFinished(){
@@ -50,7 +58,7 @@ class IssueDetailContainer extends React.Component {
     this.props.fetchIssue(this.props.issueId)
     this.props.fetchIssueTypes()
     this.props.fetchPriorityTypes()
-    this.props.fetchStatusTypes().then(() => loadingFinished())
+    this.props.fetchStatusTypes().then(() => this.loadingFinished())
     // this.props.fetchIssueHistory(this.props.issueId)
   }
 
@@ -69,8 +77,22 @@ class IssueDetailContainer extends React.Component {
     }
   }
 
+  handleVote(){
+    this.props.addVote(this.props.issueId)
+  }
+
+  handleWatcher(){
+    this.props.addWatcher(this.props.issueId)
+  }
+
   handleDefault(e){
     e.preventDefault()
+  }
+
+  handleStatus(statusId){
+    return (e) => {
+      this.props.updateIssue({status_type_id: statusId, id: this.props.issueId})
+    }
   }
 
   addAttachment(attachment){
@@ -84,7 +106,9 @@ class IssueDetailContainer extends React.Component {
       return(
         <div className="content-inner-container">
           <div className="issue-detail-command-container">
-            Commands
+            <button onClick={this.handleStatus(1)}>Todo</button>
+            <button onClick={this.handleStatus(2)}>In Progress</button>
+            <button onClick={this.handleStatus(3)}>Done</button>
           </div>
           <div className="issue-detail-main-container">
             <div className="issue-detail-content-container">
@@ -148,9 +172,17 @@ class IssueDetailContainer extends React.Component {
                 </div>
               </form>
             </div>
-            <div className="issue-detail-sidebar-container">
-              Sidebar
-            </div>
+            <IssueDetailSidebar
+              assignee={this.props.assignedUser}
+              createdAt={this.props.createdAt}
+              updatedAt={this.props.updatedAt}
+              watchers={this.props.watchers}
+              votes={this.props.votes}
+              didUserVote={this.props.didUserVote}
+              didUserWatch={this.props.didUserWatch}
+              addVote={this.handleVote}
+              addWatch={this.handleWatcher}
+            />
           </div>
         </div>
       )
@@ -175,6 +207,13 @@ const mapStateToProps = (state, ownProps) => {
   return {
     issueId: issueId,
     issue: issue,
+    assignedUser: (_.isEmpty(state.users)) ? "-" : state.users[issue.assigned_user_id],
+    votes: (typeof issue.votes == "undefined") ? 0 : issue.votes,
+    watchers: (typeof issue.watchers == "undefined") ? 0 : issue.watchers,
+    createdAt: (typeof issue.created_at == "undefined") ? "" : issue.created_at,
+    updatedAt: (typeof issue.updated_at == "undefined") ? "" : issue.updated_at,
+    didUserVote: issue.current_user_voted,
+    didUserWatch: issue.current_user_watched,
     issueTypes: state.ui.issue_types,
     priorityTypes: state.ui.priority_types,
     statusTypes: state.ui.status_types,
@@ -200,6 +239,8 @@ const mapDispatchToProps = dispatch => {
     addAttachment: (issueAttachment) => dispatch(postIssueAttachment(issueAttachment)),
     deleteIssueAttachment: (issueAttachment) => dispatch(deleteIssueAttachment(issueAttachment)),
     fetchIssueHistory: (id) => dispatch(fetchIssueHistory(id)),
+    addVote: (issueId) => dispatch(createVote(issueId)),
+    addWatcher: (issueId) => dispatch(createWatcher(issueId)),
   }
 }
 
