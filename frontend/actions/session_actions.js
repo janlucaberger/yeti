@@ -1,4 +1,5 @@
 import * as ApiUtil from '../util/session_api'
+import { hideModal } from './ui_actions';
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const REMOVE_CURRENT_USER = "REMOVE_CURRENT_USER";
@@ -39,5 +40,6 @@ export const logout = () => dispatch => {
   return ApiUtil.logout()
     .then((user) => {
       dispatch(removeCurrentUser(null))
+      dispatch(hideModal())
   })
 }
