@@ -17,7 +17,7 @@ class Api::UsersController < ApplicationController
 
   def index
     if params[:query].blank?
-      @users = User.joins(:users_teams).where("team_id = ?", 57)
+      @users = User.joins(:users_teams).where("team_id = ?", current_team.id)
     else
       @user = User.find_by(email: params[:query])
       render "/api/users/show"

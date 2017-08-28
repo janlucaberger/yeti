@@ -10,7 +10,7 @@ class Api::IssuesController < ApplicationController
     #     projects p ON p.id = i.project_id
     #   WHERE
     #     p.team_id = ? ", 57])
-    @issues = Issue.joins(:project).where("team_id = ? ", 58  )
+    @issues = Issue.joins(:project).where("team_id = ? ", current_team.id)
 
     render "/api/issues/index"
   end
@@ -28,10 +28,10 @@ class Api::IssuesController < ApplicationController
     @issue.key = "#{project_key}-#{id}"
     @issue.status_type_id = StatusType.where(status_type: "Todo").to_a[0].id
 
-    if @issue.save!
+    if @issue.save
       render "/api/issues/show"
     else
-      render json: @issue.errors.full_messages
+      render json: @issue.errors.full_messages, status: 422
     end
   end
 
