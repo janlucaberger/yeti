@@ -6,6 +6,8 @@ import {
   RECEIVE_ISSUE_ERROR,
   RECEIVE_ISSUE_ATTACHMENT,
   REMOVE_ISSUE_ATTACHMENT,
+  RECEIVE_VOTE,
+  RECEIVE_WATCHER,
 
 } from '../actions/issues/issues_actions';
 
@@ -21,7 +23,7 @@ const issuesReducer = (state = {}, action) => {
     case RECEIVE_ISSUE:
       return _.merge({}, state, action.issue.issue)
     case RECEIVE_ALL_ISSUES:
-      return action.issues.issues
+      return action.issues.issues || {}
     case RECEIVE_PROJECT:
       return _.merge({}, state, action.project.issues)
     case REMOVE_ISSUE_ATTACHMENT:
@@ -49,6 +51,16 @@ const issuesReducer = (state = {}, action) => {
       newIssueState["attachment_ids"] = newAttachmentIds
 
       return _.merge({}, state, newIssueState)
+    case RECEIVE_VOTE:
+      newIssueState = _.merge({}, state[action.vote.issue_id])
+      newIssueState.votes = action.vote.votes
+      newIssueState.current_user_voted = action.vote.current_user_voted
+      return _.merge({}, state, { [newIssueState.id]:  newIssueState } )
+    case RECEIVE_WATCHER:
+      newIssueState = _.merge({}, state[action.watcher.issue_id])
+      newIssueState.watchers = action.watcher.watchers
+      newIssueState.current_user_watched = action.watcher.current_user_watched
+      return _.merge({}, state, { [newIssueState.id]:  newIssueState } )
     default:
       return state;
   }
