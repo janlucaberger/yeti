@@ -10,7 +10,7 @@ class Api::IssuesController < ApplicationController
     #     projects p ON p.id = i.project_id
     #   WHERE
     #     p.team_id = ? ", 57])
-    @issues = Issue.joins(:project).where("team_id = ? ", 57)
+    @issues = Issue.joins(:project).where("team_id = ? ", 58  )
 
     render "/api/issues/index"
   end
@@ -79,6 +79,26 @@ class Api::IssuesController < ApplicationController
   def history
     @issue_histories = IssueAudit.includes(:user).where(issue_id: params[:id])
     render "/api/issues/history"
+  end
+
+  def add_vote
+    @issue = Issue.find(params[:id])
+    @issue_vote = Vote.new(user_id: current_user.id, issue_id: @issue.id)
+    if @issue_vote.save
+      render "/api/issues/vote.json.jbuilder"
+    else
+      render json: @issue_vote.errors.full_messages
+    end
+  end
+
+  def add_watcher
+    @issue = Issue.find(params[:id])
+    @issue_watcher = Watcher.new(user_id: current_user.id, issue_id: @issue.id)
+    if @issue_watcher.save
+      render "/api/issues/watcher.json.jbuilder"
+    else
+      render json: @issue_watcher.errors.full_messages
+    end
   end
 
   private
