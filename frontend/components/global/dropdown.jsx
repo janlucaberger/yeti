@@ -3,12 +3,14 @@ import React from 'react';
 class Dropdown extends React.Component{
   constructor(props){
     super(props);
-    debugger
+    
     this.state = {
       showOptions: false,
       loading: true,
-      current_option: this.props.currentOption[this.props.item],
-      current_option_icon: this.props.currentOption[this.props.iconKey]
+      current_option: "",
+      current_option_icon: ""
+      // current_option: this.props.currentOption[this.props.item],
+      // current_option_icon: this.props.currentOption[this.props.iconKey]
     }
     this.showOptions = this.showOptions.bind(this)
     this.hideOptions = this.hideOptions.bind(this)
