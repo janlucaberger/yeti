@@ -8,7 +8,6 @@ export const fetchIssue = id => {
 }
 
 export const fetchAllIssues = () => {
-  
   return $.ajax({
     method: "GET",
     url: `/api/issues`
@@ -56,5 +55,18 @@ export const createIssue = issue => {
     method: "POST",
     url: `/api/issues/`,
     data: { issue }
+  })
+}
+
+export const createVote = issueId => {
+  return $.ajax({
+    method: "POST",
+    url: `/api/issues/${issueId}/votes`,
+  })
+}
+export const createWatcher = issueId => {
+  return $.ajax({
+    method: "POST",
+    url: `/api/issues/${issueId}/watchers`,
   })
 }
