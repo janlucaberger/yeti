@@ -53,7 +53,7 @@ class Form extends React.Component {
   demoLogin(e){
     e.preventDefault();
     const demoAccount = {
-      email: "hello@goyeti.com",
+      email: "hello@goyeti.io",
       password: "password"
     }
     this.props.action(demoAccount)

@@ -51,6 +51,6 @@ Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, sum
 
 # DEMO USERS
 demoUser1 = User.create(first_name: "Test" , last_name: "User", email: "test@user.com" , password: "password")
-demoUser2 = User.create(first_name: "Test" , last_name: "User", email: "hello@goyeti.io" , password: "password")
+demoUser2 = User.create(first_name: "Hello" , last_name: "Goyeti", email: "hello@goyeti.io" , password: "password")
 UsersTeams.create(user_id: demoUser1.id, team_id: teams[0].id)
 UsersTeams.create(user_id: demoUser2.id, team_id: teams[0].id)
