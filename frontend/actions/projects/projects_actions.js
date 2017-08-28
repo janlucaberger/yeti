@@ -2,6 +2,7 @@ import * as ApiUtil from '../../util/projects_api'
 
 export const RECEIVE_ALL_PROJECTS = "RECEIVE_ALL_PROJECTS";
 export const RECEIVE_PROJECT = "RECEIVE_PROJECT";
+export const RECEIVE_PROJECT_ERROR = "RECEIVE_PROJECT_ERROR";
 
 
 export const receiveAllProjects = projects => {
@@ -14,6 +15,12 @@ export const receiveProject = project => {
   return{
     type: RECEIVE_PROJECT,
     project
+  }
+}
+export const receiveProjectError = error => {
+  return{
+    type: RECEIVE_PROJECT_ERROR,
+    error
   }
 }
 
@@ -29,8 +36,10 @@ export const fetchProject = id => dispatch => {
   })
 }
 
-export const createNewProject = (project) => dispatch => {
-  return ApiUtil.createNewProject(project).then((newProject) => {
-    dispatch(receiveProject(newProject))
-  })
+export const createNewProject = project => dispatch => {
+
+  return ApiUtil.createNewProject(project).then(
+    newProject => { dispatch(receiveProject(newProject)) },
+    err => { dispatch(receiveProjectError(err.responseJSON))}
+  )
 }

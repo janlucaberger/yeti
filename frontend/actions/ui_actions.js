@@ -11,6 +11,7 @@ export const HIDE_LOADING = "HIDE_LOADING"
 export const RECEIVE_ISSUE_TYPES = "RECEIVE_ISSUE_TYPES";
 export const RECEIVE_PRIORITY_TYPES = "RECEIVE_PRIORITY_TYPES";
 export const RECEIVE_STATUS_TYPES = "RECEIVE_STATUS_TYPES";
+export const RECEIVE_CURRENT_PAGE = "RECEIVE_CURRENT_PAGE";
 
 
 export const showModal = (component, props) => {
@@ -69,6 +70,15 @@ export const receiveStatusTypes = statusTypes => {
     statusTypes
   }
 }
+
+export const receiveCurrentPage = page => {
+  return{
+    type: RECEIVE_CURRENT_PAGE,
+    page
+  }
+}
+
+
 
 export const fetchIssueTypes = () => dispatch =>{
   return UiApiUtil.fetchIssueTypes().then((issueTypes) => {
