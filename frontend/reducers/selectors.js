@@ -51,3 +51,20 @@ export const getIssuesByStatus = (state, projectId) => {
 export const getIssuesArray = state => {
   return Object.values(state.issues)
 }
+
+export const getIssuesBySprintStatus = (state, projectId) =>{
+  let sprintStatus = {
+    active: [],
+    inactive: []
+  }
+  Object.values(state.issues).forEach( issue => {
+    if(issue.project_id == projectId){
+      if(issue.sprint){
+        sprintStatus["active"] = sprintStatus["active"].concat(issue)
+      } else {
+        sprintStatus["inactive"] = sprintStatus["inactive"].concat(issue)
+      }
+    }
+  })
+  return sprintStatus
+}
