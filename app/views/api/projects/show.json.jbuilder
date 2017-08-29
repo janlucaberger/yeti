@@ -7,8 +7,10 @@ end
 
 json.issues do
   @project.issues.each do |issue|
-    json.set! issue.id do
-      json.extract!(issue, :id, :project_id, :summary, :issue_type_id, :status_type_id, :priority_type_id, :resolution, :active, :key)
+    if issue.resolution == "unresolved"
+      json.set! issue.id do
+        json.extract!(issue, :id, :project_id,:sprint, :summary, :issue_type_id, :status_type_id, :priority_type_id, :resolution, :active, :key)
+      end
     end
   end
 end
