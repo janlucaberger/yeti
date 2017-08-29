@@ -21,7 +21,7 @@ class GlobalNavContainer extends React.Component {
   }
 
   showUserPopup(){
-    this.props.showModal(UserPopup, {lowerCorner: "lower-corner"})
+    this.props.showModal(UserPopup, null, {lowerCorner: "lower-corner"})
   }
 
   render(){
@@ -55,7 +55,7 @@ class GlobalNavContainer extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     logout: () => dispatch(logout()),
-    showModal: (component, props) => dispatch(showModal(component, props)),
+    showModal: (component, props, styles) => dispatch(showModal(component, props, styles)),
   }
 }
 
