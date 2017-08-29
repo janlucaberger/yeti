@@ -9,7 +9,7 @@ class IssuesContainer extends React.Component {
 
   render(){
     return(
-      <div className="content-inner-container">Issues
+      <div className="content-inner-container">
         <IssuesTable />
       </div>
     )
