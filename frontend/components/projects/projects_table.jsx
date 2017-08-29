@@ -61,7 +61,7 @@ class ProjectsTable extends React.Component {
 
       switch (header) {
         case "id":
-          return <td></td>
+          break;
         case "created_at":
           return (
             <td key={idx}>
@@ -84,7 +84,7 @@ class ProjectsTable extends React.Component {
     return this.state.tableHeaders.map((header, idx) => {
       switch (header) {
         case "id":
-          return ""
+          break;
         default:
           return <th className="table-header" key={idx}>{header.split("")[0].toUpperCase() + header.split("").slice(1).join("")}</th>
       }

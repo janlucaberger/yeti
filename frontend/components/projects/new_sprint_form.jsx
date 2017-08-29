@@ -2,6 +2,8 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
+import { createSprint } from '../../actions/sprints/sprints_actions';
+import { connect } from 'react-redux';
 
 class NewSprintForm extends React.Component{
   constructor (props) {
@@ -10,11 +12,11 @@ class NewSprintForm extends React.Component{
       start_date: moment(),
       end_date: moment(),
       name: "",
-      project_id: 1
+      project_id: this.props.projectId
     };
-    debugger
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(key){
@@ -27,22 +29,24 @@ class NewSprintForm extends React.Component{
 
   handleStartDate(date) {
     this.setState({
-      startDate: date
+      start_date: date
     });
   }
 
   handleSubmit(){
-    this.createSprint(this.state)
+    let params = this.state
+    params["start_date"] = this.state.start_date._d
+    params["end_date"] = this.state.end_date._d
+    this.props.createSprint(params)
   }
 
   handleEndDate(date) {
     this.setState({
-      endDate: date
+      end_date: date
     });
   }
   render() {
-    debugger
-
+    console.log(this.state)
     return(
       <div className="new-item-form-container">
         <div className="new-item-form-header">
@@ -52,7 +56,7 @@ class NewSprintForm extends React.Component{
         <div className="new-item-form-content">
           <div className="new-sprint-name">
             <label className="new-item-form-label">Name</label>
-            <input type="text" className="new-item-form-input" value={this.state.name} onChange={this.handleChange("title")} />
+            <input type="text" className="new-item-form-input" value={this.state.name} onChange={this.handleChange("name")} />
           </div>
           <div className="new-sprint-date-container">
             <div className="new-sprint-date-titles">
@@ -61,11 +65,11 @@ class NewSprintForm extends React.Component{
             </div>
             <div className="new-sprint-date-selectors">
               <DatePicker
-                  selected={this.state.startDate}
+                  selected={this.state.start_date}
                   onChange={this.handleStartDate}
               />
               <DatePicker
-                  selected={this.state.endDate}
+                  selected={this.state.end_date}
                   onChange={this.handleEndDate}
               />
             </div>
@@ -81,4 +85,18 @@ class NewSprintForm extends React.Component{
   }
 }
 
-export default withRouter(NewSprintForm)
+const mapStateToProps = state => {
+  return {
+    projectId: state.ui.modal.props.projectId
+  }
+}
+
+
+
+const mapDispatchToProps = dispatch => {
+  return{
+    createSprint: sprint => dispatch(createSprint(sprint))
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewSprintForm))
