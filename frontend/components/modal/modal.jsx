@@ -29,10 +29,10 @@ class Modal extends React.Component{
   }
 
   renderModalClasses(){
-    if(typeof this.props.props === "undefined" || this.props.props === null){
+    if(typeof this.props.styles === "undefined" || this.props.styles === null){
       return "modal"
     } else {
-      const newStyles = Object.values(this.props.props)
+      const newStyles = Object.values(this.props.styles)
       return ["modal"].concat(newStyles).join(" ")
     }
   }
@@ -62,7 +62,8 @@ class Modal extends React.Component{
 const mapStateToProps = (state, ownProps) => {
   return {
     display: state.ui.modal.display,
-    component: state.ui.modal.component
+    component: state.ui.modal.component,
+    styles: state.ui.modal.styles,
   }
 }
 
