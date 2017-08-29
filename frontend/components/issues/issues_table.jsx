@@ -8,11 +8,13 @@ import {
   hideLoading,
   fetchIssueTypes,
   fetchPriorityTypes,
-  fetchStatusTypes
+  fetchStatusTypes,
+  showModal
 } from '../../actions/ui_actions'
 import TimeAgo from 'react-timeago'
 import { Link } from 'react-router-dom'
 import UserWidget from '../global/user_widget';
+import NewIssueForm from '../issues/new_issue_form'
 
 class IssuesTable extends React.Component {
   constructor(){
@@ -26,6 +28,7 @@ class IssuesTable extends React.Component {
     this.mapRowsCell = this.mapRowsCell.bind(this)
     this.mappedHeaders = this.mappedHeaders.bind(this)
     this.loadingFinished = this.loadingFinished.bind(this)
+    this.createNewIssue = this.createNewIssue.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
@@ -39,9 +42,6 @@ class IssuesTable extends React.Component {
   componentDidMount(){
     console.log("Started Loading")
     this.props.showLoading()
-    this.props.fetchPriorityTypes()
-    this.props.fetchStatusTypes()
-    this.props.fetchIssueTypes()
     this.props.fetchAllIssues().then(() => {
       if(this.props.issuesArray.length > 0){
         this.setState({
@@ -68,11 +68,6 @@ class IssuesTable extends React.Component {
   mapRowsCell(issue){
     return this.state.tableHeaders.map((header,idx) => {
       const value = issue[header] || "--";
-
-      // if(typeof this.props[issue[header]] === "undefined"){
-      //   return <td key={idx}>--</td>
-      // } else {
-      //
         switch (header) {
           case "id":
             return <td key={idx}>--</td>
@@ -93,7 +88,6 @@ class IssuesTable extends React.Component {
           default:
             return   <td key={idx}><Link to={`/issues/${issue.id}`} >{value}</Link></td>
         }
-      // }
     }, this)
   }
 
@@ -115,17 +109,20 @@ class IssuesTable extends React.Component {
   }
 
 
-  render(){
+  createNewIssue(){
+    this.props.showModal(NewIssueForm);
+  }
 
-    // const mappedHeaders = this.state.tableHeaders.map((header, idx) => {
-    //   return <th className="table-header" key={idx}>{header.split("")[0].toUpperCase() + header.split("").slice(1).join("")}</th>
-    // })
-    console.log(this.state.loading)
+
+  render(){
     if (this.state.loading) {
       return <h1>LOADINGGGG</h1>
     } else if (this.props.issuesArray.length === 0){
       return (
-        <div>Looks you you dont have any projects yet!</div>
+        <div className="content-inner-container-placeholder">
+          <div className="placeholder-text">Looks you you dont have any issues yet!</div>
+          <button onClick={this.createNewIssue} className="large-button blue-background">Create an issue!</button>
+        </div>
       )
     } else {
       const mappedRows = this.props.issuesArray.map((issue) => {
@@ -170,11 +167,9 @@ const mapDispatchToProps = dispatch => {
   return{
     fetchAllUsers: () => dispatch(fetchAllUsers()),
     fetchAllIssues: () => dispatch(fetchAllIssues()),
-    fetchStatusTypes: () => dispatch(fetchStatusTypes()),
-    fetchIssueTypes: () => dispatch(fetchIssueTypes()),
-    fetchPriorityTypes: () => dispatch(fetchPriorityTypes()),
     showLoading: (props) => dispatch(showLoading(props)),
-    hideLoading: () => dispatch(hideLoading())
+    hideLoading: () => dispatch(hideLoading()),
+    showModal: (component, props, styles) => dispatch(showModal(component, props, styles)),
   }
 }
 

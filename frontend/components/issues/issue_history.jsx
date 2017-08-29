@@ -105,41 +105,44 @@ class IssueHistory extends React.Component{
 
   mapHistory(){
     return this.props.getIssueHistory(this.props.issueId).map(issueHistory => {
+
       const user = this.props.getUserInfo(issueHistory.user_id)
-      return (
-        <div key={issueHistory.id} className="history-item-container">
-          <div className="history-user-info">
-            <img width="25px" height="25px" src={user.avatar_url} />
-            <div className="history-user-info-text">
-              <span className="bold">{user.first_name} {user.last_name}</span>
-              <span>&nbsp; made changes -</span>
-              <span className="gray">&nbsp;<TimeAgo date={issueHistory.created_at} /></span>
+      if(user){
+        return (
+          <div key={issueHistory.id} className="history-item-container">
+            <div className="history-user-info">
+              <img width="25px" height="25px" src={user.avatar_url} />
+              <div className="history-user-info-text">
+                <span className="bold">{user.first_name} {user.last_name}</span>
+                <span>&nbsp; made changes -</span>
+                <span className="gray">&nbsp;<TimeAgo date={issueHistory.created_at} /></span>
+              </div>
+            </div>
+            <div className="history-change-info">
+              <table>
+                <thead>
+                  <tr>
+                    <td>
+                      Field
+                    </td>
+                    <td>
+                      Original Value
+                    </td>
+                    <td>
+                      New Value
+                    </td>
+                  </tr>
+                </thead>
+                  {this.formatData(
+                    issueHistory.column_changed,
+                    issueHistory.from,
+                    issueHistory.to
+                  )}
+              </table>
             </div>
           </div>
-          <div className="history-change-info">
-            <table>
-              <thead>
-                <tr>
-                  <td>
-                    Field
-                  </td>
-                  <td>
-                    Original Value
-                  </td>
-                  <td>
-                    New Value
-                  </td>
-                </tr>
-              </thead>
-                {this.formatData(
-                  issueHistory.column_changed,
-                  issueHistory.from,
-                  issueHistory.to
-                )}
-            </table>
-          </div>
-        </div>
-      )
+        )
+      }  
     }, this)
   }
 
