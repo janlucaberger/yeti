@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       collection do
         get :activity
         get :users
+        get :archive
       end
     end
 
@@ -27,8 +28,9 @@ Rails.application.routes.draw do
     resources :projects, except: [:new, :edit] do
       member do
         get :issues
-        get :sprint
-        post :sprint
+        get :sprint, to: "sprints#show"
+        post :sprint, to: "sprints#create"
+        post :complete_sprint, to: "sprints#complete"
       end
       collection do
         get :list
@@ -53,6 +55,9 @@ Rails.application.routes.draw do
         delete :watchers
 
         get :history
+      end
+      collection do
+        get :archive, to: "teams#archive"
       end
     end
 
