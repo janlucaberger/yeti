@@ -7,9 +7,12 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "dateformat": "^2.0.0",
+    "konva": "^1.6.8",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "react": "^15.6.1",
+    "react-canvas": "^1.3.0",
     "react-datepicker": "^0.53.0",
     "react-dnd": "^2.4.0",
     "react-dnd-html5-backend": "^2.4.1",
@@ -17,6 +20,7 @@
     "react-dropzone": "^4.1.0",
     "react-fontawesome": "^1.6.1",
     "react-hot-loader": "^3.0.0-beta.7",
+    "react-konva": "^1.1.4",
     "react-loading": "^0.1.4",
     "react-quill": "^1.0.0",
     "react-redux": "^5.0.6",
@@ -49,9 +53,11 @@
   "author": "Jan-Luca Berger",
   "license": "ISC",
   "devDependencies": {
+    "brfs": "^1.4.3",
     "css-loader": "^0.28.5",
     "file-loader": "^0.11.2",
     "image-webpack-loader": "^3.3.1",
-    "style-loader": "^0.18.2"
+    "style-loader": "^0.18.2",
+    "transform-loader": "^0.2.4"
   }
 }
