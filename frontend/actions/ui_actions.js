@@ -14,11 +14,12 @@ export const RECEIVE_STATUS_TYPES = "RECEIVE_STATUS_TYPES";
 export const RECEIVE_CURRENT_PAGE = "RECEIVE_CURRENT_PAGE";
 
 
-export const showModal = (component, props) => {
+export const showModal = (component, props, styles) => {
   return {
     type: SHOW_MODAL,
     component,
-    props
+    props,
+    styles
   }
 }
 
