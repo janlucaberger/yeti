@@ -138,7 +138,7 @@ class TeamActivity extends React.Component{
 
   renderActivity(){
     return Object.values(this.props.activity).map( activity => {
-      debugger
+      
       return (
         <div key={activity.id} className="team-activity-item-container">
           {this.renderUserInfo(activity)}
