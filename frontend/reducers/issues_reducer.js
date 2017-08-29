@@ -12,7 +12,7 @@ import {
 } from '../actions/issues/issues_actions';
 
 import { RECEIVE_TEAM_ACTIVITY } from '../actions/teams/teams_actions'
-
+import { RECEIVE_COMPLETED_SPRINT_ISSUES } from '../actions/sprints/sprints_actions'
 import { RECEIVE_PROJECT } from '../actions/projects/projects_actions'
 
 const issuesReducer = (state = {}, action) => {
@@ -62,6 +62,15 @@ const issuesReducer = (state = {}, action) => {
       return _.merge({}, state, { [newIssueState.id]:  newIssueState } )
     case RECEIVE_TEAM_ACTIVITY:
       return _.merge({}, state, action.activity.issues)
+    case RECEIVE_COMPLETED_SPRINT_ISSUES:
+      newIssueState = {}
+
+      for(let key in state){
+        if (!action.issues.includes(parseInt(key))){
+          newIssueState[key] = state[key]
+        }
+      }
+      return newIssueState;
     default:
       return state;
   }
