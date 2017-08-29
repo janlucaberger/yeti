@@ -49,7 +49,7 @@ class ProjectsTable extends React.Component {
   }
 
   handleProjectClick(id){
-      debugger
+
       this.props.setPage({type: "Project", id: id})
       this.props.routeHistory.push(`/projects/${id}/sprint`)
   }
@@ -134,7 +134,7 @@ class ProjectsTable extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  debugger
+
   return {
     projectsArray: getProjectsArray(state),
     routeHistory: ownProps.history

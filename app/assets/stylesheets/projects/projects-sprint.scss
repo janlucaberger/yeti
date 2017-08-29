@@ -57,3 +57,22 @@
 .widget-hide{
   transform:translateX(-9999px);
 }
+
+.new-sprint-date-container{
+
+}
+
+.new-sprint-date-titles{
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-sprint-date-selectors{
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-sprint-name{
+  display: flex;
+  flex-direction: column;
+}
