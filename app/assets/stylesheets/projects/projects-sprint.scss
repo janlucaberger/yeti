@@ -76,3 +76,23 @@
   display: flex;
   flex-direction: column;
 }
+
+.current-sprint-info-container{
+  width: 400px;
+  height: 125px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-bottom: 30px;
+  font-size: 13px;
+}
+
+.current-sprint-date-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.current-sprint-label{
+  font-weight: 600;
+}

@@ -2,6 +2,20 @@
   display: flex;
 }
 
+.content-inner-container-placeholder{
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.placeholder-text{
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
 .content-container{
   width: 100%;
   max-height: 100vh;
@@ -37,6 +51,15 @@
   border: 1px solid gray
 }
 
+.large-button{
+  padding: 10px 14px;
+  font-weight: 500;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  width: fit-content;
+  font-size: 20px;
+}
 
 .primary-button{
   padding: 10px 14px;
