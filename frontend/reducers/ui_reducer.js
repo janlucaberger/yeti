@@ -4,7 +4,8 @@ const defaultState = {
   modal: {
     display: false,
     component: null,
-    props: null
+    props: null,
+    styles: null
   },
   loading: {
     display: false,
@@ -43,12 +44,13 @@ const uiReducer = (state = defaultState, action) => {
         modal: {
           display: true,
           component: action.component,
-          props: action.props
+          props: action.props,
+          styles: action.styles
         }
       }
       return _.merge({}, state, modalState)
     case HIDE_MODAL:
-      modalState = { modal: {display: false, props: null} }
+      modalState = { modal: {display: false, props: null, styles: null} }
       return _.merge({}, state, modalState)
     case SHOW_LOADING:
       loadingState = {

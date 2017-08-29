@@ -1,4 +1,3 @@
-
 import { RECEIVE_PROJECT, RECEIVE_PROJECT_ERROR } from '../actions/projects/projects_actions'
 import { RECEIVE_ISSUE_ERROR } from '../actions/issues/issues_actions'
 

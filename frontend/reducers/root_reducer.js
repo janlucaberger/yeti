@@ -10,6 +10,7 @@ import issuesHistoryReducer from './issues_history_reducer';
 import usersReducer from './users_reducer';
 import errorsReducer from './errors_reducer';
 import teamActivityReducer from './team_activity_reducer';
+import sprintsReducer from './sprints_reducer';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   ui: uiReducer,
   projects: projectsReducer,
   issues: issuesReducer,
+  sprints: sprintsReducer,
   attachments: attachmentsReducer,
   issues_history: issuesHistoryReducer,
   users: usersReducer,
