@@ -7,12 +7,13 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding-top: 15px;
 }
 
 .nav-drawer-button{
   padding: 10px 12px;
   border-radius: 3px;
-  width: 96%;
+  width: 92%;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -21,7 +22,8 @@
 .nav-drawer-button-container{
   display: flex;
   flex-direction: column;
-  width: 100%
+  width: 100%;
+  align-items: center;
 }
 
 .nav-drawer-button:hover{
@@ -45,4 +47,48 @@
   margin-left: 10px;
   color: #fff;
   font-size: 18px;
+}
+
+.lightgray-background{
+  background: #e3e4e6;
+}
+.medium-gray-background{
+  background: #c5c5c5;
+}
+
+.gray-nav-drawer-button{
+  padding: 10px 12px;
+  border-radius: 3px;
+  width: 92%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.gray-nav-drawer-button:hover{
+  background-color: darkgray;
+}
+
+.medium-gray-background:hover{
+  background-color: #a9a9a9;
+}
+
+.gray-nav-drawer-button-text{
+  margin-left: 10px;
+  color: #000;
+  font-size: 13px;
+}
+
+.nav-project-title-container{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 13px;
+  box-sizing: border-box;
+}
+
+.nav-project-title{
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 7px;
 }
