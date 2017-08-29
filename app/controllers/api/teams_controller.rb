@@ -84,6 +84,10 @@ class Api::TeamsController < ApplicationController
     render "/api/teams/users"
   end
 
+  def recently_resolved
+    # TODO: do this.
+  end
+
   private
   def team_params
     params.require(:team).permit(:team_name, :description, :avatar)
