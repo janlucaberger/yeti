@@ -1,17 +1,12 @@
 class Api::IssuesController < ApplicationController
 
   def index
-    # @issues = Issue.find_by_sql(["
-    #   SELECT
-    #     *
-    #   FROM
-    #     issues AS i
-    #   JOIN
-    #     projects p ON p.id = i.project_id
-    #   WHERE
-    #     p.team_id = ? ", 57])
-    @issues = Issue.joins(:project).where("team_id = ? ", current_team.id)
+    @issues = Issue.joins(:project).where("team_id = ? AND resolution = 'unresolved' ", current_team.id)
+    render "/api/issues/index"
+  end
 
+  def archive
+    @issues = Issue.joins(:project).where("team_id = ? ", current_team.id)
     render "/api/issues/index"
   end
 
@@ -44,7 +39,7 @@ class Api::IssuesController < ApplicationController
 
     doneStatus = StatusType.where(status_type: "Done").to_a[0].id
 
-    if params[:issue][:status_type_id] == doneStatus
+    if params[:issue][:status_type_id].to_i == doneStatus
       @issue.update(resolution: "resolved")
     else
       @issue.update(resolution: "unresolved")
