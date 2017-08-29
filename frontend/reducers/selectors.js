@@ -68,3 +68,26 @@ export const getIssuesBySprintStatus = (state, projectId) =>{
   })
   return sprintStatus
 }
+
+export const getActiveSprintIssuesByStatus = (state, projectId) => {
+  if(Object.values(state.issues).length > 0){
+
+    const issues = {}
+    const filterByActive = getIssuesBySprintStatus(state, projectId).active
+    filterByActive.forEach(issue => issues[issue.id] = issue)
+    const filteredByStatus = getIssuesByStatus({issues}, projectId)
+    return filteredByStatus
+  }
+  return {}
+}
+
+export const getSprintByProject = (state, projectId) => {
+  let sprint = null;
+  for(let key in state.sprints) {
+    if(state.sprints[key].project_id == projectId){
+      sprint = state.sprints[key]
+    }
+  }
+
+  return sprint
+}
