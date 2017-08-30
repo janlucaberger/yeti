@@ -26,7 +26,8 @@ import {
   HIDE_MODAL,
   SHOW_LOADING,
   HIDE_LOADING,
-  RECEIVE_CURRENT_PAGE
+  RECEIVE_CURRENT_PAGE,
+  RECEIVE_RESOURCES
 } from '../actions/ui_actions';
 
 import { RECEIVE_TEAM_ACTIVITY } from '../actions/teams/teams_actions'
@@ -73,6 +74,8 @@ const uiReducer = (state = defaultState, action) => {
       return _.merge({}, state, action.activity.ui)
     case RECEIVE_CURRENT_PAGE:
       return _.merge({}, state, {current_page:action.page})
+    case RECEIVE_RESOURCES:
+      return _.merge({}, state, action.resources.ui)
     default:
       return state;
   }

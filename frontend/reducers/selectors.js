@@ -1,3 +1,6 @@
+import _ from 'lodash'
+
+
 export const getTeamsArray = state => {
   return Object.values(state.teams);
 }
@@ -17,14 +20,15 @@ export const getAttachments = (state, issue_id) => {
 }
 
 export const getIssueHistory = (state, issue_id) => {
+  let issues = state.issues[issue_id]
   let issueHistory = [];
 
-  for (let key in state.issues_history) {
-    if (state.issues_history[key].issue_id == issue_id) {
-      issueHistory.push(state.issues_history[key])
-    }
+  if(typeof issues !== "undefined" &&
+    Object.values(state.issues_history).length > 0){
+    issues.history_ids.forEach(id => {
+      issueHistory.push(state.issues_history[id])
+    })
   }
-
   return issueHistory
 }
 
@@ -59,7 +63,7 @@ export const getIssuesBySprintStatus = (state, projectId) =>{
   }
   Object.values(state.issues).forEach( issue => {
     if(issue.project_id == projectId){
-      if(issue.sprint){
+      if(issue.sprint == true || issue.sprint == "t"){
         sprintStatus["active"] = sprintStatus["active"].concat(issue)
       } else {
         sprintStatus["inactive"] = sprintStatus["inactive"].concat(issue)
@@ -101,6 +105,18 @@ export const getSprint = (state, projectId) => {
       sprint = state.sprints[key]
     }
   }
-
   return sprint
+}
+
+export const getComments = (state, issueId) => {
+  let comments = []
+
+  for(let key in state.comments){
+    if(state.comments[key].issue_id == issueId){
+      comments.push(state.comments[key])
+    }
+  }
+
+  comments = _.sortBy(comments, "created_at").reverse()
+  return comments
 }

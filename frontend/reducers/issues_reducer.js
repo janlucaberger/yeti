@@ -8,6 +8,8 @@ import {
   REMOVE_ISSUE_ATTACHMENT,
   RECEIVE_VOTE,
   RECEIVE_WATCHER,
+  REMOVE_WATCHER,
+  RECEIVE_ISSUE_HISTORY,
 
 } from '../actions/issues/issues_actions';
 
@@ -23,6 +25,7 @@ const issuesReducer = (state = {}, action) => {
 
   switch (action.type) {
     case RECEIVE_ISSUE:
+
       return _.merge({}, state, action.issue.issue)
     case RECEIVE_ALL_ISSUES:
       return action.issues.issues || {}
@@ -60,17 +63,28 @@ const issuesReducer = (state = {}, action) => {
       newIssueState.watchers = action.watcher.watchers
       newIssueState.current_user_watched = action.watcher.current_user_watched
       return _.merge({}, state, { [newIssueState.id]:  newIssueState } )
+    case REMOVE_WATCHER:
+      newIssueState = _.merge({}, state[action.watcher.issue_id])
+      newIssueState.watchers = action.watcher.watchers
+      newIssueState.current_user_watched = false
+      return _.merge({}, state, { [newIssueState.id]:  newIssueState } )
     case RECEIVE_TEAM_ACTIVITY:
       return _.merge({}, state, action.activity.issues)
     case RECEIVE_COMPLETED_SPRINT_ISSUES:
       newIssueState = {}
-
       for(let key in state){
         if (!action.issues.issues.includes(parseInt(key))){
           newIssueState[key] = state[key]
         }
       }
       return newIssueState;
+    case RECEIVE_ISSUE_HISTORY:
+
+      newIssueState = _.merge({}, state[action.history.issue.id])
+      newIssueState[action.history.history.column_changed] = action.history.history.to
+      newIssueState["history_ids"] = action.history.issue.history_ids
+
+      return _.merge({}, state, {[newIssueState.id]: newIssueState})
     default:
       return state;
   }
