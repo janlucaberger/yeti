@@ -3,7 +3,7 @@ users = []
 json.issues do
   @issues.each do |issue|
     json.set! issue.id do
-      json.extract!(issue, :id, :project_id, :summary, :issue_type_id, :priority_type_id, :status_type_id, :resolution, :key, :sprint, :assigned_user_id)
+      json.extract!(issue, :id, :project_id, :active, :summary, :issue_type_id, :priority_type_id, :status_type_id, :resolution, :key, :sprint, :assigned_user_id)
       users << issue.assigned_user unless users.include?(issue.assigned_user)
     end
   end

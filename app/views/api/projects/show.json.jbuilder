@@ -14,3 +14,13 @@ json.issues do
     end
   end
 end
+
+
+sprint = @project.sprints.where("active = true")[0]
+json.sprint do
+  unless sprint.nil?
+    json.extract!(sprint, :id, :name, :start_date, :end_date, :project_id, :active)
+  else
+    json.sprint nil
+  end
+end
