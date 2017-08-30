@@ -13,6 +13,7 @@ import Modal from './modal/modal';
 import FullLoading from './loading/full_loading';
 
 import { fetchIssueTypes, fetchPriorityTypes, fetchStatusTypes } from '../actions/ui_actions';
+import { fetchAllUsers } from '../actions/users/user_actions';
 
 class ProtectedContent extends React.Component {
   constructor(props){
@@ -23,6 +24,7 @@ class ProtectedContent extends React.Component {
     this.props.fetchIssueTypes()
     this.props.fetchPriorityTypes()
     this.props.fetchStatusTypes()
+    this.props.fetchAllUsers()
   }
 
   render(){
@@ -68,6 +70,7 @@ const mapDispatchToProps = dispatch =>{
     fetchIssueTypes: () => dispatch(fetchIssueTypes()),
     fetchPriorityTypes: () => dispatch(fetchPriorityTypes()),
     fetchStatusTypes: () => dispatch(fetchStatusTypes()),
+    fetchAllUsers: () => dispatch(fetchAllUsers()),
   }
 }
 
