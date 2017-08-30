@@ -10,7 +10,7 @@ entitiesReducer: {
   issues: issuesReducer,
   sprints: sprintsReducer,
   team_activity: team_activityReducer,
-  issueHistory: issueHistoryReducer,
+  issueHistory: issueHistoriesReducer,
   attachments: attachmentsReducer,
   users: usersReducer,
   permissions: permissionsReducer,

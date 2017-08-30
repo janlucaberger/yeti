@@ -12,38 +12,60 @@ import IssuesContainer from './views/issues_container'
 import Modal from './modal/modal';
 import FullLoading from './loading/full_loading';
 
-import { fetchIssueTypes, fetchPriorityTypes, fetchStatusTypes } from '../actions/ui_actions';
+import { fetchIssueTypes, fetchPriorityTypes, fetchStatusTypes, fetchResources } from '../actions/ui_actions';
 import { fetchAllUsers } from '../actions/users/user_actions';
+import { showLoading, hideLoading } from '../actions/ui_actions';
 
 class ProtectedContent extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      loading: true
+    }
+
+    this.loadingComplete = this.loadingComplete.bind(this)
   }
 
   componentDidMount(){
-    this.props.fetchIssueTypes()
-    this.props.fetchPriorityTypes()
-    this.props.fetchStatusTypes()
-    this.props.fetchAllUsers()
+    this.props.showLoading()
+    this.props.fetchResources().then(
+      () => this.loadingComplete()
+    );
+  }
+
+  loadingComplete(){
+    this.props.hideLoading()
+    this.setState({ loading: false })
   }
 
   render(){
-    return(
-      <div className="global-container">
-        <ProtectedRoute path="/" component={NavigationContainer} />
-        <div className="content-container">
-          <Switch>
-            <ProtectedRoute path="/issues/:id" component={IssueDetailContainer} />
-            <ProtectedRoute path="/projects/:id" component={ProjectDetailContainer} />
-            <ProtectedRoute exact path="/projects" component={ProjectsContainer} />
-            <ProtectedRoute exact path="/issues" component={IssuesContainer} />
-            <ProtectedRoute path="/" component={DashboardContainer} />
-          </Switch>
-          <FullLoading />
+    if(this.state.loading){
+      return (
+        <div className="global-container">
+          <ProtectedRoute path="/" component={NavigationContainer} />
+          <div className="content-container">
+            <FullLoading />
+          </div>
         </div>
-        <Modal component={this.props.modal_component} props={this.props.modal_props}/>
-      </div>
-    )
+      )
+    } else {
+      return(
+        <div className="global-container">
+          <ProtectedRoute path="/" component={NavigationContainer} />
+          <div className="content-container">
+            <Switch>
+              <ProtectedRoute path="/issues/:id" component={IssueDetailContainer} />
+              <ProtectedRoute path="/projects/:id" component={ProjectDetailContainer} />
+              <ProtectedRoute exact path="/projects" component={ProjectsContainer} />
+              <ProtectedRoute exact path="/issues" component={IssuesContainer} />
+              <ProtectedRoute path="/" component={DashboardContainer} />
+            </Switch>
+            <FullLoading />
+          </div>
+          <Modal component={this.props.modal_component} props={this.props.modal_props}/>
+        </div>
+      )
+    }
   }
 
 }
@@ -67,10 +89,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>{
   return{
-    fetchIssueTypes: () => dispatch(fetchIssueTypes()),
-    fetchPriorityTypes: () => dispatch(fetchPriorityTypes()),
-    fetchStatusTypes: () => dispatch(fetchStatusTypes()),
-    fetchAllUsers: () => dispatch(fetchAllUsers()),
+    fetchResources: () => dispatch(fetchResources()),
+    showLoading: () => dispatch(showLoading()),
+    hideLoading: () => dispatch(hideLoading()),
   }
 }
 

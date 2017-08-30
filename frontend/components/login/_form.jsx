@@ -71,8 +71,8 @@ class Form extends React.Component {
       message = "Please enter valid email and password"
     } else if (!this.validEmail()){
       message = "Please enter valid email"
-    } else if(password.length < 1) {
-      message = "Please enter password"
+    } else if(password.length < 6) {
+      message = "Please enter password - Min 6 characters"
     }
     return <div className="login-errors-container">{message}</div>
   }
@@ -96,7 +96,7 @@ class Form extends React.Component {
           <button className={this.setSubmitButton()}>Login</button>
           { this.renderErrors() }
           { this.missingFormItems() }
-          <button onClick={this.demoLogin} className="form-button left">Demo Login</button>
+          <button onClick={this.demoLogin} className="form-button demo left">Demo Login</button>
         </form>
       </div>
     )

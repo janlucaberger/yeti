@@ -1,5 +1,6 @@
 unless @issue.nil?
   json.issue do
+
     json.set! @issue.id do
       json.extract!(@issue, *Issue.column_names)
       json.votes @issue.votes.count
@@ -7,6 +8,7 @@ unless @issue.nil?
       json.watchers @issue.watchers.count
       json.current_user_watched @issue.watchers.pluck(:user_id).include?(current_user.id) ? true : false
       json.attachment_ids @issue.attachments.pluck(:id)
+      json.history_ids @issue.histories.pluck(:id)
     end
   end
   json.attachments do
@@ -17,6 +19,23 @@ unless @issue.nil?
       end
     end
   end
+
+  json.comments do
+    @issue.comments.each do |comment|
+      json.set! comment.id do
+        json.extract!(comment, *Comment.column_names)
+      end
+    end
+  end
+
+  json.history do
+    @issue.histories.each do |history|
+      json.set! history.id do
+        json.extract!(history, *IssueAudit.column_names)
+      end
+    end
+  end
+
   json.assigned_user do
     json.set! @issue.assigned_user.id do
       json.extract!(@issue.assigned_user, :id, :first_name, :last_name, :email)

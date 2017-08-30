@@ -39,10 +39,16 @@ class Api::IssuesController < ApplicationController
   def update
     issue_id = params[:issue][:id]
     column = params[:issue].keys.select{ |param| param != "id" }[0].to_sym
+
     previous_value = Issue.where(id: issue_id )[0][column]
     new_value = params[:issue][column]
-    @issue = Issue.find(issue_id)
 
+    if column == :sprint
+      previous_value = previous_value == "true" ? true : false
+      new_value = new_value == "true" ? true : false
+    end
+
+    @issue = Issue.find(issue_id)
     doneStatus = StatusType.where(status_type: "Done").to_a[0].id
 
     if params[:issue][:status_type_id].to_i == doneStatus
@@ -53,8 +59,8 @@ class Api::IssuesController < ApplicationController
 
     Issue.transaction do
       @issue.update(issue_params)
-      IssueAudit.create(issue_id: params[:issue][:id], column_changed: column, from: previous_value, to: new_value, user_id: current_user.id)
-      render "/api/issues/show"
+      @issueAudit = IssueAudit.create(issue_id: params[:issue][:id], column_changed: column, from: previous_value, to: new_value, user_id: current_user.id)
+      render "/api/issues/update"
     end
   end
 
@@ -98,7 +104,17 @@ class Api::IssuesController < ApplicationController
     if @issue_watcher.save
       render "/api/issues/watcher.json.jbuilder"
     else
-      render json: @issue_watcher.errors.full_messages
+      render json: @issue_watcher.errors.full_messages, status: 422
+    end
+  end
+
+  def delete_watcher
+    @issue = Issue.find(params[:id])
+    @issue_watcher = Watcher.find_by(user_id: current_user.id, issue_id: @issue.id)
+    if @issue_watcher.delete
+      render "/api/issues/watcher.json.jbuilder"
+    else
+      render json: @issue_watcher.errors.full_messages, status: 422
     end
   end
 

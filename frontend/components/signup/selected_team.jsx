@@ -8,7 +8,7 @@ const SelectedTeam = ({team}) =>{
       <div className="selected-team-container">
         <h3>Your Team</h3>
         <h2>{team.team_name}</h2>
-        <img src={team.avatar_url} width="50px" />
+        <img src={team.avatar} width="50px" />
       </div>
     )
   } else {

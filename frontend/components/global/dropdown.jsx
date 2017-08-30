@@ -3,6 +3,7 @@ import React from 'react';
 class Dropdown extends React.Component{
   constructor(props){
     super(props);
+
     this.state = {
       showOptions: false,
       loading: true,
@@ -62,7 +63,7 @@ class Dropdown extends React.Component{
           <span className="dropdown-option-text">{option[this.props.item]}</span>
         </li>
       )
-    })
+    }, this)
     if(this.state.showOptions){
       return(
         <ul className="dropdown-options">

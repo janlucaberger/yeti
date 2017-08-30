@@ -52,7 +52,7 @@ Rails.application.routes.draw do
         delete :votes
 
         post :watchers, to: "issues#add_watcher"
-        delete :watchers
+        delete :watchers, to: "issues#delete_watcher"
 
         get :history
       end
@@ -66,7 +66,7 @@ Rails.application.routes.draw do
     get '/issue_types', to: "issue_types#index"
     get '/status_types', to: "status_types#index"
     get '/priority_types', to: "priority_types#index"
-
+    get '/resources', to: "sessions#resources"
   end
 
 end

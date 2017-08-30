@@ -17,4 +17,12 @@ class Api::SessionsController < ApplicationController
     render json: {}
   end
 
+  def resources
+    @users = User.joins(:users_teams).where("team_id = ?", current_team.id)
+    @issue_types = IssueType.all
+    @status_types = StatusType.all
+    @priority_types = PriorityType.all
+    render "api/session/resources"
+  end
+
 end
