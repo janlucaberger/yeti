@@ -1,7 +1,7 @@
 import React from 'react';
 import GrayNavDrawerButton from './gray_nav_drawer_button';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class ProjectsNavigation extends React.Component{
 
@@ -11,7 +11,9 @@ class ProjectsNavigation extends React.Component{
     } else {
       return(
         <div className='nav-drawer-container lightgray-background'>
-
+          <div className="nav-drawer-back-button">
+            <Link to="/projects">Back to Projects</Link>
+            </div>
           <div className="nav-drawer-button-container">
             <div className="nav-project-title-container">
               <img src={this.props.currentProject.avatar} width="25px" />
