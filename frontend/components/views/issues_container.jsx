@@ -10,6 +10,10 @@ class IssuesContainer extends React.Component {
   render(){
     return(
       <div className="content-inner-container">
+        <div className="current-container-title">
+          Issues
+          <button className="primary-button gray" onClick={this.createProjectForm}>Create new Project</button>
+        </div>
         <IssuesTable />
       </div>
     )

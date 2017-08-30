@@ -20,8 +20,9 @@ class ProjectsContainer extends React.Component {
   render(){
     return(
       <div className="content-inner-container">
-        <div className="content-header">Projects
-          <button className="primary-button" onClick={this.createProjectForm}>Create new Project</button>
+        <div className="current-container-title">
+          Projects
+          <button className="primary-button gray" onClick={this.createProjectForm}>Create new Project</button>
         </div>
         <Route path="/projects" exact component={ProjectsTable} />
       </div>

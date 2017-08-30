@@ -16,7 +16,6 @@ class ProjectDetailContainer extends React.Component {
 
   componentDidMount(){
     this.props.fetchProject(this.projectId)
-    this.props.fetchPriorityTypes()
   }
 
   componentWillReceiveProps(nextProps){
@@ -26,7 +25,7 @@ class ProjectDetailContainer extends React.Component {
 
   render(){
     return(
-      <div className="content-inner-container">Project Detail
+      <div className="content-inner-container">
         <Route path="/projects/:id/sprint" render={() => <ProjectSprint projectId={this.projectId}/> } />
         <Route path="/projects/:id/backlog" exact component={ProjectBacklog} />
         <Route path="/projects/:project_id/:page/issues/:id" component={IssueDetailContainer} />
@@ -39,7 +38,6 @@ class ProjectDetailContainer extends React.Component {
 const mapDispatchToProps = dispatch => {
   return{
     fetchProject: id => dispatch(fetchProject(id)),
-    fetchPriorityTypes: () => dispatch(fetchPriorityTypes())
   }
 }
 
