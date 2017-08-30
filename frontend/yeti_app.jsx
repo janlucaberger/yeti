@@ -4,7 +4,21 @@ import Root from './components/root';
 import configureStore from './store/store'
 
 document.addEventListener("DOMContentLoaded", () => {
-  let preloadedState = { session: { current_user: null}}
+  let preloadedState = {
+    session: { current_user: null},
+    ui: {
+      modal: {
+        display: false,
+        component: null,
+        props: null,
+        styles: null
+      },
+      loading: {
+        display: false,
+        props: null
+      }
+    }
+  }
   if (window.current_user) {
     preloadedState.session.current_user = window.current_user
     delete window.current_user
