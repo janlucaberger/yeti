@@ -58,6 +58,7 @@ class ProjectBacklog extends React.Component {
 
   drop(sprintStatus) {
     return (event) => {
+      debugger
       event.preventDefault();
       let data;
       try {
@@ -92,17 +93,20 @@ class ProjectBacklog extends React.Component {
   renderIssues(issues){
     return Object.values(issues).map(issue => {
       return (
-        <Link to={`/projects/${issue.project_id}/backlog/issues/${issue.id}`}>
+        <Link key={issue.id} to={`/projects/${issue.project_id}/backlog/issues/${issue.id}`}>
           <div
             className="backlog-item-container"
             onDragStart={this.dragStart(issue.id, issue.sprint)}
-            key={issue.id}
             draggable={true}
             ref={ (node) => { this.node = node }}
           >
-            <img className="backlog-item-icon" src={this.props.issueTypes[issue.issue_type_id].icon_url} width="20px"/>
-            {issue.summary}
-            {issue.key}
+            <div className="backlog-item-summary">
+              <img className="backlog-item-icon" src={this.props.issueTypes[issue.issue_type_id].icon_url} width="20px"/>
+              {issue.summary}
+            </div>
+            <div className="backlog-item-key">
+              {issue.key}
+            </div>
           </div>
         </Link>
 
@@ -126,6 +130,7 @@ class ProjectBacklog extends React.Component {
 
   renderSprintInfo(){
     const sprint = this.props.sprint
+    console.log(sprint)
     if(this.props.sprint){
       return (
         <div className="current-sprint-info-container">
@@ -135,11 +140,11 @@ class ProjectBacklog extends React.Component {
           </div>
           <div className="current-sprint-date-container">
             <div className="current-sprint-label">Start: </div>
-            {dateFormat(sprint.start_time, "dddd, mmmm dS, yyyy")}
+            {dateFormat(sprint.start_date, "dddd, mmmm dS, yyyy")}
           </div>
           <div className="current-sprint-date-container">
             <div className="current-sprint-label">End: </div>
-            {dateFormat(sprint.end_time, "dddd, mmmm dS, yyyy")}
+            {dateFormat(sprint.end_date, "dddd, mmmm dS, yyyy")}
           </div>
           <button onClick={this.completeSprint} className="primary-button blue-background">Complete Sprint</button>
         </div>
@@ -166,17 +171,15 @@ class ProjectBacklog extends React.Component {
           </div>
           { this.renderSprintInfo() }
           <div className="backlog-container" onDrop={this.drop(true)} onDragOver={this.preventDefault}>
-            Sprint
+            <div className="backlog-container-title gray">Sprint</div>
             <div className="backlog-items-container">
               {this.renderIssues(this.props.issues.active)}
             </div>
           </div>
-          <hr />
           <div className="backlog-container" onDrop={this.drop(false)} onDragOver={this.preventDefault}>
-
+            <div className="backlog-container-title gray">Backlog</div>
             <div className="backlog-items-container">
               {this.renderIssues(this.props.issues.inactive)}
-              <ProjectBacklogItem />
             </div>
           </div>
         </div>

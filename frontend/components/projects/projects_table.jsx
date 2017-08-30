@@ -61,7 +61,7 @@ class ProjectsTable extends React.Component {
 
       switch (header) {
         case "id":
-          break;
+          return null
         case "created_at":
           return (
             <td key={idx}>
@@ -72,6 +72,12 @@ class ProjectsTable extends React.Component {
           return(
             <td key={idx}>
               <img src={project[header]} width="25px" />
+            </td>
+          )
+        case "title":
+          return(
+            <td key={idx}>
+              <h3>{project[header]}</h3>
             </td>
           )
         default:

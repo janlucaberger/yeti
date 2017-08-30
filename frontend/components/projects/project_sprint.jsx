@@ -106,6 +106,7 @@ class ProjectSprint extends React.Component{
 
   renderSprintInfo(){
     const sprint = this.props.sprint
+    debugger
     if(this.props.sprint){
       return (
         <div className='current-sprint-container'>
@@ -117,11 +118,11 @@ class ProjectSprint extends React.Component{
               </div>
               <div className="current-sprint-date-container">
                 <div className="current-sprint-label">Start: </div>
-                {dateFormat(sprint.start_time, "dddd, mmmm dS, yyyy")}
+                {dateFormat(sprint.start_date, "dddd, mmmm dS, yyyy")}
               </div>
               <div className="current-sprint-date-container">
                 <div className="current-sprint-label">End: </div>
-                {dateFormat(sprint.end_time, "dddd, mmmm dS, yyyy")}
+                {dateFormat(sprint.end_date, "dddd, mmmm dS, yyyy")}
               </div>
             </div>
             <div className="current-sprint-button-container">
@@ -175,7 +176,6 @@ class ProjectSprint extends React.Component{
         <div className="project-sprint-container">
           <div className="current-container-title">
             Sprint
-            <hr />
           </div>
           { this.renderSprintInfo() }
         </div>
