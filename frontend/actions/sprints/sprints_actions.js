@@ -17,7 +17,7 @@ export const receiveSprintError = error => {
   }
 }
 export const receiveCompletedSprintIssues = issues => {
-  debugger
+  
   return {
     type: RECEIVE_COMPLETED_SPRINT_ISSUES,
     issues
@@ -34,7 +34,7 @@ export const createSprint = sprint => dispatch => {
 }
 
 export const fetchSprint = projectId => dispatch => {
-  return ApiUtil.fetchSprint().then(
+  return ApiUtil.fetchSprint(projectId).then(
     sprint => dispatch(receiveSprint(sprint)),
     err => dispatch(receiveSprintError(err))
   )
