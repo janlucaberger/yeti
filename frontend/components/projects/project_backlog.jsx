@@ -9,7 +9,7 @@ import ProjectBacklogItem from "./project_backlog_item";
 import { Link } from 'react-router-dom';
 import { fetchSprint, completeSprint } from '../../actions/sprints/sprints_actions'
 import TimeAgo from 'react-timeago';
-import dateFormat from 'dateFormat';
+import dateFormat from 'dateformat';
 
 class ProjectBacklog extends React.Component {
   constructor(props) {

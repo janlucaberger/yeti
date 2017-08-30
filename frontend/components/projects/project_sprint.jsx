@@ -4,7 +4,7 @@ import { getIssuesByStatus, getActiveSprintIssuesByStatus, getSprint } from '../
 import ProjectSprintWidget from './project_sprint_widget';
 import { updateIssue, fetchIssuesByProject } from '../../actions/issues/issues_actions';
 import { showLoading, hideLoading, fetchIssueTypes, fetchPriorityTypes } from '../../actions/ui_actions'
-import dateFormat from 'dateFormat';
+import dateFormat from 'dateformat';
 import { completeSprint } from '../../actions/sprints/sprints_actions';
 import {showModal} from '../../actions/ui_actions'
 import NewSprintForm from './new_sprint_form';
