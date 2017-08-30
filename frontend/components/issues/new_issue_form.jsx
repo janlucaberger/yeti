@@ -43,9 +43,6 @@ class NewIssueForm extends React.Component{
   }
 
   componentDidMount(){
-  //   this.props.fetchIssueTypes()
-  //   this.props.fetchPriorityTypes()
-    // this.props.fetchAllProjects()
     this.props.fetchAllProjects().then( () => this.setState({
       loading: false,
       project_id: Object.values(this.props.projects)[0].id,
@@ -104,7 +101,7 @@ class NewIssueForm extends React.Component{
       formated[key] = {
         user_name: `${users[key].first_name} ${users[key].last_name}`,
         id: users[key].id,
-        avatar_url: users[key].avatar
+        avatar: users[key].avatar
       }
     }
     return formated
@@ -124,11 +121,11 @@ class NewIssueForm extends React.Component{
             <h5>Key: {this.props.projects[this.state.project_id].key}</h5>
           </div>
           <div className="new-item-form-content">
-            <label className="new-item-form-label">Summary<span className="red">*</span></label>
+            <label className="new-item-form-label">Summary</label>
             <input type="text" className="new-item-form-input" value={this.state.summary} onChange={this.handleChange("summary")} />
             <div className="new-issue-dropdowns">
               <Dropdown
-                title="Project*"
+                title="Project"
                 item="title"
                 changeKey="project_id"
                 updateProperty={this.handleDropdownChoice}
@@ -148,7 +145,7 @@ class NewIssueForm extends React.Component{
                 width="120px"
                 />
               <Dropdown
-                title="Type*"
+                title="Type"
                 item="issue_type"
                 changeKey="issue_type_id"
                 updateProperty={this.handleDropdownChoice}
@@ -163,12 +160,12 @@ class NewIssueForm extends React.Component{
               onChange={this.handleDescription}
             />
             <Dropdown
-              title="User*"
+              title="Assign to"
               item="user_name"
               changeKey="assigned_user_id"
               updateProperty={this.handleDropdownChoice}
               options={this.formatUserName(this.props.users)}
-              iconKey="avatar_url"
+              iconKey="avatar"
               currentOption={this.formatUserName(this.props.users)[this.state.assigned_user_id]}
               width="200px"
             />
@@ -185,6 +182,7 @@ class NewIssueForm extends React.Component{
 }
 
 const mapStateToProps = state => {
+  debugger
   return{
     issueTypes: state.ui.issue_types,
     priorityTypes: state.ui.priority_types,

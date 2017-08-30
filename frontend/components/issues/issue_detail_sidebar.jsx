@@ -21,7 +21,7 @@ class IssueDetailSidebar extends React.Component{
     if(typeof this.props.didUserWatch === "undefined" || !this.props.didUserWatch){
       return <button className="borderless-button" onClick={this.props.addWatch}>Watch</button>
     } else {
-      return <button disabled>Watched!</button>
+      return <button className="borderless-button gray" onClick={this.props.deleteWatch}>Unwatch</button>
     }
   }
 

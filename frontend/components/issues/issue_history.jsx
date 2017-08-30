@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getUserInfo, getIssueHistory } from '../../reducers/selectors';
-import { fetchIssueHistory } from '../../actions/issues/issues_actions';
+import { fetchIssueHistories } from '../../actions/issues/issues_actions';
 import TimeAgo from 'react-timeago'
 
 
@@ -15,15 +15,17 @@ class IssueHistory extends React.Component{
   }
 
   componentDidMount(){
-    this.props.fetchIssueHistory(this.props.issueId)
+    // this.props.fetchIssueHistories(this.props.issueId)
   }
+  // componentWillReceiveProps(nextProps){
+  //   this.props.fetchIssueHistories(this.props.issueId)
+  // }
 
   createMarkup(text){
     return { __html: text}
   }
 
   formatData(column_name, from, to){
-
     switch (column_name) {
       case "priority_type_id":
         return(
@@ -86,6 +88,15 @@ class IssueHistory extends React.Component{
             </td>
           </tbody>
         )
+      case "sprint":
+        if(to === true || to == "t"){
+          return <p>Added this issue to a sprint</p>
+        } else {
+          return(
+            <p>Removed this issue from a sprint</p>
+          )
+        }
+
       default:
         return(
           <tbody>
@@ -104,54 +115,55 @@ class IssueHistory extends React.Component{
   }
 
   mapHistory(){
-    return this.props.getIssueHistory(this.props.issueId).map(issueHistory => {
-
-      const user = this.props.getUserInfo(issueHistory.user_id)
-      if(user){
-        return (
-          <div key={issueHistory.id} className="history-item-container">
-            <div className="history-user-info">
-              <img width="25px" height="25px" src={user.avatar_url} />
-              <div className="history-user-info-text">
-                <span className="bold">{user.first_name} {user.last_name}</span>
-                <span>&nbsp; made changes -</span>
-                <span className="gray">&nbsp;<TimeAgo date={issueHistory.created_at} /></span>
+    if(this.props.getIssueHistory.length > 0) {
+      return this.props.getIssueHistory.map(issueHistory => {
+        debugger
+        const user = this.props.getUserInfo(issueHistory.user_id)
+        if(user){
+          return (
+            <div key={issueHistory.id} className="history-item-container">
+              <div className="history-user-info">
+                <img width="25px" height="25px" src={user.avatar} />
+                <div className="history-user-info-text">
+                  <span className="bold">{user.first_name} {user.last_name}</span>
+                  <span>&nbsp; made changes -</span>
+                  <span className="gray">&nbsp;<TimeAgo date={issueHistory.created_at} /></span>
+                </div>
+              </div>
+              <div className="history-change-info">
+                <table>
+                  <thead>
+                    <tr>
+                      <td>
+                        Field
+                      </td>
+                      <td>
+                        Original Value
+                      </td>
+                      <td>
+                        New Value
+                      </td>
+                    </tr>
+                  </thead>
+                    {this.formatData(
+                      issueHistory.column_changed,
+                      issueHistory.from,
+                      issueHistory.to
+                    )}
+                </table>
               </div>
             </div>
-            <div className="history-change-info">
-              <table>
-                <thead>
-                  <tr>
-                    <td>
-                      Field
-                    </td>
-                    <td>
-                      Original Value
-                    </td>
-                    <td>
-                      New Value
-                    </td>
-                  </tr>
-                </thead>
-                  {this.formatData(
-                    issueHistory.column_changed,
-                    issueHistory.from,
-                    issueHistory.to
-                  )}
-              </table>
-            </div>
-          </div>
-        )
-      }  
-    }, this)
+          )
+        }
+      }, this)
+    }
   }
 
   render(){
-
-    if(this.props.getIssueHistory(this.props.issueId).length > 0){
+    if(this.props.getIssueHistory.length > 0){
       //
       return(
-        <div>Issue History
+        <div>
           {this.mapHistory()}
         </div>
       )
@@ -165,16 +177,16 @@ class IssueHistory extends React.Component{
 
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return{
     getUserInfo: (user_id) => getUserInfo(state, user_id),
-    getIssueHistory: (issue_id) => getIssueHistory(state, issue_id),
+    getIssueHistory: getIssueHistory(state, ownProps.issueId),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return{
-    fetchIssueHistory: (id) => dispatch(fetchIssueHistory(id)),
+    // fetchIssueHistories: (id) => dispatch(fetchIssueHistories(id)),
   }
 }
 

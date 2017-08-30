@@ -12,7 +12,7 @@ import {
   showModal
 } from '../../actions/ui_actions'
 import TimeAgo from 'react-timeago'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import UserWidget from '../global/user_widget';
 import NewIssueForm from '../issues/new_issue_form'
 
@@ -36,6 +36,12 @@ class IssuesTable extends React.Component {
       this.setState({
         tableHeaders: Object.keys(this.props.issuesArray[0]),
       })
+    }
+  }
+
+  goToPage(id){
+    return (e) => {
+      this.props.history.push(`/issues/${id}`)
     }
   }
 
@@ -70,7 +76,7 @@ class IssuesTable extends React.Component {
       const value = issue[header] || "--";
         switch (header) {
           case "id":
-            return <td key={idx}>--</td>
+            return null
           case "created_at":
             return (
               <td key={idx}>
@@ -79,22 +85,44 @@ class IssuesTable extends React.Component {
             )
           case "issue_type_id":
             return (
-              <img src={this.props.issueTypes[issue[header]].icon_url} width="20px"/>
+              <td key={idx}>
+                <img src={this.props.issueTypes[issue[header]].icon_url} width="20px"/>
+              </td>
+            )
+          case "project_id":
+            return (
+              <td key={idx}>
+                <p>{this.props.projects[issue[header]].title}</p>
+              </td>
+            )
+          case "status_type_id":
+            return (
+              <td key={idx}>
+                <p>{this.props.statusTypes[issue[header]].status_type}</p>
+              </td>
             )
           case "priority_type_id":
             return (
-              <img src={this.props.priorityTypes[issue[header]].icon_url} width="20px"/>
+              <td key={idx}>
+                <img src={this.props.priorityTypes[issue[header]].icon_url} width="20px"/>
+              </td>
+            )
+          case "summary":
+            return (
+              <td key={idx}>
+                <h3>{value}</h3>
+              </td>
             )
           case "assigned_user_id":
             return(
-              <td className="table-user-container" key={idx}>
+              <td key={idx}>
                 <img src={this.props.users[issue[header]].avatar} width="25px" />
-                {this.props.users[issue[header]].first_name} {this.props.users[issue[header]].last_name}
-                <UserWidget />
+                {this.props.users[issue[header]].first_name}&nbsp;{this.props.users[issue[header]].last_name}
               </td>
             )
           default:
-            return   <td key={idx}><Link to={`/issues/${issue.id}`} >{value}</Link></td>
+            return null
+            // <td key={idx}><Link to={`/issues/${issue.id}`} >{value}</Link></td>
         }
     }, this)
   }
@@ -103,15 +131,22 @@ class IssuesTable extends React.Component {
     return this.state.tableHeaders.map((header, idx) => {
       switch (header) {
         case "id":
-          return <td key={idx}>--</td>
+          return null
         case "assigned_user_id":
           return <th className="table-header" key={idx}>Assigned To</th>
         case "status_type_id":
           return <th className="table-header" key={idx}>Status</th>
         case "issue_type_id":
           return <th className="table-header" key={idx}>Issue Type</th>
+        case "priority_type_id":
+          return <th className="table-header" key={idx}>Priority</th>
+        case "project_id":
+          return <th className="table-header" key={idx}>Project</th>
+        case "summary":
+          return <th className="table-header" key={idx}>Summary</th>
         default:
-          return <th className="table-header" key={idx}>{header.split("")[0].toUpperCase() + header.split("").slice(1).join("")}</th>
+          return null
+          // return <th className="table-header" key={idx}>{header.split("")[0].toUpperCase() + header.split("").slice(1).join("")}</th>
       }
     })
   }
@@ -135,7 +170,7 @@ class IssuesTable extends React.Component {
     } else {
       const mappedRows = this.props.issuesArray.map((issue) => {
         return (
-          <tr className="table-row" key={issue.id}>
+          <tr onClick={this.goToPage(issue.id)} className="table-row" key={issue.id}>
             {this.mapRowsCell(issue)}
           </tr>
         )
@@ -166,6 +201,7 @@ const mapStateToProps = state => {
     issueTypes: state.ui.issue_types,
     statusTypes: state.ui.status_types,
     priorityTypes: state.ui.priority_types,
+    projects: state.projects,
     users: state.users,
   }
 }
@@ -181,4 +217,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(IssuesTable)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(IssuesTable))
