@@ -111,7 +111,10 @@ class ProjectsTable extends React.Component {
       return <h1>LOADINGGGG</h1>
     } else if (this.props.projectsArray.length === 0){
       return (
-        <div>Looks you you dont have any projects yet!</div>
+        <div className="content-inner-container-placeholder">
+          <div className="placeholder-text">Looks you you dont have any projects yet!</div>
+          <button className="large-button blue-background">Create an issue!</button>
+        </div>
       )
     } else {
       return(

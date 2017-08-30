@@ -4,6 +4,7 @@ import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 import { createSprint } from '../../actions/sprints/sprints_actions';
 import { connect } from 'react-redux';
+import { hideModal } from '../../actions/ui_actions';
 
 class NewSprintForm extends React.Component{
   constructor (props) {
@@ -37,7 +38,9 @@ class NewSprintForm extends React.Component{
     let params = this.state
     params["start_date"] = this.state.start_date._d
     params["end_date"] = this.state.end_date._d
-    this.props.createSprint(params)
+    this.props.createSprint(params).then(
+      () => this.props.hideModal()
+    )
   }
 
   handleEndDate(date) {
@@ -95,7 +98,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    createSprint: sprint => dispatch(createSprint(sprint))
+    createSprint: sprint => dispatch(createSprint(sprint)),
+    hideModal: () => dispatch(hideModal()),
   }
 }
 

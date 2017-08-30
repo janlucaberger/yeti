@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchAllIssues} from '../../actions/issues/issues_actions'
-import {showModal} from '../../actions/ui_actions'
+import { fetchIssuesByProject } from '../../actions/issues/issues_actions'
+import { showModal, hideModal } from '../../actions/ui_actions'
 import {getIssuesBySprintStatus, getSprintByProject} from '../../reducers/selectors';
 import {updateIssue} from '../../actions/issues/issues_actions';
 import NewSprintForm from './new_sprint_form';
@@ -31,8 +31,9 @@ class ProjectBacklog extends React.Component {
   }
 
   componentDidMount() {
+
     this.props.fetchSprint(this.props.projectId)
-    this.props.fetchIssues().then(() => {
+    this.props.fetchIssuesByProject(this.props.projectId).then(() => {
       this.loadingComplete()
     })
   }
@@ -82,7 +83,10 @@ class ProjectBacklog extends React.Component {
 
 
   completeSprint(){
-    this.props.completeSprint(this.props.projectId)
+    this.props.completeSprint({
+      project_id: this.props.projectId,
+      sprint_id: this.props.sprint.id
+    })
   }
 
   renderIssues(issues){
@@ -108,8 +112,7 @@ class ProjectBacklog extends React.Component {
 
   showNewSprintForm() {
     this.props.showModal(NewSprintForm, {
-      projectId: this.props.match.params.id,
-      test: 2
+      projectId: this.props.match.params.id
     })
   }
 
@@ -125,26 +128,26 @@ class ProjectBacklog extends React.Component {
     const sprint = this.props.sprint
     if(this.props.sprint){
       return (
-        <div>
-          <div>Current Sprint {sprint.name}</div>
-          <div className="current-sprint-info-container">
-            <div className="current-sprint-date-container">
-              <div className="current-sprint-label">Start: </div>
-              {dateFormat(sprint.start_time, "dddd, mmmm dS, yyyy")}
-            </div>
-            <div className="current-sprint-date-container">
-              <div className="current-sprint-label">End: </div>
-              {dateFormat(sprint.end_time, "dddd, mmmm dS, yyyy")}
-            </div>
-            <button onClick={this.completeSprint} className="primary-button">Complete Sprint</button>
+        <div className="current-sprint-info-container">
+          <div className="current-sprint-date-container">
+            <div className="current-sprint-label">Name: </div>
+            {sprint.name}
           </div>
-
+          <div className="current-sprint-date-container">
+            <div className="current-sprint-label">Start: </div>
+            {dateFormat(sprint.start_time, "dddd, mmmm dS, yyyy")}
+          </div>
+          <div className="current-sprint-date-container">
+            <div className="current-sprint-label">End: </div>
+            {dateFormat(sprint.end_time, "dddd, mmmm dS, yyyy")}
+          </div>
+          <button onClick={this.completeSprint} className="primary-button blue-background">Complete Sprint</button>
         </div>
       )
     } else {
       return(
-        <div>
-          Looks like you haven't start a sprint.
+        <div className="current-sprint-info-container">
+          Looks like you haven't started a sprint.
           <button onClick={this.showNewSprintForm}>Start Sprint</button>
         </div>
       )
@@ -158,6 +161,9 @@ class ProjectBacklog extends React.Component {
     } else {
       return (
         <div>
+          <div className="current-container-title">
+            Backlog
+          </div>
           { this.renderSprintInfo() }
           <div className="backlog-container" onDrop={this.drop(true)} onDragOver={this.preventDefault}>
             Sprint
@@ -186,16 +192,18 @@ const mapStateToProps = (state, ownProps) => {
     issues: getIssuesBySprintStatus(state, ownProps.match.params.id),
     issueTypes: state.ui.issue_types,
     sprint: getSprintByProject(state, ownProps.match.params.id)
+
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchIssues: () => dispatch(fetchAllIssues()),
-    fetchSprint: () => dispatch(fetchSprint()),
+    fetchIssuesByProject: (projectId) => dispatch(fetchIssuesByProject(projectId)),
+    fetchSprint: (projectId) => dispatch(fetchSprint(projectId)),
     completeSprint: (id) => dispatch(completeSprint(id)),
     updateIssue: (issue) => dispatch(updateIssue(issue)),
-    showModal: (component, props) => dispatch(showModal(component, props))
+    showModal: (component, props) => dispatch(showModal(component, props)),
+    hideModal: () => dispatch(hideModal()),
   }
 }
 

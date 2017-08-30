@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import DraggablePreview from './draggable_preview';
+
 
 class DraggableItem extends React.Component {
   constructor(props){

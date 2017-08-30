@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getIssuesByStatus, getActiveSprintIssuesByStatus } from '../../reducers/selectors';
+import { getIssuesByStatus, getActiveSprintIssuesByStatus, getSprint } from '../../reducers/selectors';
 import ProjectSprintWidget from './project_sprint_widget';
-import { updateIssue, fetchAllIssues } from '../../actions/issues/issues_actions';
+import { updateIssue, fetchIssuesByProject } from '../../actions/issues/issues_actions';
 import { showLoading, hideLoading, fetchIssueTypes, fetchPriorityTypes } from '../../actions/ui_actions'
+import dateFormat from 'dateFormat';
+import { completeSprint } from '../../actions/sprints/sprints_actions';
+import {showModal} from '../../actions/ui_actions'
+import NewSprintForm from './new_sprint_form';
 
 class ProjectSprint extends React.Component{
   constructor(props){
@@ -18,11 +22,14 @@ class ProjectSprint extends React.Component{
     this.drop = this.drop.bind(this)
     this.renderIssuesToColumns = this.renderIssuesToColumns.bind(this)
     this.updateIssueStatus = this.updateIssueStatus.bind(this)
+    this.renderSprintInfo = this.renderSprintInfo.bind(this)
+    this.completeSprint = this.completeSprint.bind(this)
+    this.showNewSprintForm = this.showNewSprintForm.bind(this)
   }
 
   componentDidMount(){
     this.props.showLoading()
-    this.props.fetchAllIssues().then(
+    this.props.fetchIssuesByProject(this.props.projectId).then(
       () => this.loadingDone()
     )
   }
@@ -84,37 +91,93 @@ class ProjectSprint extends React.Component{
     }
   }
 
+  showNewSprintForm() {
+    this.props.showModal(NewSprintForm, {
+      projectId: this.props.projectId
+    })
+  }
+
+  completeSprint(){
+    this.props.completeSprint({
+      project_id: this.props.projectId,
+      sprint_id: this.props.sprint.id
+    })
+  }
+
+  renderSprintInfo(){
+    const sprint = this.props.sprint
+    if(this.props.sprint){
+      return (
+        <div className='current-sprint-container'>
+          <div className="current-sprint-info-container">
+            <div className="current-sprint-text-container">
+              <div className="current-sprint-date-container">
+                <div className="current-sprint-label">Name: </div>
+                {sprint.name}
+              </div>
+              <div className="current-sprint-date-container">
+                <div className="current-sprint-label">Start: </div>
+                {dateFormat(sprint.start_time, "dddd, mmmm dS, yyyy")}
+              </div>
+              <div className="current-sprint-date-container">
+                <div className="current-sprint-label">End: </div>
+                {dateFormat(sprint.end_time, "dddd, mmmm dS, yyyy")}
+              </div>
+            </div>
+            <div className="current-sprint-button-container">
+              <button onClick={this.completeSprint} className="primary-button blue-background">Complete Sprint</button>
+            </div>
+          </div>
+          <div className="current-sprint-boards">
+            <div
+              className="sprint-dropzone-container"
+              onDrop={this.drop(1)}
+              onDragOver={this.preventDefault}
+            >
+              <div className="sprint-dropzone-title">Todo</div>
+              { this.renderIssuesToColumns(1)}
+
+            </div>
+            <div
+              className="sprint-dropzone-container"
+              onDrop={this.drop(2)}
+              onDragOver={this.preventDefault}
+            >
+              <div className="sprint-dropzone-title">In Progress</div>
+              { this.renderIssuesToColumns(2)}
+            </div>
+            <div
+              className="sprint-dropzone-container"
+              onDrop={this.drop(3)}
+              onDragOver={this.preventDefault}
+            >
+              <div className="sprint-dropzone-title">Done</div>
+              { this.renderIssuesToColumns(3)}
+            </div>
+          </div>
+        </div>
+      )
+    } else {
+      return(
+        <div className="no-sprint-container">
+          <div className="placeholder-text">Looks like you haven't started a sprint.</div>
+          <button className="large-button blue-background" onClick={this.showNewSprintForm}>Start Sprint</button>
+        </div>
+      )
+    }
+  }
+
   render(){
     if(this.state.loading){
       return <div></div>
     } else {
       return(
         <div className="project-sprint-container">
-          <div
-            className="sprint-dropzone-container"
-            onDrop={this.drop(1)}
-            onDragOver={this.preventDefault}
-          >
-            <div className="sprint-dropzone-title">Todo</div>
-            { this.renderIssuesToColumns(1)}
-
+          <div className="current-container-title">
+            Sprint
+            <hr />
           </div>
-          <div
-            className="sprint-dropzone-container"
-            onDrop={this.drop(2)}
-            onDragOver={this.preventDefault}
-          >
-            <div className="sprint-dropzone-title">In Progress</div>
-            { this.renderIssuesToColumns(2)}
-          </div>
-          <div
-            className="sprint-dropzone-container"
-            onDrop={this.drop(3)}
-            onDragOver={this.preventDefault}
-          >
-            <div className="sprint-dropzone-title">Done</div>
-            { this.renderIssuesToColumns(3)}
-          </div>
+          { this.renderSprintInfo() }
         </div>
       )
     }
@@ -122,11 +185,13 @@ class ProjectSprint extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
+
   return{
     projectId: ownProps.projectId,
     issuesByActiveAndStatus: getActiveSprintIssuesByStatus(state, ownProps.projectId),
     priorityTypes: state.ui.priority_types,
     issueTypes: state.ui.issue_types,
+    sprint: getSprint(state, ownProps.projectId)
   }
 }
 
@@ -134,10 +199,10 @@ const mapDispatchToProps = dispatch => {
   return{
     showLoading: () => dispatch(showLoading()),
     hideLoading: () => dispatch(hideLoading()),
-    fetchIssueTypes: () => dispatch(fetchIssueTypes()),
-    fetchPriorityTypes: () => dispatch(fetchPriorityTypes()),
     updateIssue: (issue) => dispatch(updateIssue(issue)),
-    fetchAllIssues: () => dispatch(fetchAllIssues()),
+    completeSprint: (sprint) => dispatch(completeSprint(sprint)),
+    fetchIssuesByProject: (projectId) => dispatch(fetchIssuesByProject(projectId)),
+    showModal: (component, props) => dispatch(showModal(component, props))
   }
 }
 
