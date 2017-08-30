@@ -1,0 +1,46 @@
+.issue-comment-container{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.issue-comment-avatar{
+  margin-right: 8px;
+}
+
+.issue-comment-author-container{
+  padding: 10px 0px;
+  font-size: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  font-weight: 600;
+}
+
+.issue-secondary-nav-container{
+  margin-bottom: 30px;
+}
+
+.issue-comment-timestamp{
+  margin-left: 5px;
+  color: #7b7b7b;
+  font-weight: 400
+}
+.issue-secondary-nav{
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #fff;
+  margin-right: 30px;
+  color: #535353;
+}
+
+.issue-secondary-nav-active{
+  border-bottom: 3px solid #535353;
+  font-weight: 700;
+}
+
+.issue-comment-body{
+  font-size: 13px;
+  line-height: 1.8;
+}
