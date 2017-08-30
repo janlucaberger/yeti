@@ -10,7 +10,9 @@ class Issue < ApplicationRecord
   belongs_to :assigned_user, class_name: :User, foreign_key: :assigned_user_id
   has_many :votes
   has_many :watchers
-
+  has_many :histories, class_name: :IssueAudit, foreign_key: :issue_id
+  has_many :comments
+  
   def self.get_history
   end
 
