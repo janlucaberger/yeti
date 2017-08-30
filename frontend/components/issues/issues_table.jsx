@@ -70,13 +70,13 @@ class IssuesTable extends React.Component {
     },1000)
   }
 
-  handleUndefined(value, default){
-    if(typeof value == "undefined"){
-      return default
-    } else {
-      return value
-    }
-  }
+  // handleUndefined(value, default){
+  //   if(typeof value == "undefined"){
+  //     return default
+  //   } else {
+  //     return value
+  //   }
+  // }
 
 
   mapRowsCell(issue){
