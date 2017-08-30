@@ -71,7 +71,11 @@ class IssuesTable extends React.Component {
   }
 
   handleUndefined(value, default){
-    if
+    if(typeof value == "undefined"){
+      return default
+    } else {
+      return value
+    }
   }
 
 
