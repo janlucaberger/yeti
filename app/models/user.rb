@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :assigned_issues, class_name: :Issue, foreign_key: :assigned_user_id
   has_many :votes
   has_many :watchers
+  has_many :comments
+  
   attr_reader :password
 
   def self.find_by_credentials(email, password)
