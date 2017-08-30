@@ -4,10 +4,12 @@ export const RECEIVE_ISSUE = "RECEIVE_ISSUE"
 export const RECEIVE_ALL_ISSUES = "RECEIVE_ALL_ISSUES"
 export const RECEIVE_ISSUE_ATTACHMENT = "RECEIVE_ISSUE_ATTACHMENT"
 export const RECEIVE_ISSUE_HISTORY = "RECEIVE_ISSUE_HISTORY"
+export const RECEIVE_ISSUE_HISTORIES = "RECEIVE_ISSUE_HISTORIES"
 export const REMOVE_ISSUE_ATTACHMENT = "REMOVE_ISSUE_ATTACHMENT"
 export const RECEIVE_ISSUE_ERROR = "RECEIVE_ISSUE_ERROR"
 export const RECEIVE_VOTE = "RECEIVE_VOTE"
 export const RECEIVE_WATCHER = "RECEIVE_WATCHER"
+export const REMOVE_WATCHER = "REMOVE_WATCHER"
 
 
 export const receiveIssue = issue => {
@@ -30,9 +32,17 @@ export const receiveIssueAttachment = attachment => {
 }
 
 export const receiveIssueHistory = history => {
+
   return{
     type: RECEIVE_ISSUE_HISTORY,
     history
+  }
+}
+export const receiveIssueHistories = histories => {
+
+  return{
+    type: RECEIVE_ISSUE_HISTORIES,
+    histories
   }
 }
 
@@ -62,6 +72,12 @@ export const receiveWatcher = watcher => {
     watcher
   }
 }
+export const removeWatcher = watcher => {
+  return{
+    type: REMOVE_WATCHER,
+    watcher
+  }
+}
 
 
 export const fetchIssue = id => dispatch =>{
@@ -88,10 +104,13 @@ export const fetchIssuesByProject = projectId => dispatch =>{
     )
 }
 
-export const fetchIssueHistory = id => dispatch =>{
-  return ApiUtil.fetchIssueHistory(id)
+export const fetchIssueHistories = id => dispatch =>{
+  return ApiUtil.fetchIssueHistories(id)
     .then(
-      history => dispatch(receiveIssueHistory(history)),
+      histories => {
+
+        dispatch(receiveIssueHistories(histories))
+      },
       err => dispatch(receiveIssueError(err.responseJSON))
     )
 }
@@ -99,7 +118,7 @@ export const fetchIssueHistory = id => dispatch =>{
 export const updateIssue = issue => dispatch =>{
   return ApiUtil.updateIssue(issue)
     .then(
-      issue => dispatch(receiveIssue(issue)),
+      history => dispatch(receiveIssueHistory(history)),
       err => dispatch(receiveIssueError(err.responseJSON))
     )
 }
@@ -138,6 +157,14 @@ export const createWatcher = issueId => dispatch =>{
   return ApiUtil.createWatcher(issueId)
     .then(
       watcher => dispatch(receiveWatcher(watcher)),
+      err => dispatch(receiveIssueError(err.responseJSON))
+    )
+}
+
+export const deleteWatcher = issueId => dispatch =>{
+  return ApiUtil.deleteWatcher(issueId)
+    .then(
+      watcher => dispatch(removeWatcher(watcher)),
       err => dispatch(receiveIssueError(err.responseJSON))
     )
 }

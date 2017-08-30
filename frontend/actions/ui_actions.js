@@ -12,6 +12,7 @@ export const RECEIVE_ISSUE_TYPES = "RECEIVE_ISSUE_TYPES";
 export const RECEIVE_PRIORITY_TYPES = "RECEIVE_PRIORITY_TYPES";
 export const RECEIVE_STATUS_TYPES = "RECEIVE_STATUS_TYPES";
 export const RECEIVE_CURRENT_PAGE = "RECEIVE_CURRENT_PAGE";
+export const RECEIVE_RESOURCES = "RECEIVE_RESOURCES";
 
 
 export const showModal = (component, props, styles) => {
@@ -78,6 +79,12 @@ export const receiveCurrentPage = page => {
     page
   }
 }
+export const receiveResources = resources => {
+  return{
+    type: RECEIVE_RESOURCES,
+    resources
+  }
+}
 
 
 
@@ -94,10 +101,10 @@ export const fetchPriorityTypes = () => dispatch =>{
 }
 
 
-export const fetchStatusTypes = () => dispatch =>{
-  return UiApiUtil.fetchStatusTypes().then((statusTypes) => {
-    dispatch(receiveStatusTypes(statusTypes))
-  })
+export const fetchStatusTypes = () => dispatch => {
+  return UiApiUtil.fetchStatusTypes().then(
+    statusTypes => { dispatch(receiveStatusTypes(statusTypes)) }
+  )
 }
 
 
@@ -106,4 +113,9 @@ export const fetchEmailCheck = email => dispatch => {
 }
 export const fetchTeamnameCheck = teamname => dispatch => {
   return TeamApiUtil.fetchTeamnameCheck(teamname).then((team) => dispatch(receiveTeamnameCheck(team)))
+}
+export const fetchResources = () => dispatch => {
+  return UiApiUtil.fetchResources().then(
+    (resources) => dispatch(receiveResources(resources))
+  )
 }
