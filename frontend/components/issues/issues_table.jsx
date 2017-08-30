@@ -77,6 +77,14 @@ class IssuesTable extends React.Component {
                 <TimeAgo date={issue[header]} />
               </td>
             )
+          case "issue_type_id":
+            return (
+              <img src={this.props.issueTypes[issue[header]].icon_url} width="20px"/>
+            )
+          case "priority_type_id":
+            return (
+              <img src={this.props.priorityTypes[issue[header]].icon_url} width="20px"/>
+            )
           case "assigned_user_id":
             return(
               <td className="table-user-container" key={idx}>

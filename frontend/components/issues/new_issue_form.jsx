@@ -2,17 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { hideModal } from '../../actions/ui_actions';
 import Dropdown from '../global/dropdown';
-import { fetchIssueTypes, fetchPriorityTypes } from '../../actions/ui_actions';
+// import { fetchIssueTypes, fetchPriorityTypes } from '../../actions/ui_actions';
 import { fetchAllProjects } from '../../actions/projects/projects_actions';
-import { fetchAllUsers } from '../../actions/users/user_actions';
+// import { fetchAllUsers } from '../../actions/users/user_actions';
 import { createIssue } from '../../actions/issues/issues_actions';
 import ReactQuill from 'react-quill'
 
 class NewIssueForm extends React.Component{
   constructor(props){
     super(props);
+
     this.state = {
+      summary: "",
+      assigned_user_id: "",
       description: "",
+      issue_type_id: "",
+      priority_type_id: "",
       loading: true,
     }
 
@@ -38,24 +43,27 @@ class NewIssueForm extends React.Component{
   }
 
   componentDidMount(){
-    this.props.fetchIssueTypes()
-    this.props.fetchPriorityTypes()
-    this.props.fetchAllProjects()
-    this.props.fetchAllUsers().then( () => this.setState({
+  //   this.props.fetchIssueTypes()
+  //   this.props.fetchPriorityTypes()
+    // this.props.fetchAllProjects()
+    this.props.fetchAllProjects().then( () => this.setState({
       loading: false,
-      issue_type_id: 1,
-      priority_type_id: 2,
+      project_id: Object.values(this.props.projects)[0].id,
+      assigned_user_id: Object.values(this.props.users)[0].id,
+      issue_type_id: Object.values(this.props.issueTypes)[0].id,
+      priority_type_id: Object.values(this.props.priorityTypes)[0].id,
     }))
   }
 
+
   handleChange(key){
     return (e) => {
-
       this.setState({
         [key]: e.currentTarget.value
       })
     }
   }
+
   handleDescription(value){
     this.setState({
       description: value
@@ -106,7 +114,7 @@ class NewIssueForm extends React.Component{
     console.log(this.state.description)
     if(this.state.loading){
       return(
-        <div>Loading</div>
+        <div></div>
       )
     } else {
       return(
@@ -189,10 +197,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return{
     closeModal: () => dispatch(hideModal()),
-    fetchIssueTypes: () => dispatch(fetchIssueTypes()),
-    fetchPriorityTypes: () => dispatch(fetchPriorityTypes()),
+    // fetchIssueTypes: () => dispatch(fetchIssueTypes()),
+    // fetchPriorityTypes: () => dispatch(fetchPriorityTypes()),
     fetchAllProjects: () => dispatch(fetchAllProjects()),
-    fetchAllUsers: () => dispatch(fetchAllUsers()),
+    // fetchAllUsers: () => dispatch(fetchAllUsers()),
     createIssue: (issue) => dispatch(createIssue(issue)),
   }
 }
