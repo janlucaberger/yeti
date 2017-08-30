@@ -1,18 +1,6 @@
 import React from 'react';
 import TimeAgo from 'react-timeago';
 
-const handleUndefined = (value, defaultVal) => {
-  if(typeof value === "undefined"){
-    return defaultVal
-  } else {
-    return value
-  }
-}
-
-
-
-
-
 
 class TeamActivity extends React.Component{
   constructor(props){
@@ -22,6 +10,11 @@ class TeamActivity extends React.Component{
     this.formatData = this.formatData.bind(this);
     this.renderIssueInfo = this.renderIssueInfo.bind(this);
     this.renderUserInfo = this.renderUserInfo.bind(this);
+    this.createMarkup = this.createMarkup.bind(this);
+  }
+
+  createMarkup(text){
+    return { __html: text}
   }
 
   formatData(column_name, from, to){
@@ -138,7 +131,7 @@ class TeamActivity extends React.Component{
 
   renderActivity(){
     return Object.values(this.props.activity).map( activity => {
-      
+
       return (
         <div key={activity.id} className="team-activity-item-container">
           {this.renderUserInfo(activity)}
