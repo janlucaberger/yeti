@@ -9,8 +9,8 @@
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.12);
   border: 1px solid #d8d8dc;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  // align-items: center;
+  // justify-content: center;
 }
 
 
@@ -26,6 +26,8 @@
 
 .loading-active{
   display: flex;
+  // z-index: 4;
+  // position: absolute;
 }
 
 .loading-spinner-container{

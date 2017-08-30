@@ -70,9 +70,14 @@ class IssuesTable extends React.Component {
     },1000)
   }
 
+  handleUndefined(value, default){
+    if
+  }
+
 
   mapRowsCell(issue){
     return this.state.tableHeaders.map((header,idx) => {
+      debugger
       const value = issue[header] || "--";
         switch (header) {
           case "id":
