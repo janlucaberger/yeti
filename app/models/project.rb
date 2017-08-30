@@ -15,5 +15,6 @@ class Project < ApplicationRecord
   belongs_to :team
   belongs_to :user
   has_many :issues
+  has_many :sprints
 
 end
