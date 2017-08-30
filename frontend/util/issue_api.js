@@ -14,6 +14,13 @@ export const fetchAllIssues = () => {
   })
 }
 
+export const fetchIssuesByProject = project_id => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/issues?project_id=${project_id}&resolved=true`
+  })
+}
+
 export const fetchIssueHistory = id => {
   return $.ajax({
     method: "GET",
