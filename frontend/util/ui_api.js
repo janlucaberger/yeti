@@ -18,3 +18,10 @@ export const fetchStatusTypes = () => {
     url: "/api/status_types"
   })
 }
+
+export const fetchResources = () => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/resources"
+  })
+}

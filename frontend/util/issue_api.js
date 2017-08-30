@@ -21,7 +21,7 @@ export const fetchIssuesByProject = project_id => {
   })
 }
 
-export const fetchIssueHistory = id => {
+export const fetchIssueHistories = id => {
   return $.ajax({
     method: "GET",
     url: `/api/issues/${id}/history`
@@ -74,6 +74,13 @@ export const createVote = issueId => {
 export const createWatcher = issueId => {
   return $.ajax({
     method: "POST",
+    url: `/api/issues/${issueId}/watchers`,
+  })
+}
+export const deleteWatcher = issueId => {
+  
+  return $.ajax({
+    method: "DELETE",
     url: `/api/issues/${issueId}/watchers`,
   })
 }
