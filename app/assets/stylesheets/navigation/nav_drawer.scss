@@ -9,6 +9,10 @@
   align-items: flex-start;
   padding-top: 15px;
   box-sizing: border-box;
+  transition: 0.5s all ease-in-out;
+  position: absolute;
+  z-index: 5;
+  left:60px;
 }
 
 .nav-drawer-button{
@@ -103,4 +107,14 @@
 .nav-drawer-back-button:hover{
   opacity: 0.7;
   cursor: pointer;
+}
+
+
+@media (max-width: 920px) {
+  .nav-drawer-container{
+    position: absolute;
+    z-index: 5;
+    left: -210px;
+    transition: 0.5s all ease-in-out;
+  }
 }
