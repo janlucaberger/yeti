@@ -91,3 +91,16 @@ export const getSprintByProject = (state, projectId) => {
 
   return sprint
 }
+
+
+export const getSprint = (state, projectId) => {
+  let sprint = null;
+  for(let key in state.sprints){
+
+    if(state.sprints[key].project_id == projectId){
+      sprint = state.sprints[key]
+    }
+  }
+
+  return sprint
+}

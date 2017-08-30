@@ -66,7 +66,7 @@ const issuesReducer = (state = {}, action) => {
       newIssueState = {}
 
       for(let key in state){
-        if (!action.issues.includes(parseInt(key))){
+        if (!action.issues.issues.includes(parseInt(key))){
           newIssueState[key] = state[key]
         }
       }
