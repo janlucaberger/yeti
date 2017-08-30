@@ -10,16 +10,19 @@ class Api::SprintsController < ApplicationController
   end
 
   def show
-    @sprint = Sprint.find_by(params[:project_id])
+
+    @sprint = Sprint.where("project_id = ? AND sprints.active = true", params[:id])[0]
 
     render "api/sprints/show"
   end
 
   def complete
     @issues = Issue.where("project_id = ? AND sprint = true", params[:id])
+    @sprint = Sprint.find(params[:sprint][:sprint_id])
     Issue.transaction do
+      @sprint.update!(active: false)
       @issues.each do |issue|
-        issue.update(sprint: false, active: false, resolution: "resolved")  
+        issue.update!(sprint: false, active: false, resolution: "resolved")
       end
       render "api/sprints/completed"
     end

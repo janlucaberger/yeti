@@ -72,6 +72,8 @@ class Api::TeamsController < ApplicationController
     ORDER BY
         ia.issue_id,
         ia.created_at DESC
+    LIMIT
+      3
     ", current_team.id])
     @issue_types = IssueType.all
     @status_types = StatusType.all

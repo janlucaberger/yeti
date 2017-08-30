@@ -1,7 +1,13 @@
 class Api::IssuesController < ApplicationController
 
   def index
-    @issues = Issue.joins(:project).where("team_id = ? AND resolution = 'unresolved' ", current_team.id)
+    if params[:resolved]
+      @issues = Issue.joins(:project).where("team_id = ? AND issues.active = true", current_team.id)
+    elsif params[:all]
+      @issues = Issue.joins(:project).where("team_id = ?", current_team.id)
+    else
+      @issues = Issue.joins(:project).where("team_id = ? AND issues.resolution = 'unresolved' AND issues.active = true ", current_team.id)
+    end
     render "/api/issues/index"
   end
 
