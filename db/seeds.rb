@@ -11,6 +11,7 @@ User.destroy_all
 Project.destroy_all
 Issue.destroy_all
 IssueAudit.destroy_all
+Sprint.destroy_all
 teams = []
 
 
@@ -37,16 +38,49 @@ Project.create(team_id: teams[0].id, title: "Sales" , description:Faker::Hacker.
 Project.create(team_id: teams[0].id, title: "Product" , description:Faker::Hacker.say_something_smart, key: "ENG", user_id: users.sample.id, category: "New York")
 Project.create(team_id: teams[0].id, title: "Marketing" , description:Faker::Hacker.say_something_smart, key: "ENG", user_id: users.sample.id, category: "New York")
 
-
+issues = []
 #ENGINEERING ISSUES
 
+issues << Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Server error 232 on request behind MaxCDN networks" , description: "Test description 1" ,priority_type_id:4, issue_type_id: 2 , status_type_id: 1, key: eng_project.key + " " +rand(1..100).to_s)
+issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Fix bug in signup auth flow" , description: "Test description 1" ,priority_type_id:4, issue_type_id: 1 , status_type_id: 2, key: eng_project.key + " " +rand(1..100).to_s)
+issues << Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Set meeting for mobile web requirements" , description: "Test description 1" ,priority_type_id:1, issue_type_id: 4 , status_type_id: 1, key: eng_project.key + " " +rand(1..100).to_s)
 
-Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Server error 232 on request behind MaxCDN networks" , description: "Test description 1" ,priority_type_id:4, issue_type_id: 2 , status_type_id: 1, key: eng_project.key)
-Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Fix bug in signup auth flow" , description: "Test description 1" ,priority_type_id:4, issue_type_id: 1 , status_type_id: 2, key: eng_project.key)
-Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Set meeting for mobile web requirements" , description: "Test description 1" ,priority_type_id:1, issue_type_id: 4 , status_type_id: 1, key: eng_project.key)
+issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Add anonymous read access support for docker repositories" , description: "Users would like to have anonymous read (pull) access to docker repositories in Nexus. This helps consume and share docker images more easily by not requiring a specific login. This is analogous to the benefits offered by anonymous access by other formats.
+As an end user, I don't want to have to configure authentication for read only access to docker repositories. Docker hub does not require this, and neither should Nexus Repository Manager.
+According to this comment from a Docker developer the correct way to do this would be to implement token authentication, and to have Nexus hand out tokens for anonymous access:
+<a href='https://github.com/docker/docker/issues/24129#issuecomment-230610547' >Github</a>
+There might also be a simpler implementation that should be considered for blanket anonymous access to a repository." ,priority_type_id:1, issue_type_id: 4 , status_type_id: 1, key: eng_project.key + " " +rand(1..100).to_s)
+
+issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Remove snapshots from Maven repository remove if released option may progress slowly" , description: "The maven snapshot removal task is doing more work than expected. Expected that it would look at the snapshots in the snapshot repo and then check whether those exist in release repos. Instead it seems to be looking in other repos and checking whether those components exist in the snapshot repo.
+Steps to reproduce:
+Create a new maven snapshot repo and add one 0.0.1-SNAPSHOT version of a component.
+Configure the snapshot removal task with minimum snapshot count 1 and remove if released enabled with a grace period 1 day.
+Run the task with debug logging enabled.
+Expected:
+The snapshot would not be removed since it was just added, and there would be very little activity recorded in the log since there is just one snapshot in the repo and nothing to clean up.
+Actual:
+A whole bunch of debug log messages were recorded looking for components that do not exist in the snapshot repository. From the logs it looks like the task is iterating over other repositories, such as the central proxy, and checking whether those components exist in the snapshot repo." ,priority_type_id:1, issue_type_id: 3 , status_type_id: 2, key:eng_project.key + " " +rand(1..100).to_s)
+
+issues << Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Allow browse of repository storage via HTML index directory listing" , description: "Since the release of Nexus 3, some people still have expressed an interest in having a Browse Storage feature that works using basic HTML navigation.
+Users of Nexus 2.x who just want to download a particular file for direct consumption often browse into the /content URL to locate what they want, click on it, and download it. This is a simple, very intuitive UI which can be used by end users who aren't very technical.
+In Nexus 3 it is no longer possible to do this.
+There are cases where you can download a file by requesting
+This makes it intuitive if the directory listing would be given if you remove the filename from that url (However, currently that url returns 404)
+Where it makes sense, consider allowing browsing of repositories via HTML directory listings." ,priority_type_id:2, issue_type_id: 2 , status_type_id: 2, key: eng_project.key + " " +rand(1..100).to_s)
+
+
+issues << Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "StoreJanitor cannot work with more than ~2 gb memory" , description: "StoreJanitor uses int for values of freememory, heapsize etc. So StoreJanitor cannot be used in environment with jvm heap bigger than 2,147,483,647 bytes." ,priority_type_id:2, issue_type_id: 2 , status_type_id: 2, key: eng_project.key + " " +rand(1..100).to_s)
+
+
+IssueAudit.create(user_id: users.sample.id, column_changed: "status_type_id", from: 2, to: 1, issue_id: issues.sample.id)
 
 
 
+
+
+#SPRINT
+now = Date.today
+Sprint.create(start_date: now, end_date: (now + 14), project_id: eng_project.id, name: "SP 4")
 
 
 # DEMO USERS
