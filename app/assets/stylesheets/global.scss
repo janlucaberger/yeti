@@ -4,7 +4,7 @@
 
 .content-inner-container-placeholder{
   display: flex;
-  height: 100vh;
+  height: 80vh;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -68,6 +68,8 @@
   border: none;
   border-radius: 4px;
   width: fit-content;
+  height: auto;
+  font-size: 13px;
 }
 
 .primary-button:hover{
@@ -111,4 +113,44 @@
 .borderless-button:hover{
   color: #7f87e8;
   cursor: pointer;
+}
+
+.current-container-title{
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  margin-top: 17px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid #535353;
+  color: #535353;
+  padding-bottom: 10px;
+  height: 38px;
+}
+
+
+.blue-background {
+  background-color: rgb(6, 51, 233);
+}
+
+.red{
+  color: red;
+}
+
+.white-background {
+  background-color: #fff;
+}
+
+.blue {
+  color: rgb(6, 51, 233);
+}
+
+.gray-background {
+  background-color: #efefef;
+}
+
+
+.gray{
+  color: #535353;
 }

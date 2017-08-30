@@ -8,6 +8,7 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  flex-direction: column;
 }
 .sprint-dropzone-container{
   width: 30%;
@@ -77,13 +78,28 @@
   flex-direction: column;
 }
 
+.current-sprint-container{
+  width: 100%;
+  height: 100%;
+}
+
+.current-sprint-boards{
+  display: flex;
+}
+
 .current-sprint-info-container{
-  width: 400px;
-  height: 125px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: flex-end;
+}
+
+.current-sprint-text-container{
+  width: 252px;
+  height: 65px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  margin-bottom: 30px;
   font-size: 13px;
 }
 
@@ -95,4 +111,16 @@
 
 .current-sprint-label{
   font-weight: 600;
+}
+
+.no-sprint-container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.current-sprint-button-container{
+
 }
