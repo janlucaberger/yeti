@@ -37,9 +37,9 @@ let loadingState;
 const uiReducer = (state = defaultState, action) => {
   switch (action.type) {
     case RECEIVE_EMAIL_CHECK:
-      return { signup_email_exists: Boolean(action.user.id) }
+      return _.merge({}, state, { signup_email_exists: Boolean(action.user.id) })
     case RECEIVE_TEAMNAME_CHECK:
-      return { team_name_exists: Boolean(action.team.id) }
+      return _.merge({}, state, { team_name_exists: Boolean(action.team.id) })
     case SHOW_MODAL:
       modalState = {
         modal: {
