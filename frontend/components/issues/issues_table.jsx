@@ -81,7 +81,7 @@ class IssuesTable extends React.Component {
 
   mapRowsCell(issue){
     return this.state.tableHeaders.map((header,idx) => {
-      debugger
+      
       const value = issue[header] || "--";
         switch (header) {
           case "id":
@@ -205,7 +205,7 @@ class IssuesTable extends React.Component {
 }
 
 const mapStateToProps = state => {
-  debugger
+  
   return {
     issuesArray: getIssuesArray(state),
     issueTypes: state.ui.issue_types,

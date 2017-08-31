@@ -114,7 +114,7 @@ class NewIssueForm extends React.Component{
         <div></div>
       )
     } else {
-      debugger
+
       return(
         <div className="new-item-form-container">
           <div className="new-item-form-header">
@@ -183,7 +183,7 @@ class NewIssueForm extends React.Component{
 }
 
 const mapStateToProps = state => {
-  debugger
+
   return{
     issueTypes: state.ui.issue_types,
     priorityTypes: state.ui.priority_types,

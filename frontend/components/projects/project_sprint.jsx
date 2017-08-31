@@ -106,7 +106,7 @@ class ProjectSprint extends React.Component{
 
   renderSprintInfo(){
     const sprint = this.props.sprint
-    debugger
+    
     if(this.props.sprint){
       return (
         <div className='current-sprint-container'>

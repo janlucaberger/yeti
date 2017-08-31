@@ -118,7 +118,7 @@ class IssueHistory extends React.Component{
   mapHistory(){
     if(this.props.getIssueHistory.length > 0) {
       return this.props.getIssueHistory.map(issueHistory => {
-        debugger
+
         const user = this.props.getUserInfo(issueHistory.user_id)
         if(user){
           return (
@@ -179,7 +179,7 @@ class IssueHistory extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
-  debugger
+
   return{
     getUserInfo: (user_id) => getUserInfo(state, user_id),
     getIssueHistory: getIssueHistory(state, ownProps.issueId),

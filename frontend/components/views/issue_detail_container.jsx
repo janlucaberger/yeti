@@ -100,7 +100,7 @@ class IssueDetailContainer extends React.Component {
 
   handleStatus(statusId, type){
     return (e) => {
-      debugger
+
       this.props.updateIssue({status_type_id: statusId, id: this.props.issueId})
     }
   }

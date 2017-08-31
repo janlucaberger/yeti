@@ -38,7 +38,7 @@ class NewSprintForm extends React.Component{
     let params = this.state
     params["start_date"] = this.state.start_date._d
     params["end_date"] = this.state.end_date._d
-    debugger
+    
     this.props.createSprint(params).then(
       () => this.props.hideModal()
     )

@@ -58,7 +58,7 @@ class ProjectBacklog extends React.Component {
 
   drop(sprintStatus) {
     return (event) => {
-      debugger
+      
       event.preventDefault();
       let data;
       try {
