@@ -27,6 +27,7 @@ class Api::IssuesController < ApplicationController
     project_key = Project.where(id: params[:issue][:project_id])[0].key
     id = Issue.where(project_id: params[:issue][:project_id]).count + 1
     @issue.key = "#{project_key}-#{id}"
+    debugger
     @issue.status_type_id = StatusType.where(status_type: "Todo").to_a[0].id
 
     if @issue.save

@@ -1,6 +1,6 @@
 class Issue < ApplicationRecord
 
-  validates :project_id, :summary, :issue_type_id, :status_type_id, :priority_type_id, :resolution, :key, presence: true
+  validates :project_id, :summary, :issue_type_id, :priority_type_id, :resolution, :key, presence: true
   validates :active, :sprint, inclusion: { in: [ true, false] }
 
   belongs_to :project
@@ -12,7 +12,7 @@ class Issue < ApplicationRecord
   has_many :watchers
   has_many :histories, class_name: :IssueAudit, foreign_key: :issue_id
   has_many :comments
-  
+
   def self.get_history
   end
 

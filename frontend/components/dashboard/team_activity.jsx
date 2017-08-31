@@ -162,16 +162,14 @@ class TeamActivity extends React.Component{
     if(Object.values(this.props.activity).length < 1){
       return(
         <div>
-          <div>
-            Team Activity
-          </div>
-          Looks like your team has no recent activity!
+          <div className="widget-title">Team Activity</div>
+          <div className="widget-no-content-container">Looks like your team has no recent activity!</div>
         </div>
       )
     } else {
       return(
         <div className="projects-table-container">
-          <div>Recent Team Activity</div>
+          <div className="widget-title">Team Activity</div>
           {this.renderActivity()}
         </div>
       )

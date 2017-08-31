@@ -11,7 +11,7 @@ class IssueDetailSidebar extends React.Component{
 
   renderVoteButton(){
     if(typeof this.props.didUserVote === "undefined" || !this.props.didUserVote){
-      return <button className="borderless-button" onClick={this.props.addVote}>Vote for this issue</button>
+      return <button className="borderless-button" onClick={this.props.addVote}>Vote</button>
     } else {
       return <span>Voted!</span>
     }

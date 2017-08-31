@@ -10,7 +10,7 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_ISSUE_HISTORIES:
       return _.merge({}, state, action.histories.users)
     case RECEIVE_ALL_USERS:
-      return action.users
+      return _.merge({}, state, action.users)
     case RECEIVE_ISSUE:
       return _.merge({}, state, action.issue.assigned_user)
     case RECEIVE_ALL_ISSUES:

@@ -30,6 +30,11 @@ class Api::UsersController < ApplicationController
     render "/api/users/show"
   end
 
+  def assigned_issues
+    @issues = Issues.where("assigned_user_id = ?", current_user.id)
+    render "/api/users/assigned_issues"
+  end
+
   private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar, :team_id)

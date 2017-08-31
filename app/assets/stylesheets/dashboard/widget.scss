@@ -2,18 +2,16 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  box-sizing: border-box;
 }
 
 .widget{
-  max-width: 500px;
-  min-width: 300px;
+  min-width: 400px;
   min-height: 100px;
   margin: 20px;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   background-color: #fff;
+  flex: 1
 }
 
 .widget-border{
@@ -22,4 +20,17 @@
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   border-top-color: #2684ff;
+}
+
+.widget-title{
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.widget-no-content-container{
+  padding: 20px 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

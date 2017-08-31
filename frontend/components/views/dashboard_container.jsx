@@ -56,7 +56,9 @@ class Dashboard extends React.Component {
       <div className="content-inner-container">
         <div className="widget-container">
           {this.renderTeamActivity()}
+          {this.renderTeamActivity()}
         </div>
+        
       </div>
     )
   }

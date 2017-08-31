@@ -15,6 +15,7 @@ class IssueHistory extends React.Component{
   }
 
   componentDidMount(){
+    console.log("history mounted!")
     // this.props.fetchIssueHistories(this.props.issueId)
   }
   // componentWillReceiveProps(nextProps){
@@ -178,6 +179,7 @@ class IssueHistory extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
+  debugger
   return{
     getUserInfo: (user_id) => getUserInfo(state, user_id),
     getIssueHistory: getIssueHistory(state, ownProps.issueId),

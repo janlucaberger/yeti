@@ -41,6 +41,7 @@ class IssueDetailContainer extends React.Component {
     this.handleWatcher = this.handleWatcher.bind(this)
     this.handleStatus = this.handleStatus.bind(this)
     this.removeWatcher = this.removeWatcher.bind(this)
+    this.renderStatusButtons = this.renderStatusButtons.bind(this)
   }
 
   loadingFinished(){
@@ -97,8 +98,9 @@ class IssueDetailContainer extends React.Component {
     e.preventDefault()
   }
 
-  handleStatus(statusId){
+  handleStatus(statusId, type){
     return (e) => {
+      debugger
       this.props.updateIssue({status_type_id: statusId, id: this.props.issueId})
     }
   }
@@ -107,17 +109,19 @@ class IssueDetailContainer extends React.Component {
     this.props.addAttachment(attachment)
   }
 
+  renderStatusButtons(statusTypes){
+    return Object.values(statusTypes).map( type => {
+      return <button key={type.id} className="primary-button gray" onClick={this.handleStatus(type.id)}>{type.status_type}</button>
+    })
+  }
+
   render(){
     if(this.state.loading){
       return <div>LOADING</div>
     } else {
       return(
         <div className="content-inner-container">
-          <div className="issue-detail-command-container">
-            <button onClick={this.handleStatus(1)}>Todo</button>
-            <button onClick={this.handleStatus(2)}>In Progress</button>
-            <button onClick={this.handleStatus(3)}>Done</button>
-          </div>
+
           <div className="issue-detail-main-container">
             <div className="issue-detail-content-container">
               <div>current project / issue key</div>
@@ -128,6 +132,9 @@ class IssueDetailContainer extends React.Component {
                   updateIssue={this.updateIssue(this.state.issue.id)}
                   value={this.state.issue.summary}
                   />
+                <div className="issue-detail-command-container">
+                  {this.renderStatusButtons(this.props.statusTypes)}
+                </div>
                 <div className="status-container">
                   <div className="status-item-container">
                     <Dropdown

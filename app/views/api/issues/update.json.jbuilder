@@ -1,5 +1,6 @@
 json.history do
   json.extract!(@issueAudit, *IssueAudit.column_names)
+  json.resolution @issueAudit.issue.resolution
 end
 
 json.issue do

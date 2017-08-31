@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       collection do
         get :issues
         get :comments
+        get :assigned_isses
       end
     end
 

@@ -114,6 +114,7 @@ class NewIssueForm extends React.Component{
         <div></div>
       )
     } else {
+      debugger
       return(
         <div className="new-item-form-container">
           <div className="new-item-form-header">

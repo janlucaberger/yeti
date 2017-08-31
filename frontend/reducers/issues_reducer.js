@@ -83,6 +83,7 @@ const issuesReducer = (state = {}, action) => {
       newIssueState = _.merge({}, state[action.history.issue.id])
       newIssueState[action.history.history.column_changed] = action.history.history.to
       newIssueState["history_ids"] = action.history.issue.history_ids
+      newIssueState["resolution"] = action.history.history.resolution
 
       return _.merge({}, state, {[newIssueState.id]: newIssueState})
     default:

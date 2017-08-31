@@ -168,7 +168,7 @@ class IssuesTable extends React.Component {
 
   render(){
     if (this.state.loading) {
-      return <h1>LOADINGGGG</h1>
+      return <div></div>
     } else if (this.props.issuesArray.length === 0){
       return (
         <div className="content-inner-container-placeholder">
@@ -205,6 +205,7 @@ class IssuesTable extends React.Component {
 }
 
 const mapStateToProps = state => {
+  debugger
   return {
     issuesArray: getIssuesArray(state),
     issueTypes: state.ui.issue_types,
