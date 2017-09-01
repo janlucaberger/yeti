@@ -28,13 +28,13 @@
 .backlog-item-container{
   position: relative;
   padding: 10px;
-  border: 1px solid #a0a0a0;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
   border-radius: 7px;
   background: #fff;
   justify-content: space-between;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
 }
 
 .backlog-item-container:hover{

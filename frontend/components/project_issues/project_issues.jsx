@@ -203,6 +203,9 @@ class ProjectIssues extends React.Component {
 
       return(
         <div className="projects-table-container">
+          <div className="current-container-title">
+            All Issues
+          </div>
           <table>
             <thead>
               <tr>

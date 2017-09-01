@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAnalyticsData } from '../../actions/dashboard/analytics';
 import { getAssignedIssues } from '../../reducers/selectors';
-import {RadialBarChart, RadialBar, PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'Recharts';
+import {RadialBarChart, RadialBar, PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import _ from 'lodash';
 
 class Data extends React.Component{

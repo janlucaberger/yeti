@@ -17,6 +17,7 @@ class Dropdown extends React.Component{
     this.closeOptions = this.closeOptions.bind(this)
     this.options = this.options.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.renderProfileClasses = this.renderProfileClasses.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
@@ -55,11 +56,16 @@ class Dropdown extends React.Component{
     }
   }
 
+
+  renderProfileClasses(key){
+    return (key === "avatar") ? "profile-icon" : ""
+  }
+
   options(){
     const mappedoptions = Object.values(this.props.options).map((option) => {
       return(
         <li key={option.id} onClick={this.handleClick(option.id)} className="dropdown-option-container">
-          <img height="20px" src={option[this.props.iconKey]} />
+          <img className={this.renderProfileClasses(this.props.iconKey)} height="20px" src={option[this.props.iconKey]} />
           <span className="dropdown-option-text">{option[this.props.item]}</span>
         </li>
       )
@@ -84,7 +90,7 @@ class Dropdown extends React.Component{
         <div className="form-input-title">{this.props.title}</div>
         <div>
           <div className="dropdown-icon-placeholder">
-            <img height="20px" src={this.state.current_option_icon}/>
+            <img className="profile-icon" height="20px" src={this.state.current_option_icon}/>
           </div>
           <input
             ref={ node => {this.node = node}}
