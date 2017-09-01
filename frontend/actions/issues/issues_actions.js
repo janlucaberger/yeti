@@ -10,6 +10,7 @@ export const RECEIVE_ISSUE_ERROR = "RECEIVE_ISSUE_ERROR"
 export const RECEIVE_VOTE = "RECEIVE_VOTE"
 export const RECEIVE_WATCHER = "RECEIVE_WATCHER"
 export const REMOVE_WATCHER = "REMOVE_WATCHER"
+export const RECEIVE_COMMENT = "RECEIVE_COMMENT"
 
 
 export const receiveIssue = issue => {
@@ -78,6 +79,12 @@ export const removeWatcher = watcher => {
     watcher
   }
 }
+export const receiveComment = comment => {
+  return{
+    type: RECEIVE_COMMENT,
+    comment
+  }
+}
 
 
 export const fetchIssue = id => dispatch =>{
@@ -98,6 +105,13 @@ export const fetchAllIssues = () => dispatch =>{
 
 export const fetchIssuesByProject = projectId => dispatch =>{
   return ApiUtil.fetchIssuesByProject(projectId)
+    .then(
+      issues => dispatch(receiveAllIssues(issues)),
+      err => dispatch(receiveIssueError(err.responseJSON))
+    )
+}
+export const fetchIssuesAllByProject = projectId => dispatch =>{
+  return ApiUtil.fetchIssuesAllByProject(projectId)
     .then(
       issues => dispatch(receiveAllIssues(issues)),
       err => dispatch(receiveIssueError(err.responseJSON))
@@ -165,6 +179,14 @@ export const deleteWatcher = issueId => dispatch =>{
   return ApiUtil.deleteWatcher(issueId)
     .then(
       watcher => dispatch(removeWatcher(watcher)),
+      err => dispatch(receiveIssueError(err.responseJSON))
+    )
+}
+
+export const createComment = comment => dispatch =>{
+  return ApiUtil.createComment(comment)
+    .then(
+      comment => dispatch(receiveComment(comment)),
       err => dispatch(receiveIssueError(err.responseJSON))
     )
 }

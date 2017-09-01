@@ -33,9 +33,3 @@ export const fetchTeamnameCheck = teamname => {
     data: { query: {exact: teamname} }
   })
 }
-export const fetchTeamActivity = () => {
-  return $.ajax({
-    method: "GET",
-    url: "/api/teams/activity",
-  })
-}

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     #TEAMS
     resources :teams, only: [:create, :index, :show, :update] do
       collection do
-        get :activity
+        get :activity, to: "analytics#team_activity"
         get :users
         get :archive
       end
@@ -46,8 +46,8 @@ Rails.application.routes.draw do
         delete :attachments, to: "issues#delete_attachment"
 
         get :comments
-        post :comments
-        delete :comments
+        post :comments, to: "issues#add_comment"
+        delete :comments, to: "issues#delete_comment"
 
         post :votes, to: "issues#add_vote"
         delete :votes
@@ -61,6 +61,11 @@ Rails.application.routes.draw do
         get :archive, to: "teams#archive"
       end
     end
+
+    #Analytics
+    get '/analytics/assigned_issues', to: "analytics#assigned_issues"
+    get '/analytics/data', to: "analytics#data"
+
 
     #MISC UI
 

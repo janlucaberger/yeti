@@ -20,6 +20,12 @@ export const fetchIssuesByProject = project_id => {
     url: `/api/issues?project_id=${project_id}&resolved=true`
   })
 }
+export const fetchIssuesAllByProject = project_id => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/issues?project_id=${project_id}&all=true`
+  })
+}
 
 export const fetchIssueHistories = id => {
   return $.ajax({
@@ -78,9 +84,17 @@ export const createWatcher = issueId => {
   })
 }
 export const deleteWatcher = issueId => {
-  
+
   return $.ajax({
     method: "DELETE",
     url: `/api/issues/${issueId}/watchers`,
+  })
+}
+
+export const createComment = comment => {
+  return $.ajax({
+    method: "POST",
+    url: `/api/issues/${comment.issue_id}/comments`,
+    data: { comment }
   })
 }
