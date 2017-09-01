@@ -14,14 +14,6 @@ class IssueHistory extends React.Component{
     this.createMarkup = this.createMarkup.bind(this)
   }
 
-  componentDidMount(){
-    console.log("history mounted!")
-    // this.props.fetchIssueHistories(this.props.issueId)
-  }
-  // componentWillReceiveProps(nextProps){
-  //   this.props.fetchIssueHistories(this.props.issueId)
-  // }
-
   createMarkup(text){
     return { __html: text}
   }
@@ -118,7 +110,6 @@ class IssueHistory extends React.Component{
   mapHistory(){
     if(this.props.getIssueHistory.length > 0) {
       return this.props.getIssueHistory.map(issueHistory => {
-
         const user = this.props.getUserInfo(issueHistory.user_id)
         if(user){
           return (
@@ -162,7 +153,6 @@ class IssueHistory extends React.Component{
 
   render(){
     if(this.props.getIssueHistory.length > 0){
-      //
       return(
         <div>
           {this.mapHistory()}

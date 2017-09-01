@@ -48,8 +48,11 @@ class IssueDetailSidebar extends React.Component{
             <tr>
                 <th>Assignee:</th>
                 <td>
-                  <img width="20px" src={assignedUser.avatar} />
-                  {assignedUser.first_name} {assignedUser.last_name}</td>
+                  <div className="issue-detail-profile-container">
+                    <img className="profile-icon" width="30px" src={assignedUser.avatar} />
+                    {assignedUser.first_name}&nbsp;{assignedUser.last_name}
+                  </div>
+                </td>
             </tr>
             <tr>
                 <th>Votes:</th>

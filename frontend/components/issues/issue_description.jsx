@@ -49,17 +49,18 @@ class IssueDescription extends React.Component{
 
   handleSubmit(e){
     e.preventDefault()
-    this.props.updateIssue("description", this.state.text)
-    this.setState({ initial_text: this.state.text},
-      () => this.hideEditor()
-    )
+    if(this.state.text != this.state.initial_text){
+      this.props.updateIssue("description", this.state.text)
+      this.setState({ initial_text: this.state.text},
+        () => this.hideEditor()
+      )
+    }
   }
 
 
   render() {
     return (
       <div className="issue-description-container">
-
         <div style={{display: this.state.displayPreview}} >
           <div
             className="issue-description-preview"

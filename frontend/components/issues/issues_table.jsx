@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getIssuesArray } from "../../reducers/selectors";
+import { getActiveIssuesArray } from "../../reducers/selectors";
 import { fetchAllIssues } from '../../actions/issues/issues_actions';
 import { fetchAllUsers } from '../../actions/users/user_actions';
 import {
@@ -81,7 +81,7 @@ class IssuesTable extends React.Component {
 
   mapRowsCell(issue){
     return this.state.tableHeaders.map((header,idx) => {
-      
+
       const value = issue[header] || "--";
         switch (header) {
           case "id":
@@ -125,7 +125,6 @@ class IssuesTable extends React.Component {
           case "assigned_user_id":
             return(
               <td key={idx}>
-                <img src={this.props.users[issue[header]].avatar} width="25px" />
                 {this.props.users[issue[header]].first_name}&nbsp;{this.props.users[issue[header]].last_name}
               </td>
             )
@@ -153,6 +152,8 @@ class IssuesTable extends React.Component {
           return <th className="table-header" key={idx}>Project</th>
         case "summary":
           return <th className="table-header" key={idx}>Summary</th>
+        case "created_at":
+          return <th className="table-header" key={idx}>Created</th>
         default:
           return null
           // return <th className="table-header" key={idx}>{header.split("")[0].toUpperCase() + header.split("").slice(1).join("")}</th>
@@ -167,6 +168,7 @@ class IssuesTable extends React.Component {
 
 
   render(){
+    console.log("I am rendering")
     if (this.state.loading) {
       return <div></div>
     } else if (this.props.issuesArray.length === 0){
@@ -205,9 +207,9 @@ class IssuesTable extends React.Component {
 }
 
 const mapStateToProps = state => {
-  
+
   return {
-    issuesArray: getIssuesArray(state),
+    issuesArray: getActiveIssuesArray(state),
     issueTypes: state.ui.issue_types,
     statusTypes: state.ui.status_types,
     priorityTypes: state.ui.priority_types,

@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hideModal } from '../../actions/ui_actions';
+import { showModal, hideModal } from '../../actions/ui_actions';
 import Dropdown from '../global/dropdown';
 // import { fetchIssueTypes, fetchPriorityTypes } from '../../actions/ui_actions';
 import { fetchAllProjects } from '../../actions/projects/projects_actions';
 // import { fetchAllUsers } from '../../actions/users/user_actions';
 import { createIssue } from '../../actions/issues/issues_actions';
+import NewProjectForm from '../projects/new_project_form';
 import ReactQuill from 'react-quill'
 
 class NewIssueForm extends React.Component{
@@ -26,6 +27,8 @@ class NewIssueForm extends React.Component{
     this.handleDropdownChoice = this.handleDropdownChoice.bind(this)
     this.formatUserName = this.formatUserName.bind(this)
     this.handleDescription = this.handleDescription.bind(this)
+    this.showNewProjectForm = this.showNewProjectForm.bind(this)
+    this.receiveProjects = this.receiveProjects.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
@@ -43,13 +46,26 @@ class NewIssueForm extends React.Component{
   }
 
   componentDidMount(){
-    this.props.fetchAllProjects().then( () => this.setState({
+    this.props.fetchAllProjects().then( () => {
+      if(Object.values(this.props.projects).length === 0){
+        this.setState({
+          loading: false,
+        })
+      } else {
+        this.receiveProjects()
+      }
+    })
+  }
+
+  receiveProjects(){
+
+    this.setState({
       loading: false,
       project_id: Object.values(this.props.projects)[0].id,
       assigned_user_id: Object.values(this.props.users)[0].id,
       issue_type_id: Object.values(this.props.issueTypes)[0].id,
       priority_type_id: Object.values(this.props.priorityTypes)[0].id,
-    }))
+    })
   }
 
 
@@ -88,6 +104,10 @@ class NewIssueForm extends React.Component{
     })
   }
 
+  showNewProjectForm(){
+    this.props.showModal(NewProjectForm)
+  }
+
   renderErrors(){
     if(this.props.errors !== null){
       const errors = this.props.errors.join(". ")
@@ -108,10 +128,18 @@ class NewIssueForm extends React.Component{
   }
 
   render(){
+
     console.log(this.state.description)
     if(this.state.loading){
       return(
         <div></div>
+      )
+    } else if (Object.values(this.props.projects).length === 0) {
+      return (
+        <div className="new-issue-form-no-project-container">
+          <h3>Looks like you don't have any projects yet, create one first!</h3>
+          <button className="primary-button blue-background" onClick={this.showNewProjectForm}>Create Project</button>
+        </div>
       )
     } else {
 
@@ -196,11 +224,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return{
     closeModal: () => dispatch(hideModal()),
-    // fetchIssueTypes: () => dispatch(fetchIssueTypes()),
-    // fetchPriorityTypes: () => dispatch(fetchPriorityTypes()),
     fetchAllProjects: () => dispatch(fetchAllProjects()),
-    // fetchAllUsers: () => dispatch(fetchAllUsers()),
     createIssue: (issue) => dispatch(createIssue(issue)),
+    showModal: (component) => dispatch(showModal(component)),
   }
 }
 
