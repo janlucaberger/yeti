@@ -3,6 +3,8 @@ import Widget from '../dashboard/widget';
 import { connect } from 'react-redux';
 import { fetchTeamActivity } from '../../actions/teams/teams_actions';
 import TeamActivity from '../dashboard/team_activity';
+import AssignedIssues from '../dashboard/assigned_issues';
+import Data from '../dashboard/data';
 import LoadingSpinner from '../loading/loading_spinner';
 
 class Dashboard extends React.Component {
@@ -12,57 +14,19 @@ class Dashboard extends React.Component {
     this.state = {
       teamLoading: true,
     }
-
-    this.renderTeamActivity = this.renderTeamActivity.bind(this);
-    this.handleSuccessResponse = this.handleSuccessResponse.bind(this);
-  }
-  componentDidMount(){
-    this.props.getTeamActivity().then(
-      () => this.handleSuccessResponse("teamLoading")
-    )
-  }
-
-  handleSuccessResponse(key){
-    this.setState({
-      [key]: false
-    })
-  }
-
-  renderTeamActivity(){
-    let component;
-    let props = {};
-
-    if(!this.state.teamLoading){
-      component = TeamActivity
-      props = {
-        users: this.props.users,
-        activity: this.props.activity,
-        issues: this.props.issues,
-        projects: this.props.projects,
-        issueTypes: this.props.issueTypes,
-        priorityTypes: this.props.priorityTypes,
-        statusTypes: this.props.statusTypes,
-      }
-    } else {
-      component = LoadingSpinner
-    }
-
-    return <Widget component={component} props={props}/>
   }
 
   render(){
-
     return(
       <div className="content-inner-container">
         <div className="widget-container">
-          {this.renderTeamActivity()}
-          {this.renderTeamActivity()}
+          <Widget component={AssignedIssues} />
+          <Widget component={Data} />
+          <Widget component={TeamActivity} />
         </div>
-        
       </div>
     )
   }
-
 }
 
 const mapStateToProps = state => {

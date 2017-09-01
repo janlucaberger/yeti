@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink, Link } from 'react-router-dom'
 import _ from 'lodash';
 import {
   fetchIssue,
@@ -25,7 +25,7 @@ import IssueHistory from '../issues/issue_history';
 import IssueComments from '../issues/issue_comments';
 import Resolution from '../issues/resolution';
 import Dropdown from '../global/dropdown';
-
+import queryString from 'query-string'
 
 class IssueDetailContainer extends React.Component {
   constructor({issue}){
@@ -42,6 +42,7 @@ class IssueDetailContainer extends React.Component {
     this.handleStatus = this.handleStatus.bind(this)
     this.removeWatcher = this.removeWatcher.bind(this)
     this.renderStatusButtons = this.renderStatusButtons.bind(this)
+    this.renderSecondarySection = this.renderSecondarySection.bind(this)
   }
 
   loadingFinished(){
@@ -73,11 +74,13 @@ class IssueDetailContainer extends React.Component {
   }
 
   updateIssue(id){
-    return (key, value) => {
-      this.props.updateIssue({
-        id: id ,
-        [key]: value
-      })
+    return (input, value) => {
+      if(this.props.issue[input] != value){
+        this.props.updateIssue({
+          id: id ,
+          [input]: value
+        })
+      }
     }
   }
 
@@ -90,7 +93,6 @@ class IssueDetailContainer extends React.Component {
   }
 
   removeWatcher(){
-    console.log("REMOVING WATCHER")
     this.props.deleteWatcher(this.props.issueId)
   }
 
@@ -98,10 +100,13 @@ class IssueDetailContainer extends React.Component {
     e.preventDefault()
   }
 
-  handleStatus(statusId, type){
+  handleStatus(currentStatus, selectedStatus){
     return (e) => {
-
-      this.props.updateIssue({status_type_id: statusId, id: this.props.issueId})
+      if(currentStatus != selectedStatus){
+        this.props.updateIssue(
+          {status_type_id: selectedStatus, id: this.props.issueId}
+        )
+      }
     }
   }
 
@@ -111,20 +116,46 @@ class IssueDetailContainer extends React.Component {
 
   renderStatusButtons(statusTypes){
     return Object.values(statusTypes).map( type => {
-      return <button key={type.id} className="primary-button gray" onClick={this.handleStatus(type.id)}>{type.status_type}</button>
-    })
+      return (
+        <button key={type.id}
+          className="primary-button gray"
+          onClick={this.handleStatus(this.props.issue.status_type_id, type.id)}
+        >
+          {type.status_type}
+        </button>
+      )
+    }, this)
+  }
+
+  renderSecondarySection(){
+    const parsedQS = queryString.parse(this.props.location.search);
+    if(parsedQS.history){
+      return  <IssueHistory
+                  issueId={this.props.issueId}
+                  statusTypes={this.props.statusTypes}
+                  issueTypes={this.props.issueTypes}
+                  priorityTypes={this.props.priorityTypes}
+              />
+    } else {
+      return  <IssueComments
+                issueId={this.props.issueId}
+              />
+    }
   }
 
   render(){
     if(this.state.loading){
-      return <div>LOADING</div>
+      return <div></div>
     } else {
+      
       return(
         <div className="content-inner-container">
-
           <div className="issue-detail-main-container">
             <div className="issue-detail-content-container">
-              <div>current project / issue key</div>
+              <div className="issue-detail-project-info">
+                <Link to={`/projects/${this.props.project.id}/sprint`}>{this.props.project.title}</Link>
+                  / {this.props.issue.key}
+              </div>
               <form onSubmit={this.handleDefault}>
                 <IssueDetailInput
                   className="issue-detail-form-text issue-detail-summary"
@@ -188,32 +219,19 @@ class IssueDetailContainer extends React.Component {
                     <NavLink
                       className="issue-secondary-nav"
                       activeClassName="issue-secondary-nav-active"
-                      exact to={`/issues/${this.props.issueId}`}
+                      exact to={this.props.location.pathname}
                     >
                       Comments
                     </NavLink>
                     <NavLink
                       className="issue-secondary-nav"
                       activeClassName="issue-secondary-nav-active"
-                      exact to={`/issues/${this.props.issueId}/history`}
+                      exact to={`${this.props.location.pathname}?history=true`}
                     >
                       History
                     </NavLink>
                   </div>
-                  <Route path="/issues/:id" exact render={ () => (
-                    <IssueComments
-                      issueId={this.props.issueId}
-                    />
-                  )}/>
-                  <Route path="/issues/:id/history" render={ () => (
-                    <IssueHistory
-                      issueId={this.props.issueId}
-                      statusTypes={this.props.statusTypes}
-                      issueTypes={this.props.issueTypes}
-                      priorityTypes={this.props.priorityTypes}
-                    />
-                  )}/>
-
+                  {this.renderSecondarySection()}
                 </div>
               </form>
             </div>
@@ -253,6 +271,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     issueId: issueId,
     issue: issue,
+    project: state.projects[issue.project_id],
     assignedUser: (_.isEmpty(state.users)) ? "-" : state.users[issue.assigned_user_id],
     votes: (typeof issue.votes == "undefined") ? 0 : issue.votes,
     watchers: (typeof issue.watchers == "undefined") ? 0 : issue.watchers,

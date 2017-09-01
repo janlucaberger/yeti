@@ -25,6 +25,7 @@ class ProjectSprint extends React.Component{
     this.renderSprintInfo = this.renderSprintInfo.bind(this)
     this.completeSprint = this.completeSprint.bind(this)
     this.showNewSprintForm = this.showNewSprintForm.bind(this)
+    this.getStatusTypeId = this.getStatusTypeId.bind(this)
   }
 
   componentDidMount(){
@@ -53,8 +54,10 @@ class ProjectSprint extends React.Component{
    event.preventDefault();
   }
 
-  drop(statusId){
+  drop(status){
      return (event) => {
+
+       const statusId = this.getStatusTypeId(this.props.statusTypes, status)
        event.preventDefault();
        let data;
        try {
@@ -76,8 +79,22 @@ class ProjectSprint extends React.Component{
    })
   }
 
-  renderIssuesToColumns(status_id){
+
+  getStatusTypeId(statusTypes, value){
+    let id;
+    for(let key in statusTypes){
+      if(statusTypes[key].status_type == value){
+        id = key
+      }
+    }
+
+    return id;
+  }
+
+
+  renderIssuesToColumns(value){
     const issues = this.props.issuesByActiveAndStatus
+    const status_id = this.getStatusTypeId(this.props.statusTypes, value)
     if(typeof issues[status_id] !== "undefined" ){
       return issues[status_id].map(issue =>{
         return <ProjectSprintWidget
@@ -106,7 +123,7 @@ class ProjectSprint extends React.Component{
 
   renderSprintInfo(){
     const sprint = this.props.sprint
-    
+
     if(this.props.sprint){
       return (
         <div className='current-sprint-container'>
@@ -132,28 +149,28 @@ class ProjectSprint extends React.Component{
           <div className="current-sprint-boards">
             <div
               className="sprint-dropzone-container"
-              onDrop={this.drop(1)}
+              onDrop={this.drop("Todo")}
               onDragOver={this.preventDefault}
             >
               <div className="sprint-dropzone-title">Todo</div>
-              { this.renderIssuesToColumns(1)}
+              { this.renderIssuesToColumns("Todo")}
 
             </div>
             <div
               className="sprint-dropzone-container"
-              onDrop={this.drop(2)}
+              onDrop={this.drop("In Progress")}
               onDragOver={this.preventDefault}
             >
               <div className="sprint-dropzone-title">In Progress</div>
-              { this.renderIssuesToColumns(2)}
+              { this.renderIssuesToColumns("In Progress")}
             </div>
             <div
               className="sprint-dropzone-container"
-              onDrop={this.drop(3)}
+              onDrop={this.drop("Done")}
               onDragOver={this.preventDefault}
             >
               <div className="sprint-dropzone-title">Done</div>
-              { this.renderIssuesToColumns(3)}
+              { this.renderIssuesToColumns("Done")}
             </div>
           </div>
         </div>
@@ -191,6 +208,7 @@ const mapStateToProps = (state, ownProps) => {
     issuesByActiveAndStatus: getActiveSprintIssuesByStatus(state, ownProps.projectId),
     priorityTypes: state.ui.priority_types,
     issueTypes: state.ui.issue_types,
+    statusTypes: state.ui.status_types,
     sprint: getSprint(state, ownProps.projectId)
   }
 }

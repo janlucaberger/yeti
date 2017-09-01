@@ -28,6 +28,10 @@ class ProjectsNavigation extends React.Component{
               link={`/projects/${this.props.match.params.id}/sprint`}
               text="Sprint"
             />
+          <GrayNavDrawerButton
+              link={`/projects/${this.props.match.params.id}/issues`}
+              text="Issues"
+            />
           </div>
         </div>
       )
