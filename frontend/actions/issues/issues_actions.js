@@ -121,10 +121,7 @@ export const fetchIssuesAllByProject = projectId => dispatch =>{
 export const fetchIssueHistories = id => dispatch =>{
   return ApiUtil.fetchIssueHistories(id)
     .then(
-      histories => {
-
-        dispatch(receiveIssueHistories(histories))
-      },
+      histories => dispatch(receiveIssueHistories(histories)),
       err => dispatch(receiveIssueError(err.responseJSON))
     )
 }
