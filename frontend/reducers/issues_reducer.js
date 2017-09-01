@@ -13,9 +13,10 @@ import {
 
 } from '../actions/issues/issues_actions';
 
-import { RECEIVE_TEAM_ACTIVITY } from '../actions/teams/teams_actions'
+import { RECEIVE_TEAM_ACTIVITY } from '../actions/dashboard/analytics'
 import { RECEIVE_COMPLETED_SPRINT_ISSUES } from '../actions/sprints/sprints_actions'
 import { RECEIVE_PROJECT } from '../actions/projects/projects_actions'
+import { RECEIVE_ASSIGNED_ISSUES } from '../actions/dashboard/analytics'
 
 const issuesReducer = (state = {}, action) => {
   Object.freeze(state)
@@ -79,13 +80,13 @@ const issuesReducer = (state = {}, action) => {
       }
       return newIssueState;
     case RECEIVE_ISSUE_HISTORY:
-
       newIssueState = _.merge({}, state[action.history.issue.id])
       newIssueState[action.history.history.column_changed] = action.history.history.to
       newIssueState["history_ids"] = action.history.issue.history_ids
       newIssueState["resolution"] = action.history.history.resolution
-
       return _.merge({}, state, {[newIssueState.id]: newIssueState})
+    case RECEIVE_ASSIGNED_ISSUES:
+      return _.merge({}, state, action.issues.issues)
     default:
       return state;
   }

@@ -30,7 +30,7 @@ import {
   RECEIVE_RESOURCES
 } from '../actions/ui_actions';
 
-import { RECEIVE_TEAM_ACTIVITY } from '../actions/teams/teams_actions'
+import { RECEIVE_TEAM_ACTIVITY } from '../actions/dashboard/analytics'
 
 let modalState;
 let loadingState;

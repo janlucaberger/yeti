@@ -29,6 +29,7 @@ export const getIssueHistory = (state, issue_id) => {
       issueHistory.push(state.issues_history[id])
     })
   }
+  issueHistory = _.sortBy(issueHistory, "created_at").reverse()
   return issueHistory
 }
 
@@ -52,8 +53,37 @@ export const getIssuesByStatus = (state, projectId) => {
 
 
 
-export const getIssuesArray = state => {
-  return Object.values(state.issues)
+export const getActiveIssuesArrayByProject = (state, projectId) => {
+  const array = []
+  for(let key in state.issues){
+    if(state.issues[key].active && state.issues[key].project_id == projectId){
+      array.push(state.issues[key])
+    }
+  }
+
+  return array
+}
+
+export const getAllIssuesArrayByProject= (state, projectId) => {
+  const array = []
+  for(let key in state.issues){
+    if(state.issues[key].project_id == projectId){
+      array.push(state.issues[key])
+    }
+  }
+
+  return array
+}
+
+export const getActiveIssuesArray = state => {
+  const array = []
+  for(let key in state.issues){
+    if(state.issues[key].active){
+      array.push(state.issues[key])
+    }
+  }
+
+  return array
 }
 
 export const getIssuesBySprintStatus = (state, projectId) =>{
@@ -119,4 +149,16 @@ export const getComments = (state, issueId) => {
 
   comments = _.sortBy(comments, "created_at").reverse()
   return comments
+}
+
+
+export const getAssignedIssues = state => {
+  let issues = []
+  if(typeof state.analytics.assigned_issue_ids !== "undefined"){
+    state.analytics.assigned_issue_ids.forEach( id => {
+      issues.push(state.issues[id])
+    })
+  }
+  
+  return issues
 }

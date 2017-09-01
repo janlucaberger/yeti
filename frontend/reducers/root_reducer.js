@@ -12,6 +12,7 @@ import errorsReducer from './errors_reducer';
 import teamActivityReducer from './team_activity_reducer';
 import sprintsReducer from './sprints_reducer';
 import commentsReducer from './comments_reducer';
+import analyticsReducer from './analytics_reducer';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   attachments: attachmentsReducer,
   comments: commentsReducer,
   issues_history: issuesHistoryReducer,
+  analytics: analyticsReducer,
   users: usersReducer,
   errors: errorsReducer
 })
