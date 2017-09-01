@@ -27,7 +27,7 @@ class Api::IssuesController < ApplicationController
     project_key = Project.where(id: params[:issue][:project_id])[0].key
     id = Issue.where(project_id: params[:issue][:project_id]).count + 1
     @issue.key = "#{project_key}-#{id}"
-    debugger
+
     @issue.status_type_id = StatusType.where(status_type: "Todo").to_a[0].id
 
     if @issue.save
@@ -116,6 +116,15 @@ class Api::IssuesController < ApplicationController
       render "/api/issues/watcher.json.jbuilder"
     else
       render json: @issue_watcher.errors.full_messages, status: 422
+    end
+  end
+
+  def add_comment
+    @comment = Comment.new(issue_id: params[:id], body: params[:comment][:body], user_id: current_user.id)
+    if @comment.save
+      render '/api/issues/comment_show'
+    else
+      render json: @comment.errors.full_messages
     end
   end
 

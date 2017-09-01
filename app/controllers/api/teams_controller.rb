@@ -42,45 +42,6 @@ class Api::TeamsController < ApplicationController
     @team = Team.find(params[:id])
   end
 
-  def activity
-
-    @activity = IssueAudit.find_by_sql(["
-      SELECT DISTINCT ON
-        (ia.issue_id)
-        ia.id,
-        ia.issue_id,
-        ia.column_changed,
-        ia.from,
-        ia.to,
-        ia.created_at,
-        ia.user_id,
-        u.first_name,
-        u.last_name,
-        i.id,
-        i.summary,
-        i.description
-    FROM
-        issue_audits AS ia
-    JOIN
-        issues AS i ON i.id = ia.issue_id
-    JOIN
-        users AS u ON u.id = ia.user_id
-    JOIN
-        projects AS p ON p.id = i.project_id
-    WHERE
-        p.team_id = ?
-    ORDER BY
-        ia.issue_id,
-        ia.created_at DESC
-    LIMIT
-      3
-    ", current_team.id])
-    @issue_types = IssueType.all
-    @status_types = StatusType.all
-    @priority_types = PriorityType.all
-    render "/api/teams/activity"
-  end
-
   def users
     @users = User.joins(:users_teams).where( users_teams: {team_id: current_team.id} ).to_a
     render "/api/teams/users"
