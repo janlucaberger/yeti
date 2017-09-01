@@ -1,0 +1,10 @@
+I open this issue again and we might look into it, depending on our time resources.
+You are the first users of the language add-on, who reported this to us. We put it on our roadmap for this month, o have a look into this case. If it's possible and doesn't break any main functionality, we will implement within. this month.
+I opened this issue again and we might look into it, depending on our time resources.
+You are the first users of the language add-on, who reported this to us. We put it on our roadmap for this month, o have a look into this case. If it's possible and doesn't break any main functionality, we will implement within. this month.
+This might be related to this topic as I'm trying to use Hungarian macro to show content in hungarian language. When I've created my article with hungarian macro used and hungarian language entered I'm not able to see content in hungarian language as there is no Hungarian option from the list provided for language selection in user settings, also I've tried to set preferred language by browser settings with browser settings set to hungarian - content defined by hungarian macro is not shown. 
+Appresiate a fast solution for this! Thank you.
+There are cases where we're replacing the user's outfit and would want to remove even temp attachments, and other operations are minor appearance changes and from the user's perspective should not remove them. Appearance changes have many different sources/methods, and are all funnelled into the same pipeline. Might need some clarity from product around this, there will be a lot of edge cases.
+I can confirm that.
+I verified today that the request to detach is coming from the viewer.
+A NPE is thrown if in an operator the source tile is requested with a BorderExtender and later the data is retrieved getSamples<Type>()

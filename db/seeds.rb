@@ -39,23 +39,43 @@ teams = []
   teams << Team.create(team_name: Faker::Team.name, description: Faker::LeagueOfLegends.quote )
 end
 
+#avatars
+profile_avatars = []
+Dir.foreach("./db/sample/sample_profiles") {|x| profile_avatars << x}
+
 users = []
-4.times do
-  user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password")
-  users << user
-  UsersTeams.create(user_id: user.id, team_id: teams[0].id)
+num = [1..1000]
+profile_avatars.drop(3).each do |avatar|
+    user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: "https://api.adorable.io/avatars/285/#{num.sample}@adorable.io.png")
+    # user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: File.new("./db/sample/sample_profiles/#{avatar}"))
+    users << user
+    UsersTeams.create(user_id: user.id, team_id: teams[0].id)
 end
 
 
 
 # PROJECTS
+projects = []
 eng_project = Project.create(team_id: teams[0].id, title: "Engineering" , description:Faker::Hacker.say_something_smart, key: "ENG", user_id: users.sample.id, category: "New York")
-Project.create(team_id: teams[0].id, title: "Sales" , description:Faker::Hacker.say_something_smart, key: "ENG", user_id: users.sample.id, category: "New York")
-Project.create(team_id: teams[0].id, title: "Product" , description:Faker::Hacker.say_something_smart, key: "ENG", user_id: users.sample.id, category: "New York")
-Project.create(team_id: teams[0].id, title: "Marketing" , description:Faker::Hacker.say_something_smart, key: "ENG", user_id: users.sample.id, category: "New York")
+projects << eng_project
+projects << Project.create(team_id: teams[0].id, title: "Sales" , description:Faker::Hacker.say_something_smart, key: "ENG", user_id: users.sample.id, category: "New York")
+projects << Project.create(team_id: teams[0].id, title: "Product" , description:Faker::Hacker.say_something_smart, key: "ENG", user_id: users.sample.id, category: "New York")
+projects << Project.create(team_id: teams[0].id, title: "Marketing" , description:Faker::Hacker.say_something_smart, key: "ENG", user_id: users.sample.id, category: "New York")
 
 issues = []
+descriptions = []
+sprint = [true, false]
+active = [true, false]
 #ENGINEERING ISSUES
+
+IO.foreach('./db/sample/sample_description.txt') do |description|
+  descriptions << description
+end
+
+IO.foreach('./db/sample/sample_summary.txt') do |summary|
+  issues << Issue.create(project_id: projects.sample.id , assigned_user_id: users.sample.id, summary: summary , description: descriptions.sample ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s, sprint: sprint.sample)
+end
+
 
 issues << Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Server error 232 on request behind MaxCDN networks" , description: "Test description 1" ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
 issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Fix bug in signup auth flow" , description: "Test description 1" ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
@@ -88,6 +108,10 @@ Where it makes sense, consider allowing browsing of repositories via HTML direct
 issues << Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "StoreJanitor cannot work with more than ~2 gb memory" , description: "StoreJanitor uses int for values of freememory, heapsize etc. So StoreJanitor cannot be used in environment with jvm heap bigger than 2,147,483,647 bytes." ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
 
 
+
+4.times do
+  IssueAudit.create(issue_id: issues.sample.id, user_id: users.sample.id, column_changed: "description", from: descriptions.sample, to: descriptions.sample)
+end
 # IssueAudit.create(user_id: users.sample.id, column_changed: "status_type_id", from: 2, to: 1, issue_id: issues.sample.id)
 
 
@@ -108,3 +132,17 @@ demoUser1 = User.create(first_name: "Test" , last_name: "User", email: "test@use
 demoUser2 = User.create(first_name: "Hello" , last_name: "Goyeti", email: "hello@goyeti.io" , password: "password")
 UsersTeams.create(user_id: demoUser1.id, team_id: teams[0].id)
 UsersTeams.create(user_id: demoUser2.id, team_id: teams[0].id)
+
+
+
+#comments
+comments = []
+IO.foreach('./db/sample/sample_comments.txt') do |line|
+  comments << line
+end
+
+
+
+comments.each do |comment|
+  Comment.create(issue_id: issues.sample.id, user_id: users.sample.id, body: '<p>' + comment + '</p>')
+end

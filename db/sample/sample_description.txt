@@ -1,0 +1,8 @@
+The plugin keeps displaying the English (default language) language for users not logged in, i.e. anonymous/guest users, even when browser settings are set to other language.
+All temp attachments worn are removed from your avatar along with what you intended to take off.
+This is broken on main grid and SSA regions on Aditi
+If there are slow followers, it's possible that the leader and the client disagree on where the client is connecting to, therefore the client keeps getting "Session Moved" error. Partial of the issue fixed, but leaves the issue in multi-op only connection.
+The fundamental problem is that the port of the C client to Windows is now close to six years old, with very few updates. This port leaks a lot of changes that should be internal to ZooKeeper, and many of those changes are simply no longer relevant. The correct thing to do is attempt to refactor the Windows port for new versions of ZooKeeper, removing dead/unneeded porting code, and moving dangerous porting code to C files instead of public headers.
+The new UI improvements are being broken down into parts so that we can get them into master easier. I have screenshots of just what the changes page UI should look like.
+I cropped out the sidebar and header for now, since those changes are being made in a different branch and are used all over the site. They should be in soon.
+While importing from database speculative task execution has to be disabled by default (even if the cluster has enabled it). As of today, Sqoop seems to run with speculative execution.

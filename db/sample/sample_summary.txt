@@ -1,0 +1,15 @@
+Changes UI update
+Remove libs from main require.js bundle
+Upload multiple attachments
+Dev server bug with addons
+Signup (create new regular users)
+Don't refresh databases list on logout
+Create persistent replications
+Alert about unsaved config changes
+Logout link doesn't dissapers on logout after password changing
+Cannot create a view for a design document that doesn't already have views in it already
+Write a new replicator addon
+The delete button for a view sometimes doesn't delete
+Erlang crash after installing couchdb 2.0.0
+Connection Manager should have the ability handle connection specific args
+Allow pluggable metadata query
