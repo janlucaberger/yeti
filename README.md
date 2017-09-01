@@ -1,6 +1,7 @@
 <img src="https://s3.amazonaws.com/yetiapp-assets/yeti_blue_logo.png" width="150">
 
 [Yeti live][yeti]
+
 [yeti]: http://www.goyeti-herokuapp.com
 
 Yeti is a project management and collaboration tool inspired by Jira and built with Ruby on Rails and React/Redux.
