@@ -41,13 +41,13 @@ end
 
 #avatars
 profile_avatars = []
-Dir.foreach("./db/sample/sample_profiles") {|x| profile_avatars << x}
+Dir.foreach(Rails.root.join("db/sample/sample_profiles")) {|x| profile_avatars << x}
 
 users = []
 num = [1..1000]
 profile_avatars.drop(3).each do |avatar|
     # user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: "https://api.adorable.io/avatars/285/#{num.sample}@adorable.io.png")
-    user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: File.new("./db/sample/sample_profiles/#{avatar}"))
+    user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: File.new("db/sample/sample_profiles/#{avatar}"))
     users << user
     UsersTeams.create(user_id: user.id, team_id: teams[0].id)
 end
@@ -91,7 +91,6 @@ issues << Issue.create(project_id: eng_project.id , assigned_user_id: demoUser2.
 issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: demoUser2.id, summary: "Add anonymous read access support for docker repositories" , description: "Users would like to have anonymous read (pull) access to docker repositories in Nexus. This helps consume and share docker images more easily by not requiring a specific login. This is analogous to the benefits offered by anonymous access by other formats.
 As an end user, I don't want to have to configure authentication for read only access to docker repositories. Docker hub does not require this, and neither should Nexus Repository Manager.
 According to this comment from a Docker developer the correct way to do this would be to implement token authentication, and to have Nexus hand out tokens for anonymous access:
-<a href='https://github.com/docker/docker/issues/24129#issuecomment-230610547' >Github</a>
 There might also be a simpler implementation that should be considered for blanket anonymous access to a repository." ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
 
 issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: demoUser2.id, summary: "Remove snapshots from Maven repository remove if released option may progress slowly" , description: "The maven snapshot removal task is doing more work than expected. Expected that it would look at the snapshots in the snapshot repo and then check whether those exist in release repos. Instead it seems to be looking in other repos and checking whether those components exist in the snapshot repo.
@@ -148,8 +147,6 @@ end
 #SPRINT
 now = Date.today
 Sprint.create(start_date: now, end_date: (now + 14), project_id: eng_project.id, name: "SP 4")
-
-
 ##
 
 
