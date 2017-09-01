@@ -6,6 +6,16 @@ a {
   cursor: pointer;
 }
 
+p{
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.body-text{
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .global-container{
   display: flex;
 }
@@ -29,24 +39,20 @@ a {
   max-height: 100vh;
   overflow: scroll;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  justify-content: center;
-  position: absolute;
-  padding-left: 275px;
-  box-sizing: border-box;
-  transition: 0.4s all ease-in-out;
-  transition-delay: 0.2s;
+  // display: flex;
+  // flex-direction: row;
+  // position: relative;
+  // justify-content: center;
 }
 
 .content-inner-container{
-  width: 100%;
-  padding: 35px;
-  display: flex;
-  flex-direction: column;
-  min-width: 700px;
-  max-height: 100vh;
+  // width: 100%;
+  padding: 20px;
+  // display: flex;
+  // flex-direction: column;
+  // min-width: 700px;
+  // max-height: 100vh;
+  // overflow: scroll;
 }
 
 .content-header{
@@ -180,3 +186,9 @@ a {
 //     transition-delay: 0.2s;
 //   }
 // }
+
+.profile-icon{
+  border-radius: 20px;
+  border: 1px solid #a4a4a4;
+  margin-right: 10px;
+}

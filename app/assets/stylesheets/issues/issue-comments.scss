@@ -1,8 +1,13 @@
+.issue-comments-container{
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
 .issue-comment-container{
   display: flex;
   flex-direction: column;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  padding-bottom: -4px;
+  margin-bottom: 0;
 }
 
 .issue-comment-avatar{
@@ -10,10 +15,10 @@
 }
 
 .issue-comment-author-container{
-  padding: 10px 0px;
+  padding: 10px 0px 0px;
   font-size: 14px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-start;
   font-weight: 600;
 }
@@ -43,4 +48,6 @@
 .issue-comment-body{
   font-size: 13px;
   line-height: 1.8;
+  margin-left: 40px;
+  margin-top: -8px;
 }

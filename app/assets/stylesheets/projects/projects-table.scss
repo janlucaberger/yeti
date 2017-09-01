@@ -19,6 +19,10 @@ thead{
   font-size: 12px;
 }
 
+.sorted{
+  color: #000;
+}
+
 
 td, th{
   padding-left: 10px;
@@ -30,12 +34,12 @@ th{
 }
 
 td{
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 14px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 13px;
 }
 
 tr:hover{
-  background-color: #ececec;
+  // background-color: #ececec;
   cursor: pointer;
 }

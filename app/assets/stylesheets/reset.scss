@@ -29,3 +29,7 @@ button:focus{
 .quill{
   background-color: #fff;
 }
+
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range{
+  background-color: rgb(6, 51, 233);
+}

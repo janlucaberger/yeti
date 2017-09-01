@@ -1,6 +1,7 @@
 .issue-detail-main-container{
   width: 100%;
   display: flex;
+  padding-left: 15px;
   // background: yellow;
 }
 
@@ -42,6 +43,18 @@
 .issue-detail-summary{
   width: 100%;
   font-size: 23px;
+  font-weight: 600;
+}
+
+.issue-detail-project-info{
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.issue-detail-profile-container{
+  display: flex;
+  align-items: center;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -145,6 +158,7 @@
 .issue-detail-section-header{
   font-size: 14px;
   font-weight: 600;
+  margin-bottom: 15px;
 }
 
 
