@@ -41,12 +41,12 @@ class ProjectSprint extends React.Component{
   }
 
   dragStart(id, status_id){
-    return(event) => {
+    return(e) => {
       const data = {
         issue_id: id,
         current_status_id: status_id
       };
-      event.dataTransfer.setData('text', JSON.stringify(data));
+      e.dataTransfer.setData('text', JSON.stringify(data));
     }
   }
 
@@ -55,17 +55,11 @@ class ProjectSprint extends React.Component{
   }
 
   drop(status){
-     return (event) => {
-
+     return (e) => {
+       e.preventDefault();
        const statusId = this.getStatusTypeId(this.props.statusTypes, status)
-       event.preventDefault();
-       let data;
-       try {
-         data = JSON.parse(event.dataTransfer.getData('text'));
-       } catch (e) {
-         console.log(`Error: ${e}`)
-         return;
-       }
+       let data = JSON.parse(e.dataTransfer.getData('text'));
+
        if(data.current_status_id != statusId){
          this.updateIssueStatus(data.issue_id, statusId)
        }
