@@ -174,7 +174,7 @@ class IssuesTable extends React.Component {
     } else if (this.props.issuesArray.length === 0){
       return (
         <div className="content-inner-container-placeholder">
-          <div className="placeholder-text">Looks you you dont have any issues yet!</div>
+          <div className="placeholder-text">Looks you dont have any issues yet!</div>
           <button onClick={this.createNewIssue} className="large-button blue-background">Create an issue!</button>
         </div>
       )

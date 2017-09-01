@@ -139,7 +139,7 @@ class ProjectsTable extends React.Component {
     } else if (this.props.projectsArray.length === 0){
       return (
         <div className="content-inner-container-placeholder">
-          <div className="placeholder-text">Looks you you dont have any projects yet!</div>
+          <div className="placeholder-text">Looks you dont have any projects yet!</div>
           <button onClick={this.createNewProject} className="large-button blue-background">Create a project!</button>
         </div>
       )
