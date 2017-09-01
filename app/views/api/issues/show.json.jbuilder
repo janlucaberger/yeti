@@ -36,6 +36,12 @@ unless @issue.nil?
     end
   end
 
+  json.project do
+    json.set! @issue.project.id do
+      json.extract!(@issue.project, *Project.column_names)
+    end
+  end
+
   json.assigned_user do
     json.set! @issue.assigned_user.id do
       json.extract!(@issue.assigned_user, :id, :first_name, :last_name, :email)
