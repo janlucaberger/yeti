@@ -40,12 +40,12 @@ teams = []
 end
 
 #avatars
-profile_avatars = []
-Dir.foreach(Rails.root.join("db/sample/sample_profiles")) {|x| profile_avatars << x}
+profile_avatars = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png", "11.png", ]
+
 
 users = []
 num = [1..1000]
-profile_avatars.drop(3).each do |avatar|
+profile_avatars.each do |avatar|
     # user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: "https://api.adorable.io/avatars/285/#{num.sample}@adorable.io.png")
     user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: File.new("db/sample/sample_profiles/#{avatar}"))
     users << user
