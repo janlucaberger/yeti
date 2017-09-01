@@ -75,11 +75,11 @@ sprint = [true, false]
 active = [true, false]
 #ENGINEERING ISSUES
 
-IO.foreach('./db/sample/sample_description.txt') do |description|
+IO.foreach('db/sample/sample_description.txt') do |description|
   descriptions << description
 end
 
-IO.foreach('./db/sample/sample_summary.txt') do |summary|
+IO.foreach('db/sample/sample_summary.txt') do |summary|
   issues << Issue.create(project_id: projects.sample.id , assigned_user_id: users.sample.id, summary: summary , description: descriptions.sample ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s, sprint: sprint.sample)
 end
 
@@ -159,7 +159,7 @@ Sprint.create(start_date: now, end_date: (now + 14), project_id: eng_project.id,
 
 #comments
 comments = []
-IO.foreach('./db/sample/sample_comments.txt') do |line|
+IO.foreach('db/sample/sample_comments.txt') do |line|
   comments << line
 end
 
