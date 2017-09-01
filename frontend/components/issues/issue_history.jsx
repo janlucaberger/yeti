@@ -19,6 +19,7 @@ class IssueHistory extends React.Component{
   }
 
   formatData(column_name, from, to){
+    debugger
     switch (column_name) {
       case "priority_type_id":
         return(

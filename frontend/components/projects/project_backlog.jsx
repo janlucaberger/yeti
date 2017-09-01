@@ -58,7 +58,7 @@ class ProjectBacklog extends React.Component {
 
   drop(sprintStatus) {
     return (event) => {
-      
+
       event.preventDefault();
       let data;
       try {
@@ -153,7 +153,7 @@ class ProjectBacklog extends React.Component {
       return(
         <div className="current-sprint-info-container">
           Looks like you haven't started a sprint.
-          <button onClick={this.showNewSprintForm}>Start Sprint</button>
+          <button className="primary-button blue-background" onClick={this.showNewSprintForm}>Start Sprint</button>
         </div>
       )
     }

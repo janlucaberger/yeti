@@ -32,7 +32,8 @@ class IssueDetailContainer extends React.Component {
     super()
     this.state = {
       loading: true,
-      issue: null
+      issue: null,
+      secondary: "comments"
     }
     this.addAttachment = this.addAttachment.bind(this)
     this.handleDefault = this.handleDefault.bind(this)
@@ -43,6 +44,7 @@ class IssueDetailContainer extends React.Component {
     this.removeWatcher = this.removeWatcher.bind(this)
     this.renderStatusButtons = this.renderStatusButtons.bind(this)
     this.renderSecondarySection = this.renderSecondarySection.bind(this)
+    this.renderActiveNavLink = this.renderActiveNavLink.bind(this)
   }
 
   loadingFinished(){
@@ -53,9 +55,19 @@ class IssueDetailContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({
-      issue: nextProps.issue,
-    })
+    const parsedQS = queryString.parse(nextProps.location.search);
+    if (parsedQS.history){
+      this.setState({
+        issue: nextProps.issue,
+        secondary: "history"
+      })
+    } else {
+      this.setState({
+        issue: nextProps.issue,
+        secondary: "comments"
+      })
+    }
+
   }
 
   componentDidMount(){
@@ -130,6 +142,7 @@ class IssueDetailContainer extends React.Component {
   renderSecondarySection(){
     const parsedQS = queryString.parse(this.props.location.search);
     if(parsedQS.history){
+
       return  <IssueHistory
                   issueId={this.props.issueId}
                   statusTypes={this.props.statusTypes}
@@ -137,9 +150,19 @@ class IssueDetailContainer extends React.Component {
                   priorityTypes={this.props.priorityTypes}
               />
     } else {
+
       return  <IssueComments
                 issueId={this.props.issueId}
               />
+    }
+  }
+
+  renderActiveNavLink(link){
+
+    if (this.state.secondary === link){
+      return "issue-secondary-nav issue-secondary-nav-active"
+    } else {
+      return "issue-secondary-nav"
     }
   }
 
@@ -147,7 +170,7 @@ class IssueDetailContainer extends React.Component {
     if(this.state.loading){
       return <div></div>
     } else {
-      
+
       return(
         <div className="content-inner-container">
           <div className="issue-detail-main-container">
@@ -216,20 +239,18 @@ class IssueDetailContainer extends React.Component {
                 <div>
                   <hr />
                   <div className="issue-secondary-nav-container">
-                    <NavLink
-                      className="issue-secondary-nav"
-                      activeClassName="issue-secondary-nav-active"
+                    <Link
+                      className={this.renderActiveNavLink("comments")}
                       exact to={this.props.location.pathname}
                     >
                       Comments
-                    </NavLink>
-                    <NavLink
-                      className="issue-secondary-nav"
-                      activeClassName="issue-secondary-nav-active"
+                    </Link>
+                    <Link
+                      className={this.renderActiveNavLink("history")}
                       exact to={`${this.props.location.pathname}?history=true`}
                     >
                       History
-                    </NavLink>
+                    </Link>
                   </div>
                   {this.renderSecondarySection()}
                 </div>

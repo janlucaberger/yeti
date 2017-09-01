@@ -33,8 +33,6 @@ class GlobalNavContainer extends React.Component {
               <img src="https://s3.amazonaws.com/yetiapp-assets/yeti_y.png" width="25px" />
             </div>
           </Link>
-
-          <GlobalNavButton link={this.props.logout} icon="search" size="1"/>
           <div className="global-nav-button">
             <img onClick={this.createNewIssue} src="https://s3.amazonaws.com/yetiapp-assets/plus.png" width="18px" />
           </div>
@@ -42,7 +40,6 @@ class GlobalNavContainer extends React.Component {
 
         </div>
         <div className='global-nav-button-container align-bottom'>
-          <GlobalNavButton link={""} icon="plus" size="1" />
           <img onClick={this.showUserPopup} src="http://s3.amazonaws.com/yetiapp-assets/profile_icon.png" width="28px"/>
         </div>
       </div>

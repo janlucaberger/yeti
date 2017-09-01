@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAssignedIssues } from '../../actions/dashboard/analytics';
 import { getAssignedIssues } from '../../reducers/selectors';
+import { Link } from 'react-router-dom';
 
 class AssignedIssue extends React.Component{
   constructor(props){
@@ -30,10 +31,12 @@ class AssignedIssue extends React.Component{
   mapIssues(){
     return this.props.issues.map( issue => {
       return (
-        <div key={issue.id} className="assigned-issue-container">
-          <div className="assigned-issue-summary">{issue.summary}</div>
-          <div className="assigned-issue-summary">{this.props.projects[issue.project_id].title}</div>
-        </div>
+        <Link to={`/issues/${issue.id}`}>
+          <div key={issue.id} className="assigned-issue-container">
+            <div className="assigned-issue-summary">{issue.summary}</div>
+            <div className="assigned-issue-status">{this.props.statusTypes[issue.status_type_id].status_type}</div>
+          </div>
+        </Link>
       )
     })
   }
@@ -63,7 +66,8 @@ class AssignedIssue extends React.Component{
 const mapStateToProps = state => {
   return{
     issues: getAssignedIssues(state),
-    projects: state.projects
+    projects: state.projects,
+    statusTypes: state.ui.status_types,
   }
 }
 

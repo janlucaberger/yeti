@@ -46,11 +46,18 @@ Dir.foreach("./db/sample/sample_profiles") {|x| profile_avatars << x}
 users = []
 num = [1..1000]
 profile_avatars.drop(3).each do |avatar|
-    user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: "https://api.adorable.io/avatars/285/#{num.sample}@adorable.io.png")
-    # user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: File.new("./db/sample/sample_profiles/#{avatar}"))
+    # user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: "https://api.adorable.io/avatars/285/#{num.sample}@adorable.io.png")
+    user = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name, email:Faker::Internet.safe_email , password: "password", avatar: File.new("./db/sample/sample_profiles/#{avatar}"))
     users << user
     UsersTeams.create(user_id: user.id, team_id: teams[0].id)
 end
+
+# DEMO USERS
+demoUser1 = User.create(first_name: "Test" , last_name: "User", email: "test@user.com" , password: "password")
+demoUser2 = User.create(first_name: Faker::Name.first_name , last_name: Faker::Name.last_name,  email: "hello@goyeti.io" , password: "password")
+users << demoUser2
+UsersTeams.create(user_id: demoUser1.id, team_id: teams[0].id)
+UsersTeams.create(user_id: demoUser2.id, team_id: teams[0].id)
 
 
 
@@ -77,17 +84,17 @@ IO.foreach('./db/sample/sample_summary.txt') do |summary|
 end
 
 
-issues << Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Server error 232 on request behind MaxCDN networks" , description: "Test description 1" ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
-issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Fix bug in signup auth flow" , description: "Test description 1" ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
-issues << Issue.create(project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Set meeting for mobile web requirements" , description: "Test description 1" ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
+issues << Issue.create(project_id: eng_project.id , assigned_user_id: demoUser2.id, summary: "Server error 232 on request behind MaxCDN networks" , description: "Test description 1" ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
+issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: demoUser2.id, summary: "Fix bug in signup auth flow" , description: "Test description 1" ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
+issues << Issue.create(project_id: eng_project.id , assigned_user_id: demoUser2.id, summary: "Set meeting for mobile web requirements" , description: "Test description 1" ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
 
-issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Add anonymous read access support for docker repositories" , description: "Users would like to have anonymous read (pull) access to docker repositories in Nexus. This helps consume and share docker images more easily by not requiring a specific login. This is analogous to the benefits offered by anonymous access by other formats.
+issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: demoUser2.id, summary: "Add anonymous read access support for docker repositories" , description: "Users would like to have anonymous read (pull) access to docker repositories in Nexus. This helps consume and share docker images more easily by not requiring a specific login. This is analogous to the benefits offered by anonymous access by other formats.
 As an end user, I don't want to have to configure authentication for read only access to docker repositories. Docker hub does not require this, and neither should Nexus Repository Manager.
 According to this comment from a Docker developer the correct way to do this would be to implement token authentication, and to have Nexus hand out tokens for anonymous access:
 <a href='https://github.com/docker/docker/issues/24129#issuecomment-230610547' >Github</a>
 There might also be a simpler implementation that should be considered for blanket anonymous access to a repository." ,priority_type_id: priority_types.sample.id, issue_type_id: issue_types.sample.id , status_type_id: status_types.sample.id, key: eng_project.key + " " +rand(1..100).to_s)
 
-issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: users.sample.id, summary: "Remove snapshots from Maven repository remove if released option may progress slowly" , description: "The maven snapshot removal task is doing more work than expected. Expected that it would look at the snapshots in the snapshot repo and then check whether those exist in release repos. Instead it seems to be looking in other repos and checking whether those components exist in the snapshot repo.
+issues << Issue.create(sprint:true, project_id: eng_project.id , assigned_user_id: demoUser2.id, summary: "Remove snapshots from Maven repository remove if released option may progress slowly" , description: "The maven snapshot removal task is doing more work than expected. Expected that it would look at the snapshots in the snapshot repo and then check whether those exist in release repos. Instead it seems to be looking in other repos and checking whether those components exist in the snapshot repo.
 Steps to reproduce:
 Create a new maven snapshot repo and add one 0.0.1-SNAPSHOT version of a component.
 Configure the snapshot removal task with minimum snapshot count 1 and remove if released enabled with a grace period 1 day.
@@ -112,8 +119,28 @@ issues << Issue.create(project_id: eng_project.id , assigned_user_id: users.samp
 4.times do
   IssueAudit.create(issue_id: issues.sample.id, user_id: users.sample.id, column_changed: "description", from: descriptions.sample, to: descriptions.sample)
 end
-# IssueAudit.create(user_id: users.sample.id, column_changed: "status_type_id", from: 2, to: 1, issue_id: issues.sample.id)
 
+# 10.times do
+#   status1 = status_types.sample
+#   status2 = status_types.sample
+#   if status1 != status2
+#     IssueAudit.create(issue_id: issues.sample.id, user_id: users.sample.id, column_changed: "status_type_id", from: status1, to: status2)
+#   end
+# end
+# 10.times do
+#   issue1 = issue_types.sample
+#   issue2 = issue_types.sample
+#   if issue1 != issue2
+#     IssueAudit.create(issue_id: issues.sample.id, user_id: users.sample.id, column_changed: "issue_type_id", from: issue1, to: issue2)
+#   end
+# end
+# 10.times do
+#   priority1 = priority_types.sample
+#   priority2 = priority_types.sample
+#   if priority1 != priority2
+#     IssueAudit.create(issue_id: issues.sample.id, user_id: users.sample.id, column_changed: "priority_type_id", from: priority1, to: priority2)
+#   end
+# end
 
 
 
@@ -127,11 +154,6 @@ Sprint.create(start_date: now, end_date: (now + 14), project_id: eng_project.id,
 
 
 
-# DEMO USERS
-demoUser1 = User.create(first_name: "Test" , last_name: "User", email: "test@user.com" , password: "password")
-demoUser2 = User.create(first_name: "Hello" , last_name: "Goyeti", email: "hello@goyeti.io" , password: "password")
-UsersTeams.create(user_id: demoUser1.id, team_id: teams[0].id)
-UsersTeams.create(user_id: demoUser2.id, team_id: teams[0].id)
 
 
 
@@ -141,8 +163,6 @@ IO.foreach('./db/sample/sample_comments.txt') do |line|
   comments << line
 end
 
-
-
-comments.each do |comment|
-  Comment.create(issue_id: issues.sample.id, user_id: users.sample.id, body: '<p>' + comment + '</p>')
+40.times do
+  Comment.create(issue_id: issues.sample.id, user_id: users.sample.id, body: '<p>' + comments.sample + '</p>')
 end

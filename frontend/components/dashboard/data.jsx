@@ -46,7 +46,7 @@ class Data extends React.Component{
    	const radius = innerRadius + (outerRadius - innerRadius) * 1.4;
     const x  = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy  + radius * Math.sin(-midAngle * RADIAN);
-    debugger
+
     return (
       <text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
       	{arguments[0].name}
@@ -57,6 +57,14 @@ class Data extends React.Component{
   render(){
     if(this.state.loading){
       return <div>loading</div>
+    } else if (this.props.typeData.length === 0){
+      return(
+        <div>
+          <div className="widget-title">Analytics</div>
+          <div className="widget-no-content-container">Analytics will appear
+            once you have created some issues!</div>
+        </div>
+      )
     } else {
       return(
         <div>
@@ -66,8 +74,8 @@ class Data extends React.Component{
                 <div className="chart-title">
                   Issues by Type
                 </div>
-                <div style={{paddingTop: "30px"}}>
-                  <BarChart style={{marginTop: "20px"}} width={300} height={250} data={this.props.typeData}
+                <div>
+                  <BarChart width={300} height={250} data={this.props.typeData}
                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                    <XAxis dataKey="issue_type"/>
                    <YAxis/>
@@ -95,8 +103,8 @@ class Data extends React.Component{
 const mapStateToProps = state => {
 
   return{
-    typeData: (typeof state.analytics.data === "undefined") ? "" : state.analytics.data.type_count,
-    priorityData: (typeof state.analytics.data === "undefined") ? "" : state.analytics.data.priority_count,
+    typeData: (typeof state.analytics.data === "undefined") ? [] : state.analytics.data.type_count,
+    priorityData: (typeof state.analytics.data === "undefined") ? [] : state.analytics.data.priority_count,
   }
 }
 

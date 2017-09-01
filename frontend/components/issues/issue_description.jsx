@@ -72,8 +72,8 @@ class IssueDescription extends React.Component{
           <ReactQuill value={this.state.text}
           onChange={this.handleChange}
           />
-          <button onClick={this.handleSubmit}>Confirm</button>
-          <button onClick={this.hideEditor}>Cancel</button>
+          <button className="primary-button blue-background" onClick={this.handleSubmit}>Confirm</button>
+          <button className="primary-button gray" onClick={this.hideEditor}>Cancel</button>
         </div>
       <hr/>
       </div>

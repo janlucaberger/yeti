@@ -37,11 +37,13 @@
   flex-direction: column;
   box-sizing: border-box;
   margin-bottom: 10px;
-  box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.15)
+  box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.15);
+  transition: 0.3s all;
 }
 
 .project-sprint-widget-container:hover{
-  border-color: rgb(6, 51, 233)
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.48);
+  transition: 0.3s all;
 }
 
 .project-sprint-summary{

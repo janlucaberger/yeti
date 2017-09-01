@@ -58,6 +58,7 @@ class Dropdown extends React.Component{
 
 
   renderProfileClasses(key){
+    console.log(key === "avatar")
     return (key === "avatar") ? "profile-icon" : ""
   }
 
@@ -90,7 +91,7 @@ class Dropdown extends React.Component{
         <div className="form-input-title">{this.props.title}</div>
         <div>
           <div className="dropdown-icon-placeholder">
-            <img className="profile-icon" height="20px" src={this.state.current_option_icon}/>
+            <img className={this.renderProfileClasses(this.props.iconKey)} height="20px" src={this.state.current_option_icon}/>
           </div>
           <input
             ref={ node => {this.node = node}}
